@@ -525,6 +525,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       showToast("Access Granted", "Establishing handshake with core portal.", "success");
       enterDashboard(userObj);
+      triggerConfetti();
       formLogin.reset();
     } catch (err) {
       showToast("Authentication Denied", err.message, "error");
