@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VISIONX // Portal</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="styles.css">
+  <!-- Three.js (required for Vanta.js) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+  <!-- Vanta.js Net -->
+  <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+  <!-- Supabase JS Client -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- Custom JS Application -->
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <!-- Animated Background -->
+  <div id="vanta-bg"></div>
+
+  <!-- TOP GLASSMORPHIC NAVIGATION BAR -->
+  <nav class="top-nav glassmorphic">
+    <div class="nav-brand">
+      <i class="fa-solid fa-terminal logo-icon neon-purple"></i>
+      <span>VISION<span class="neon-purple-text">X</span></span>
+    </div>
+    <div class="nav-links">
+      <a href="#" id="nav-home" class="nav-link active"><i class="fa-solid fa-house"></i> Home</a>
+      <a href="#" id="nav-about" class="nav-link"><i class="fa-solid fa-circle-info"></i> About</a>
+      <a href="#" id="nav-contact" class="nav-link"><i class="fa-solid fa-paper-plane"></i> Contact Us</a>
+    </div>
+    <div class="nav-actions">
+      <!-- Database Settings gear (integrated in navbar) -->
+      <button id="settings-trigger" class="settings-nav-btn" title="Supabase Settings">
+        <i class="fa-solid fa-gear"></i>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Settings Modal (Supabase Config) -->
+  <div id="settings-modal" class="modal-overlay hidden">
+    <div class="modal-card glassmorphic">
+      <div class="modal-header">
+        <h2><i class="fa-solid fa-database neon-cyan"></i> Database Settings</h2>
+        <button id="settings-close" class="close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-desc">Configure your Supabase credentials to enable live user authentication. By default, a fully operational local mock database runs in localStorage if these are blank.</p>
+        <div class="input-group">
+          <input type="text" id="supabase-url" required placeholder=" ">
+          <label for="supabase-url">Supabase Project URL</label>
+          <i class="fa-solid fa-link input-icon"></i>
+        </div>
+        <div class="input-group">
+          <input type="password" id="supabase-key" required placeholder=" ">
+          <label for="supabase-key">Supabase Anon Key</label>
+          <i class="fa-solid fa-key input-icon"></i>
+        </div>
+        <div class="mock-option-container">
+          <input type="checkbox" id="use-mock" checked>
+          <label for="use-mock">Force Local Mock Database (Runs offline)</label>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="save-settings" class="neon-btn-cyan">Apply Credentials</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- About VISIONX Modal -->
+  <div id="about-modal" class="modal-overlay hidden">
+    <div class="modal-card glassmorphic">
+      <div class="modal-header">
+        <h2><i class="fa-solid fa-circle-info neon-cyan"></i> About VISIONX</h2>
+        <button id="about-close" class="close-btn">&times;</button>
+      </div>
+      <div class="modal-body about-body">
+        <p><strong>VISIONX</strong> is an advanced, next-generation educational gateway designed to streamline preparation for competitive examinations and technical challenges.</p>
+        <p>Combining immersive glassmorphism, responsive visual runtimes, and real-time backend synchronization, VISIONX empowers learners to master complex concepts in both school syllabus levels (like <strong>CBSE Board Exams</strong>) and career-launching state exams (like <strong>SSC General Exams</strong>).</p>
+        <div class="about-features">
+          <div class="feat"><i class="fa-solid fa-microchip neon-cyan"></i> Realtime Sync</div>
+          <div class="feat"><i class="fa-solid fa-graduation-cap neon-purple"></i> Custom Syllabus</div>
+          <div class="feat"><i class="fa-solid fa-shield-halved neon-magenta"></i> Secure Vault</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contact Us Modal -->
+  <div id="contact-modal" class="modal-overlay hidden">
+    <div class="modal-card glassmorphic">
+      <div class="modal-header">
+        <h2><i class="fa-solid fa-paper-plane neon-magenta"></i> Dispatch Transmission</h2>
+        <button id="contact-close" class="close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-desc">Send secure feedback or technical inquiries directly to the VISIONX operations command.</p>
+        <form id="form-contact" novalidate>
+          <div class="input-group">
+            <input type="text" id="contact-name" required placeholder=" ">
+            <label for="contact-name">Full Name</label>
+            <i class="fa-solid fa-user input-icon"></i>
+          </div>
+          <div class="input-group">
+            <input type="email" id="contact-email" required placeholder=" ">
+            <label for="contact-email">Email Address</label>
+            <i class="fa-solid fa-envelope input-icon"></i>
+          </div>
+          <div class="input-group textarea-group">
+            <textarea id="contact-message" required placeholder=" " rows="4"></textarea>
+            <label for="contact-message">Your Message</label>
+            <i class="fa-solid fa-message input-icon"></i>
+          </div>
+          <button type="submit" class="submit-btn neon-btn-magenta">
+            <span>DISPATCH TRANSMISSION</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Wrapper -->
+  <div id="toast-container"></div>
+
+  <!-- AUTHENTICATION CARD VIEWPORT -->
+  <div id="auth-viewport" class="viewport-wrapper">
+    <main class="auth-card glassmorphic">
+      <!-- Glow Borders -->
+      <div class="glow-border top"></div>
+      <div class="glow-border bottom"></div>
+
+      <!-- App Header -->
+      <div class="auth-header">
+        <div class="logo-box">
+          <i class="fa-solid fa-terminal logo-icon"></i>
+        </div>
+        <h1 class="brand-title">VISION<span class="neon-purple-text">X</span></h1>
+        <p class="brand-subtitle">The Advanced Educational Gateway</p>
+      </div>
+
+      <!-- Tab Controls -->
+      <div class="tab-controls">
+        <button id="tab-login" class="tab-btn active">SIGN IN</button>
+        <button id="tab-signup" class="tab-btn">SIGN UP</button>
+      </div>
+
+      <!-- LOGIN PANEL -->
+      <div id="panel-login" class="form-panel">
+        <form id="form-login" novalidate>
+          <div class="input-group">
+            <input type="email" id="login-email" required placeholder=" ">
+            <label for="login-email">Email Address</label>
+            <i class="fa-solid fa-envelope input-icon"></i>
+          </div>
+          <div class="input-group">
+            <input type="password" id="login-password" required placeholder=" ">
+            <label for="login-password">Password</label>
+            <i class="fa-solid fa-lock input-icon"></i>
+            <button type="button" class="password-toggle" data-target="login-password">
+              <i class="fa-solid fa-eye"></i>
+            </button>
+          </div>
+          <div class="form-options">
+            <label class="checkbox-container">
+              <input type="checkbox" id="login-remember">
+              <span class="checkmark"></span>
+              Remember me
+            </label>
+            <a href="#" id="link-forgot" class="forgot-link">Forgot password?</a>
+          </div>
+          <button type="submit" class="submit-btn neon-btn-purple">
+            <span>ENTER CORE SYSTEM</span>
+          </button>
+        </form>
+
+        <div class="divider">
+          <span>SECURE GATEWAYS</span>
+        </div>
+
+        <!-- OAuth / Social Logins -->
+        <div class="oauth-grid">
+          <button class="oauth-btn" id="oauth-github" title="Login with GitHub">
+            <i class="fa-brands fa-github"></i>
+            <span>GitHub</span>
+          </button>
+          <button class="oauth-btn" id="oauth-discord" title="Login with Discord">
+            <i class="fa-brands fa-discord"></i>
+            <span>Discord</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- SIGN UP PANEL -->
+      <div id="panel-signup" class="form-panel hidden">
+        <form id="form-signup" novalidate>
+          <div class="input-group">
+            <input type="text" id="signup-name" required placeholder=" ">
+            <label for="signup-name">Full Name</label>
+            <i class="fa-solid fa-user input-icon"></i>
+          </div>
+          <div class="input-group">
+            <input type="email" id="signup-email" required placeholder=" ">
+            <label for="signup-email">Email Address</label>
+            <i class="fa-solid fa-envelope input-icon"></i>
+          </div>
+          <div class="input-group">
+            <input type="password" id="signup-password" required placeholder=" ">
+            <label for="signup-password">Create Password</label>
+            <i class="fa-solid fa-lock input-icon"></i>
+            <button type="button" class="password-toggle" data-target="signup-password">
+              <i class="fa-solid fa-eye"></i>
+            </button>
+          </div>
+          <div class="input-group">
+            <input type="password" id="signup-confirm-password" required placeholder=" ">
+            <label for="signup-confirm-password">Confirm Password</label>
+            <i class="fa-solid fa-shield-halved input-icon"></i>
+            <button type="button" class="password-toggle" data-target="signup-confirm-password">
+              <i class="fa-solid fa-eye"></i>
+            </button>
+          </div>
+          <div class="terms-container">
+            <label class="checkbox-container">
+              <input type="checkbox" id="signup-terms" required>
+              <span class="checkmark"></span>
+              I agree to the <a href="#" class="inline-link">Terms of Service</a> & <a href="#" class="inline-link">Privacy Policy</a>
+            </label>
+          </div>
+          <button type="submit" class="submit-btn neon-btn-cyan">
+            <span>REGISTER DEVELOPER PROFILE</span>
+          </button>
+        </form>
+      </div>
+
+      <!-- FORGOT PASSWORD PANEL -->
+      <div id="panel-forgot" class="form-panel hidden">
+        <div class="panel-header">
+          <button id="forgot-back" class="back-link-btn">
+            <i class="fa-solid fa-arrow-left"></i> Back to login
+          </button>
+          <h2 class="panel-title">SYSTEM RECOVERY</h2>
+          <p class="panel-subtitle">Enter your registered email below to receive authentication recovery logs.</p>
+        </div>
+        <form id="form-forgot" novalidate>
+          <div class="input-group">
+            <input type="email" id="forgot-email" required placeholder=" ">
+            <label for="forgot-email">Email Address</label>
+            <i class="fa-solid fa-envelope input-icon"></i>
+          </div>
+          <button type="submit" class="submit-btn neon-btn-magenta">
+            <span>DISPATCH RECOVERY LOGS</span>
+          </button>
+        </form>
+      </div>
+    </main>
+  </div>
+
+  <!-- DASHBOARD PORTAL (POST-LOGIN SCREEN) -->
+  <div id="dashboard-viewport" class="viewport-wrapper hidden">
+    <div class="dashboard-container glassmorphic">
+      <!-- Dashboard Header / Navigation -->
+      <header class="dash-header">
+        <div class="dash-brand">
+          <i class="fa-solid fa-terminal logo-icon neon-cyan"></i>
+          <h2>VISION<span class="neon-cyan-text">X</span> // CONTROL_CENTRE</h2>
+        </div>
+        <div class="user-profile-badge">
+          <div class="user-details">
+            <span id="user-display-name" class="user-name">Developer Name</span>
+            <span id="user-display-email" class="user-role">dev@visionx.io</span>
+          </div>
+          <button id="logout-btn" class="logout-btn" title="Disconnect Session">
+            <i class="fa-solid fa-power-off"></i>
+          </button>
+        </div>
+      </header>
+
+      <!-- Main Layout Grid -->
+      <div class="dash-grid">
+        <!-- Main Panel -->
+        <main class="dash-main">
+          <section class="welcome-section">
+            <h1>WELCOME BACK, <span id="dash-greeting-name" class="neon-cyan-text">DEVELOPER</span>!</h1>
+            <p>Accessing educational modules, upcoming examinations, and curriculum runtimes.</p>
+          </section>
+
+          <!-- Cards Row -->
+          <section class="events-section">
+            <h3 class="section-title"><i class="fa-solid fa-trophy neon-magenta"></i> CURRENT EDUCATIONAL EVENTS</h3>
+            <div class="events-grid">
+              <!-- Event 1: SSC Prep -->
+              <div class="event-card glass-subcard glow-hover-purple">
+                <div class="event-status open">ACTIVE NOW</div>
+                <h4>SSC Preparation Challenge</h4>
+                <p>Construct deep problem-solving speed and accuracy using active quizzes, reasoning compilers, and syllabus trackers mapped to SSC guidelines.</p>
+                <div class="event-meta">
+                  <span><i class="fa-solid fa-users"></i> 1,420 Registered</span>
+                  <span><i class="fa-solid fa-code"></i> Quant / GK / Reasoning</span>
+                </div>
+                <button class="join-btn register-event-btn" data-event="SSC Preparation Challenge">ACCESS WORKSPACE</button>
+              </div>
+
+              <!-- Event 2: CBSE Prep -->
+              <div class="event-card glass-subcard glow-hover-cyan">
+                <div class="event-status upcoming">STARTING SOON</div>
+                <h4>CBSE Boards Coding Blitz</h4>
+                <p>Learn core curriculum syllabus modules for Science, Mathematics, and Computer Science using board-pattern mock test environments.</p>
+                <div class="event-meta">
+                  <span><i class="fa-solid fa-users"></i> 890 Registered</span>
+                  <span><i class="fa-solid fa-shield"></i> Math / Science / IT</span>
+                </div>
+                <button class="join-btn register-event-btn" data-event="CBSE Boards Coding Blitz">REGISTER SEAT</button>
+              </div>
+            </div>
+          </section>
+        </main>
+
+        <!-- Right Side Panel -->
+        <aside class="dash-sidebar">
+          <!-- Countdown Card -->
+          <div class="sidebar-widget glass-subcard glow-hover-magenta">
+            <h4>NEXT MAJOR ASSESSMENT BEGINS IN</h4>
+            <div class="countdown-clock">
+              <div class="clock-segment">
+                <span id="hours" class="time-num neon-magenta-text">24</span>
+                <span class="time-label">HRS</span>
+              </div>
+              <div class="clock-colon">:</div>
+              <div class="clock-segment">
+                <span id="minutes" class="time-num neon-magenta-text">00</span>
+                <span class="time-label">MIN</span>
+              </div>
+              <div class="clock-colon">:</div>
+              <div class="clock-segment">
+                <span id="seconds" class="time-num neon-magenta-text">00</span>
+                <span class="time-label">SEC</span>
+              </div>
+            </div>
+            <div class="event-short-info">
+              <h5>Global Innovation Board Challenge</h5>
+              <p>Optimize your solving speeds through daily high-yield tests.</p>
+            </div>
+          </div>
+
+          <!-- Quick Stats -->
+          <div class="sidebar-widget glass-subcard stats-widget">
+            <h4>DEVELOPER STATISTICS</h4>
+            <ul class="stats-list">
+              <li>
+                <span class="stat-name"><i class="fa-solid fa-ranking-star"></i> Global Rank</span>
+                <span class="stat-value neon-cyan-text">#412</span>
+              </li>
+              <li>
+                <span class="stat-name"><i class="fa-solid fa-circle-nodes"></i> XP Gained</span>
+                <span class="stat-value">4,820 XP</span>
+              </li>
+              <li>
+                <span class="stat-name"><i class="fa-solid fa-award"></i> Certificates</span>
+                <span class="stat-value">3 Completed</span>
+              </li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
