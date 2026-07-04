@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let supabaseClient = null;
   let isMockMode = true;
   let countdownInterval = null;
-  let currentActiveTheme = 0x9d4edd; // Tracks purple/cyan/magenta base theme
+  let currentActiveTheme = 0x00f2fe; // Tracks purple/cyan/magenta base theme
 
   // --- HTML ELEMENT SELECTORS ---
   const vantaBg = document.getElementById('vanta-bg');
@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
           minWidth: 200.00,
           scale: 1.00,
           scaleMobile: 1.00,
-          color: 0x9d4edd, // Start with Login Purple
+          color: 0x00f2fe, // Start with Signup Cyan
           backgroundColor: 0x030307,
           points: 13.00,
           maxDistance: 20.00,
@@ -740,7 +740,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       dashViewport.classList.add('hidden');
       authViewport.classList.remove('hidden');
-      tabLogin.click(); // Reset to purple login
+      tabSignup.click(); // Reset to cyan signup
     } catch (err) {
       showToast("Disconnect Failed", err.message, "error");
     }
