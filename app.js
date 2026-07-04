@@ -575,6 +575,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (isMockMode) {
         await MockDB.signUp(emailInput.value, passwordInput.value, nameInput.value);
         showToast("Registration Success", "Mock Profile created. You can now login.", "success");
+        triggerConfetti();
       } else {
         const { data, error } = await supabaseClient.auth.signUp({
           email: emailInput.value,
@@ -590,8 +591,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (data.session) {
           showToast("Registration Complete", "Welcome code compiled successfully.", "success");
           enterDashboard(data.user);
+          triggerConfetti();
         } else {
           showToast("Verification Required", "Registration logs dispatched to email. Verify to activate profile.", "info");
+          triggerConfetti();
         }
       }
 
@@ -652,6 +655,72 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.style.opacity = '1';
       span.innerHTML = text;
     }
+  }
+
+  // --- CONFETTI (DECORATIVE PAPERS) FALLING SYSTEM ---
+  function triggerConfetti() {
+    const confettiContainer = document.createElement('div');
+    confettiContainer.style.position = 'fixed';
+    confettiContainer.style.top = '0';
+    confettiContainer.style.left = '0';
+    confettiContainer.style.width = '100vw';
+    confettiContainer.style.height = '100vh';
+    confettiContainer.style.pointerEvents = 'none';
+    confettiContainer.style.zIndex = '9999';
+    confettiContainer.style.overflow = 'hidden';
+    document.body.appendChild(confettiContainer);
+
+    const colors = [
+      '#ff007f', '#00f2fe', '#9d4edd', '#39ff14', 
+      '#ffea00', '#ff5722', '#e91e63', '#2196f3'
+    ];
+    const shapes = ['square', 'circle', 'rectangle'];
+
+    for (let i = 0; i < 120; i++) {
+      const confetti = document.createElement('div');
+      
+      const color = colors[Math.floor(Math.random() * colors.length)];
+      const shape = shapes[Math.floor(Math.random() * shapes.length)];
+      
+      confetti.style.position = 'absolute';
+      const sizeWidth = Math.random() * 8 + 6;
+      const sizeHeight = shape === 'rectangle' ? sizeWidth * 1.8 : sizeWidth;
+      
+      confetti.style.width = `${sizeWidth}px`;
+      confetti.style.height = `${sizeHeight}px`;
+      confetti.style.backgroundColor = color;
+      
+      if (shape === 'circle') {
+        confetti.style.borderRadius = '50%';
+      }
+
+      confetti.style.left = `${Math.random() * 100}vw`;
+      confetti.style.top = `-${Math.random() * 50 + 20}px`;
+      
+      const startRotation = Math.random() * 360;
+      const fallDuration = Math.random() * 3 + 2.5; // 2.5s to 5.5s
+      const fallDelay = Math.random() * 0.6;
+      const horizontalDrift = Math.random() * 260 - 130; // -130px to 130px
+      const finalRotation = startRotation + Math.random() * 720 + 360;
+
+      confetti.style.transform = `rotate(${startRotation}deg)`;
+      confetti.style.opacity = '1';
+      confetti.style.transition = `transform ${fallDuration}s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${fallDelay}s, top ${fallDuration}s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${fallDelay}s, opacity ${fallDuration}s ease-out ${fallDelay}s`;
+      
+      confettiContainer.appendChild(confetti);
+
+      requestAnimationFrame(() => {
+        setTimeout(() => {
+          confetti.style.top = '105vh';
+          confetti.style.transform = `translateX(${horizontalDrift}px) rotate(${finalRotation}deg)`;
+          confetti.style.opacity = '0';
+        }, 50);
+      });
+    }
+
+    setTimeout(() => {
+      confettiContainer.remove();
+    }, 6200);
   }
 
 
