@@ -5,10 +5,10 @@
 /* Variables */
 :root {
   --bg-color: #030307;
-  --panel-bg: rgba(10, 10, 20, 0.25);
-  --panel-bg-solid: #0d0d1a;
-  --glass-border: rgba(255, 255, 255, 0.12);
-  --glass-border-focus: rgba(255, 255, 255, 0.25);
+  --panel-bg: rgba(255, 255, 255, 0.08);
+  --panel-bg-solid: #0a0a14;
+  --glass-border: rgba(255, 255, 255, 0.15);
+  --glass-border-focus: rgba(255, 255, 255, 0.28);
   
   /* Cyber Neon Palettes */
   --neon-cyan: #00f2fe;
