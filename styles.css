@@ -1598,3 +1598,77 @@ body {
   }
 }
 
+/* Trailing Banner / Paper Styles */
+.bus-banner {
+  position: absolute;
+  left: -72px; /* Offset to the left of the bus */
+  top: 1px;
+  display: flex;
+  align-items: center;
+  width: 68px;
+  height: 14px;
+}
+
+.banner-string {
+  width: 8px;
+  height: 1px;
+  background: #888;
+}
+
+.banner-paper {
+  flex-grow: 1;
+  height: 100%;
+  background: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  animation: wave-banner 1.2s ease-in-out infinite alternate;
+}
+
+.banner-text {
+  font-family: var(--font-cyber);
+  font-size: 8px;
+  font-weight: 900;
+  color: #ff3333; /* Vibrant Red */
+  text-shadow: 0.5px 0.5px 0px rgba(0, 0, 0, 0.1);
+  white-space: nowrap;
+  letter-spacing: 0.2px;
+  display: inline-block;
+  animation: unflip-text 25s linear infinite;
+}
+
+@keyframes wave-banner {
+  0% {
+    transform: translateY(-0.5px) rotate(-1.5deg);
+  }
+  100% {
+    transform: translateY(1px) rotate(2deg);
+  }
+}
+
+@keyframes unflip-text {
+  0% {
+    transform: scaleX(1);
+  }
+  48% {
+    transform: scaleX(1);
+  }
+  49% {
+    transform: scaleX(-1);
+  }
+  50% {
+    transform: scaleX(-1);
+  }
+  98% {
+    transform: scaleX(-1);
+  }
+  99% {
+    transform: scaleX(1);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
