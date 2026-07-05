@@ -972,6 +972,126 @@ body {
 }
 
 /* ==========================================
+   KK TUTORS ABOUT SECTION STYLES
+   ========================================== */
+
+/* Widen the about modal */
+#about-modal .modal-card {
+  max-width: 560px;
+}
+
+/* Brand wrapper */
+.kk-brand-wrapper {
+  text-align: center;
+  margin-bottom: 18px;
+}
+
+/* KK TUTORS letter-by-letter logo */
+.kk-brand-logo {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 2px;
+  font-family: var(--font-cyber);
+  font-size: 36px;
+  font-weight: 900;
+  letter-spacing: 4px;
+  margin-bottom: 8px;
+}
+
+.kk-space {
+  width: 14px;
+  display: inline-block;
+}
+
+.kk-letter {
+  display: inline-block;
+  animation: letterPop 0.6s ease-out both;
+}
+
+/* Each letter gets a unique color + glow */
+.kk-k1  { color: #00f2fe; text-shadow: 0 0 12px rgba(0,242,254,0.8), 0 0 28px rgba(0,242,254,0.4); animation-delay: 0.0s; }
+.kk-k2  { color: #9d4edd; text-shadow: 0 0 12px rgba(157,78,221,0.8), 0 0 28px rgba(157,78,221,0.4); animation-delay: 0.07s; }
+.kk-t   { color: #ff007f; text-shadow: 0 0 12px rgba(255,0,127,0.8),  0 0 28px rgba(255,0,127,0.4);  animation-delay: 0.14s; }
+.kk-u   { color: #39ff14; text-shadow: 0 0 12px rgba(57,255,20,0.8),  0 0 28px rgba(57,255,20,0.4);  animation-delay: 0.21s; }
+.kk-o   { color: #ff9500; text-shadow: 0 0 12px rgba(255,149,0,0.8),  0 0 28px rgba(255,149,0,0.4);  animation-delay: 0.28s; }
+.kk-r   { color: #00f2fe; text-shadow: 0 0 12px rgba(0,242,254,0.8),  0 0 28px rgba(0,242,254,0.4);  animation-delay: 0.35s; }
+.kk-s   { color: #dc32b4; text-shadow: 0 0 12px rgba(220,50,180,0.8), 0 0 28px rgba(220,50,180,0.4); animation-delay: 0.42s; }
+.kk-s2  { color: #9d4edd; text-shadow: 0 0 12px rgba(157,78,221,0.8), 0 0 28px rgba(157,78,221,0.4); animation-delay: 0.49s; }
+
+@keyframes letterPop {
+  from { opacity: 0; transform: translateY(-12px) scale(0.7); }
+  to   { opacity: 1; transform: translateY(0)     scale(1); }
+}
+
+/* Hover shimmer on logo */
+.kk-brand-logo:hover .kk-letter {
+  animation: letterShimmer 1.2s ease-in-out infinite alternate;
+}
+
+@keyframes letterShimmer {
+  0%   { filter: brightness(1); }
+  100% { filter: brightness(1.6) drop-shadow(0 0 8px currentColor); }
+}
+
+/* Tagline */
+.kk-tagline {
+  font-family: var(--font-cyber);
+  font-size: 13px;
+  letter-spacing: 3px;
+  color: #9ca3af;
+  margin-top: 4px;
+}
+.tag-highlight-cyan    { color: var(--neon-cyan);    font-weight: 700; }
+.tag-highlight-purple  { color: var(--neon-purple);  font-weight: 700; }
+.tag-highlight-magenta { color: var(--neon-magenta); font-weight: 700; }
+
+/* About divider */
+.about-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--neon-purple), var(--neon-cyan), transparent);
+  margin: 14px 0 18px;
+  opacity: 0.5;
+}
+
+/* Inline colored strong text */
+.about-strong-cyan    { color: var(--neon-cyan);    text-shadow: 0 0 6px rgba(0,242,254,0.4); }
+.about-strong-purple  { color: var(--neon-purple);  text-shadow: 0 0 6px rgba(157,78,221,0.4); }
+.about-strong-magenta { color: var(--neon-magenta); text-shadow: 0 0 6px rgba(255,0,127,0.4); }
+.about-strong-green   { color: var(--neon-green);   text-shadow: 0 0 6px rgba(57,255,20,0.4); }
+
+/* Subject Badges */
+.kk-subjects {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 16px 0;
+}
+
+.subj-badge {
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-family: var(--font-cyber);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  border: 1px solid currentColor;
+  transition: var(--transition-fast);
+  cursor: default;
+}
+
+.subj-badge:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px currentColor;
+}
+
+.badge-cyan    { color: var(--neon-cyan);    background: rgba(0,242,254,0.08); }
+.badge-purple  { color: var(--neon-purple);  background: rgba(157,78,221,0.08); }
+.badge-magenta { color: var(--neon-magenta); background: rgba(255,0,127,0.08); }
+.badge-green   { color: var(--neon-green);   background: rgba(57,255,20,0.08); }
+.badge-orange  { color: #ff9500;             background: rgba(255,149,0,0.08); border-color: #ff9500; }
+.badge-red     { color: var(--neon-red);     background: rgba(255,51,51,0.08); }
+
+/* ==========================================
    DASHBOARD PORTAL (POST-LOGIN)
    ========================================== */
 #dashboard-viewport {
