@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JEE - Testing Center</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- CSS Styles -->
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      background-color: #030307;
+      color: #f3f4f6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    .testing-layout {
+      max-width: 1200px;
+      margin: 100px auto 40px;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 30px;
+    }
+    .testing-sidebar {
+      background: rgba(10, 10, 18, 0.45);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 20px;
+      padding: 20px;
+      height: fit-content;
+    }
+    .sidebar-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--neon-cyan);
+      text-shadow: 0 0 8px var(--neon-cyan-glow);
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+      font-family: var(--font-cyber);
+    }
+    .tab-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .tab-btn-item {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      color: #9ca3af;
+      border-radius: 12px;
+      padding: 12px 16px;
+      text-align: left;
+      font-family: var(--font-cyber);
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .tab-btn-item:hover {
+      background: rgba(0, 242, 254, 0.05);
+      color: #fff;
+      border-color: rgba(0, 242, 254, 0.3);
+    }
+    .tab-btn-item.active {
+      background: linear-gradient(135deg, rgba(0, 242, 254, 0.15), rgba(157, 78, 221, 0.15));
+      color: #fff;
+      border-color: var(--neon-cyan);
+      box-shadow: 0 0 15px rgba(0, 242, 254, 0.15);
+    }
+    .testing-main-panel {
+      background: rgba(10, 10, 18, 0.45);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 20px;
+      padding: 35px;
+      position: relative;
+    }
+    .tests-header-block {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      padding-bottom: 15px;
+      margin-bottom: 25px;
+    }
+    .tests-title {
+      font-size: 26px;
+      font-weight: 900;
+      color: #fff;
+      margin-bottom: 5px;
+      font-family: var(--font-cyber);
+    }
+    .tests-desc {
+      color: #9ca3af;
+      font-size: 14px;
+    }
+    .test-list-box {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .test-card {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 20px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      transition: all 0.3s ease;
+    }
+    .test-card:hover {
+      background: rgba(255, 255, 255, 0.04);
+      border-color: rgba(255, 255, 255, 0.1);
+      transform: translateX(4px);
+    }
+    .test-info h5 {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 4px;
+      color: #fff;
+    }
+    .test-info p {
+      font-size: 12px;
+      color: #9ca3af;
+    }
+    @media (max-width: 900px) {
+      .testing-layout {
+        grid-template-columns: 1fr;
+        margin-top: 80px;
+      }
+    }
+  </style>
+</head>
+<body class="apple-theme">
+  <!-- Ambient Glows -->
+  <div class="ambient-glows">
+    <div class="glow-sphere glow-sphere-1" style="background: radial-gradient(circle, rgba(157, 78, 221, 0.18) 0%, transparent 70%);"></div>
+    <div class="glow-sphere glow-sphere-2" style="background: radial-gradient(circle, rgba(0, 242, 254, 0.15) 0%, transparent 70%);"></div>
+  </div>
+
+  <!-- Graduation Cap Background -->
+  <div id="bg-grad-cap" class="corner-grad-cap">
+    <i class="fa-solid fa-graduation-cap"></i>
+  </div>
+
+  <!-- Top Navigation Bar -->
+  <nav class="top-nav glassmorphic">
+    <div class="nav-brand">
+      <i class="fa-solid fa-graduation-cap logo-icon"></i>
+      <span>VISION<span class="neon-purple-text">X</span> // JEE EXAMS</span>
+    </div>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link"><i class="fa-solid fa-house"></i> Dashboard</a>
+    </div>
+  </nav>
+
+  <div class="testing-layout">
+    <!-- Sidebar -->
+    <aside class="testing-sidebar">
+      <h4 class="sidebar-title"><i class="fa-solid fa-graduation-cap"></i> EXAM SUBJECTS</h4>
+      <div class="tab-list">
+        <button class="tab-btn-item active" data-subj="physics">🧲 Physics</button>
+        <button class="tab-btn-item" data-subj="chemistry">🧪 Chemistry</button>
+        <button class="tab-btn-item" data-subj="math">📐 Mathematics</button>
+        <button class="tab-btn-item" data-subj="coord">📊 Coordinate Geometry</button>
+        <button class="tab-btn-item" data-subj="org">🔬 Organic Chemistry</button>
+        <button class="tab-btn-item" data-subj="calc">📈 Calculus & Vectors</button>
+      </div>
+    </aside>
+
+    <!-- Main Exam Panel -->
+    <main class="testing-main-panel">
+      <!-- Exam Selector View -->
+      <div id="exam-selector-view">
+        <div class="tests-header-block">
+          <h2 id="disp-title" class="tests-title">Physics</h2>
+          <p id="disp-desc" class="tests-desc">Excel in JEE Advanced Physics: Classical Mechanics, Electrodynamics, Thermodynamics, and Modern Physics.</p>
+        </div>
+        <div id="tests-list-container" class="test-list-box">
+          <!-- Dynamically generated tests list -->
+        </div>
+      </div>
+
+      <!-- Active Test Taker Area (Hidden by default) -->
+      <div id="active-test-panel" class="active-test-panel hidden" style="margin-top: 0;">
+        <div class="test-header">
+          <h4 id="active-test-title">Mock Test 1: Physics</h4>
+          <button id="cancel-test-btn" class="action-btn-outline">Cancel Test</button>
+        </div>
+        <div id="test-questions-box">
+          <!-- Dynamic Questions Load Here -->
+        </div>
+        <button id="submit-test-btn" class="action-btn neon-btn-green">SUBMIT MOCK TEST</button>
+        <div id="test-results-feedback" class="quiz-feedback hidden"></div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // JEE Subject Syllabi & Mock Exams Data
+    const jeeData = {
+      physics: {
+        title: "Physics",
+        description: "Excel in JEE Advanced Physics: Classical Mechanics, Electrodynamics, Thermodynamics, and Modern Physics.",
+        tests: {
+          1: [
+            { q: "A solid sphere rolls down an inclined plane of height h without slipping. Its linear speed at the bottom is:", o: ["√(2gh)", "√(10gh/7)", "√(4gh/3)", "√(gh)"], a: 1 },
+            { q: "The torque acting on a dipole P in an electric field E is given by:", o: ["P • E", "P x E", "E x P", "Zero"], a: 1 },
+            { q: "An LCR circuit contains R=10Ω, L=2H, C=10μF connected in series to an AC source. The resonance frequency is:", o: ["1 / 2π√(LC)", "2π / √(LC)", "1 / √(LC)", "√(LC)"], a: 0 }
+          ],
+          2: [
+            { q: "A gas undergoes adiabatic expansion. The relation between volume and pressure is:", o: ["PV = constant", "PV^γ = constant", "P/V = constant", "P^γ V = constant"], a: 1 },
+            { q: "The resolving power of an astronomical telescope increases when:", o: ["Aperture of objective increases", "Aperture of objective decreases", "Focal length of objective decreases", "Focal length of eyepiece increases"], a: 0 },
+            { q: "According to Einstein's photoelectric equation, the graph between kinetic energy of photoelectron and frequency is a:", o: ["Parabola", "Straight line with positive slope", "Hyperbola", "Circle segment"], a: 1 }
+          ],
+          3: [
+            { q: "The binding energy per nucleon is maximum for the nucleus:", o: ["He⁴", "Fe⁵⁶", "U²³⁸", "O¹⁶"], a: 1 },
+            { q: "A magnetic dipole has a magnetic moment M. If it is cut into two equal halves along its axis, the magnetic moment of each half is:", o: ["M", "M/2", "2M", "Zero"], a: 1 },
+            { q: "The current gain in common emitter configuration (beta) is related to alpha by:", o: ["β = α / (1 - α)", "β = α / (1 + α)", "β = (1 - α) / α", "β = (1 + α) / α"], a: 0 }
+          ]
+        }
+      },
+      chemistry: {
+        title: "Chemistry",
+        description: "Master physical and inorganic structures: Atomic configuration, chemical kinetics, and Coordination Complexes.",
+        tests: {
+          1: [
+            { q: "Which orbital has a nodal plane in xy plane?", o: ["p_z orbital", "d_xy orbital", "d_z² orbital", "p_x orbital"], a: 0 },
+            { q: "For a first order reaction, the time required to complete 99% of the reaction is approximately how many times the half-life?", o: ["2 times", "6.6 times", "10 times", "4.3 times"], a: 1 },
+            { q: "The coordination geometry of [Ni(CN)₄]²⁻ is:", o: ["Tetrahedral", "Square planar", "Octahedral", "Linear"], a: 1 }
+          ],
+          2: [
+            { q: "Which of the following compounds has the highest lattice energy?", o: ["NaCl", "LiF", "KCl", "KI"], a: 1 },
+            { q: "The number of tetrahedral voids per atom in a face-centered cubic (FCC) lattice is:", o: ["1", "2", "4", "8"], a: 1 },
+            { q: "The catalyst used in contact process for manufacture of sulfuric acid is:", o: ["Iron", "V₂O₅ (Vanadium pentoxide)", "Nickel", "Platinum"], a: 1 }
+          ],
+          3: [
+            { q: "Which of the following is a buffer solution?", o: ["CH₃COOH + CH₃COONa", "HCl + NaCl", "HNO₃ + NaNO₃", "NaOH + NaCl"], a: 0 },
+            { q: "The slag formed during extraction of iron from haematite ore in blast furnace is:", o: ["CaSiO₃", "FeSiO₃", "MgSiO₃", "Al₂O₃"], a: 0 },
+            { q: "Which of the following has the maximum magnetic moment?", o: ["Fe²⁺", "Mn²⁺", "Cr³⁺", "Co²⁺"], a: 1 }
+          ]
+        }
+      },
+      math: {
+        title: "Mathematics",
+        description: "Develop structural rigor in algebra and basic calculus: Matrices, Complex numbers, and sequence series.",
+        tests: {
+          1: [
+            { q: "If z = (1 + i) / (1 - i), then z¹⁰⁰ equals:", o: ["1", "-1", "i", "-i"], a: 0 },
+            { q: "The number of ways in which 5 boys and 5 girls can sit in a circle so that no two girls sit together is:", o: ["5! * 4!", "5! * 5!", "4! * 4!", "9!"], a: 0 },
+            { q: "If A is a 3x3 matrix and |A| = 5, then |adj A| is:", o: ["5", "25", "125", "1"], a: 1 }
+          ],
+          2: [
+            { q: "The sum of the infinite geometric series 1 + 1/3 + 1/9 + 1/27 + ... is:", o: ["3/2", "2", "4/3", "3"], a: 0 },
+            { q: "The coefficient of x⁴ in the expansion of (1 + x)¹⁰ is:", o: ["210", "120", "45", "252"], a: 0 },
+            { q: "If log_2, log_(2^x - 1), log_(2^x + 3) are in A.P., then x equals:", o: ["log_2(5)", "log_2(3)", "3", "5"], a: 0 }
+          ],
+          3: [
+            { q: "If A and B are symmetric matrices of same order, then AB - BA is a:", o: ["Symmetric matrix", "Skew-symmetric matrix", "Diagonal matrix", "Null matrix"], a: 1 },
+            { q: "The roots of the equation x² - 4x + 13 = 0 are:", o: ["2 ± 3i", "2 ± i", "4 ± 3i", "Real and unequal"], a: 0 },
+            { q: "The number of terms in the expansion of (x + y + z)¹⁰ is:", o: ["66", "55", "45", "11"], a: 0 }
+          ]
+        }
+      },
+      coord: {
+        title: "Coordinate Geometry",
+        description: "Perfect analytical conics graphing: Circles, Parabola, Ellipse, Hyperbola, and 3D Planes.",
+        tests: {
+          1: [
+            { q: "The angle between the lines x + y = 1 and x - y = 3 is:", o: ["30°", "45°", "90°", "0°"], a: 2 },
+            { q: "The equation of tangent to the circle x² + y² = 25 at (3, 4) is:", o: ["3x + 4y = 25", "4x + 3y = 25", "3x - 4y = 25", "4x - 3y = 25"], a: 0 },
+            { q: "The eccentricity of the ellipse x²/16 + y²/9 = 1 is:", o: ["√7 / 4", "3/4", "√7 / 3", "1/2"], a: 0 }
+          ],
+          2: [
+            { q: "The length of latus rectum of the parabola y² = 16x is:", o: ["4", "8", "16", "32"], a: 2 },
+            { q: "The distance between the parallel planes 2x - y + 2z = 4 and 2x - y + 2z = 10 is:", o: ["2", "6", "3", "4"], a: 0 },
+            { q: "The center of the hyperbola x² - y² - 4x - 6y - 9 = 0 is:", o: ["(2, -3)", "(-2, 3)", "(2, 3)", "(-2, -3)"], a: 0 }
+          ],
+          3: [
+            { q: "The lines y = mx + c is a tangent to the parabola y² = 4ax if c equals:", o: ["a / m", "a * m", "a * m²", "-a / m"], a: 0 },
+            { q: "The coordinates of the focus of the parabola x² = -8y are:", o: ["(0, -2)", "(0, 2)", "(-2, 0)", "(2, 0)"], a: 0 },
+            { q: "The equation of circle with center (2, 3) and radius 5 is:", o: ["x² + y² - 4x - 6y - 12 = 0", "x² + y² + 4x + 6y - 12 = 0", "x² + y² - 4x - 6y - 25 = 0", "x² + y² = 25"], a: 0 }
+          ]
+        }
+      },
+      org: {
+        title: "Organic Chemistry",
+        description: "Understand chemical transformations: GOC, Isomerism, reaction mechanisms, and carbon synthesis.",
+        tests: {
+          1: [
+            { q: "Which of the following carbocations is most stable?", o: ["Methyl carbocation", "Ethyl carbocation", "Isopropyl carbocation", "t-Butyl carbocation"], a: 3 },
+            { q: "The number of stereoisomers possible for 2,3-dichlorobutane is:", o: ["2", "3 (including meso)", "4", "1"], a: 1 },
+            { q: "The reaction of an alkyl halide with sodium in dry ether is called:", o: ["Wurtz reaction", "Fittig reaction", "Frankland reaction", "Friedel-Crafts reaction"], a: 0 }
+          ],
+          2: [
+            { q: "Which of the following organic compounds is aromatic?", o: ["Cyclohexane", "Benzene", "Cyclooctatetraene", "Cyclobutadiene"], a: 1 },
+            { q: "In nucleophilic substitution Sn2 reaction, the rate depends on:", o: ["Alkyl halide concentration only", "Nucleophile concentration only", "Both alkyl halide and nucleophile concentration", "Solvent concentration only"], a: 2 },
+            { q: "The primary product of hydration of propene in presence of acid is:", o: ["1-Propanol", "2-Propanol", "Propanal", "Acetone"], a: 1 }
+          ],
+          3: [
+            { q: "Which reagent is used for detection of aldehyde group?", o: ["Tollen's Reagent", "Lucas Reagent", "Hinsberg Reagent", "Bayer's Reagent"], a: 0 },
+            { q: "The monomer of Teflon is:", o: ["Vinyl chloride", "Tetrafluoroethylene", "Styrene", "Isoprene"], a: 1 },
+            { q: "The basicity of amines follows which order in aqueous phase?", o: ["Secondary > Tertiary > Primary", "Tertiary > Secondary > Primary", "Primary > Secondary > Tertiary", "Varies with alkyl group size"], a: 3 }
+          ]
+        }
+      },
+      calc: {
+        title: "Calculus & Vectors",
+        description: "Apply advanced limit derivations: Integration limits, Areas under curves, Differential Equations, and 3D Vector products.",
+        tests: {
+          1: [
+            { q: "The limit of (sin x) / x as x approaches 0 is:", o: ["0", "1", "Undefined", "Infinity"], a: 1 },
+            { q: "The derivative of e^(x²) is:", o: ["e^(x²)", "2x * e^(x²)", "x * e^(x²)", "2 * e^(x²)"], a: 1 },
+            { q: "The definite integral of x dx from 0 to 2 is:", o: ["1", "2", "3", "4"], a: 1 }
+          ],
+          2: [
+            { q: "The order and degree of differential equation (d²y/dx²)³ + (dy/dx)² = 0 are respectively:", o: ["2, 3", "3, 2", "2, 2", "3, 3"], a: 0 },
+            { q: "The projection of vector A = i + j on vector B = i is:", o: ["1", "0", "√2", "2"], a: 0 },
+            { q: "The value of cross product i x j is:", o: ["0", "1", "k", "-k"], a: 2 }
+          ],
+          3: [
+            { q: "The area bounded by y = x and y = x² is:", o: ["1/6", "1/3", "1/2", "1"], a: 0 },
+            { q: "If vector A is perpendicular to vector B, then their dot product A • B is:", o: ["0", "1", "-1", "Infinite"], a: 0 },
+            { q: "The derivative of log(sin x) is:", o: ["cot x", "tan x", "sec x", "csc x"], a: 0 }
+          ]
+        }
+      }
+    };
+
+    let activeSubject = 'physics';
+    let activeTestNum = 1;
+
+    // Selectors
+    const tabBtns = document.querySelectorAll('.tab-btn-item');
+    const dispTitle = document.getElementById('disp-title');
+    const dispDesc = document.getElementById('disp-desc');
+    const selectorView = document.getElementById('exam-selector-view');
+    const testsList = document.getElementById('tests-list-container');
+
+    const activeTestPanel = document.getElementById('active-test-panel');
+    const activeTestTitle = document.getElementById('active-test-title');
+    const questionsBox = document.getElementById('test-questions-box');
+    const submitBtn = document.getElementById('submit-test-btn');
+    const cancelBtn = document.getElementById('cancel-test-btn');
+    const resultsFeedback = document.getElementById('test-results-feedback');
+
+    // Tab Handlers
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tabBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeSubject = btn.getAttribute('data-subj');
+        resetActiveTest();
+        renderSubjectDetails();
+      });
+    });
+
+    function renderSubjectDetails() {
+      const data = jeeData[activeSubject];
+      dispTitle.innerText = data.title;
+      dispDesc.innerText = data.description;
+
+      testsList.innerHTML = '';
+      
+      const testsMeta = [
+        { level: "Foundation Level", xp: "10 XP", focus: "General Syllabus Intro" },
+        { level: "Intermediate Level", xp: "15 XP", focus: "Equation derivations" },
+        { level: "Advanced Level", xp: "25 XP", focus: "JEE Analytical problems" }
+      ];
+
+      [1, 2, 3].forEach(num => {
+        const meta = testsMeta[num - 1];
+        const card = document.createElement('div');
+        card.className = 'test-card';
+        card.innerHTML = `
+          <div class="test-info">
+            <h5>Mock Test ${num}: ${meta.level}</h5>
+            <p>3 Questions • ${meta.xp} Reward • ${meta.focus}</p>
+          </div>
+          <button class="action-btn neon-btn-cyan start-test-btn" data-test="${num}">START TEST</button>
+        `;
+        
+        card.querySelector('.start-test-btn').addEventListener('click', () => {
+          activeTestNum = num;
+          startMockTest();
+        });
+        
+        testsList.appendChild(card);
+      });
+    }
+
+    function startMockTest() {
+      selectorView.classList.add('hidden');
+      activeTestPanel.classList.remove('hidden');
+
+      const questions = jeeData[activeSubject].tests[activeTestNum];
+      activeTestTitle.innerText = `Mock Test ${activeTestNum}: ${activeSubject.toUpperCase()}`;
+      
+      questionsBox.innerHTML = '';
+      resultsFeedback.classList.add('hidden');
+      submitBtn.disabled = false;
+      submitBtn.style.opacity = '1';
+
+      questions.forEach((q, idx) => {
+        const group = document.createElement('div');
+        group.className = 'quiz-question-group';
+        group.innerHTML = `
+          <p class="question-text">${idx + 1}. ${q.q}</p>
+          <div class="quiz-options-col">
+            ${q.o.map((opt, oIdx) => `
+              <label class="quiz-opt-label">
+                <input type="radio" name="q_${idx}" value="${oIdx}">
+                <span class="custom-radio"></span>
+                <span class="opt-text">${opt}</span>
+              </label>
+            `).join('')}
+          </div>
+        `;
+        
+        // Bind radio toggle handlers
+        group.querySelectorAll('.quiz-opt-label').forEach(label => {
+          label.addEventListener('click', () => {
+            if (submitBtn.disabled) return;
+            group.querySelectorAll('.quiz-opt-label').forEach(l => l.classList.remove('selected'));
+            label.classList.add('selected');
+          });
+        });
+
+        questionsBox.appendChild(group);
+      });
+    }
+
+    function resetActiveTest() {
+      activeTestPanel.classList.add('hidden');
+      selectorView.classList.remove('hidden');
+      questionsBox.innerHTML = '';
+      resultsFeedback.classList.add('hidden');
+    }
+
+    cancelBtn.addEventListener('click', resetActiveTest);
+
+    submitBtn.addEventListener('click', () => {
+      const questions = jeeData[activeSubject].tests[activeTestNum];
+      let score = 0;
+      let allAnswered = true;
+
+      questions.forEach((q, idx) => {
+        const checkedInput = questionsBox.querySelector(`input[name="q_${idx}"]:checked`);
+        if (!checkedInput) {
+          allAnswered = false;
+          return;
+        }
+
+        const selectedIndex = parseInt(checkedInput.value);
+        const labels = questionsBox.querySelectorAll(`.quiz-question-group`)[idx].querySelectorAll('.quiz-opt-label');
+
+        // Reset label classes
+        labels.forEach(l => l.classList.remove('correct', 'wrong'));
+
+        if (selectedIndex === q.a) {
+          score++;
+          labels[selectedIndex].classList.add('correct');
+        } else {
+          labels[selectedIndex].classList.add('wrong');
+          labels[q.a].classList.add('correct');
+        }
+      });
+
+      if (!allAnswered) {
+        alert("Please complete all questions before submitting!");
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.style.opacity = '0.5';
+
+      if (score === 3) {
+        resultsFeedback.className = 'quiz-feedback success';
+        resultsFeedback.innerHTML = `<strong>Perfect Score! 3/3 Correct.</strong> Congratulations! Confetti blast deployed.`;
+        resultsFeedback.classList.remove('hidden');
+        triggerConfetti();
+      } else {
+        resultsFeedback.className = 'quiz-feedback error';
+        resultsFeedback.innerHTML = `<strong>Result: ${score}/3 Correct.</strong> Review green options and try again.`;
+        resultsFeedback.classList.remove('hidden');
+      }
+
+      // Lock inputs
+      questionsBox.querySelectorAll('input[type="radio"]').forEach(r => r.disabled = true);
+    });
+
+    // Confetti System
+    function triggerConfetti() {
+      const container = document.createElement('div');
+      container.style.position = 'fixed';
+      container.style.top = '0';
+      container.style.left = '0';
+      container.style.width = '100%';
+      container.style.height = '100%';
+      container.style.pointerEvents = 'none';
+      container.style.zIndex = '9999';
+      document.body.appendChild(container);
+
+      const colors = ['#00f2fe', '#ff007f', '#9d4edd', '#39ff14', '#ffea00'];
+
+      // Left blast
+      launchCloud(0, window.innerHeight, 45, container, colors);
+      // Right blast
+      launchCloud(window.innerWidth, window.innerHeight, 135, container, colors);
+
+      setTimeout(() => {
+        document.body.removeChild(container);
+      }, 5000);
+    }
+
+    function launchCloud(startX, startY, angleDeg, container, colors) {
+      for (let i = 0; i < 40; i++) {
+        const particle = document.createElement('div');
+        particle.style.position = 'absolute';
+        particle.style.left = `${startX}px`;
+        particle.style.top = `${startY}px`;
+        particle.style.width = `${Math.random() * 8 + 6}px`;
+        particle.style.height = `${Math.random() * 12 + 6}px`;
+        particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        particle.style.borderRadius = '2px';
+        
+        const angle = (angleDeg + (Math.random() * 40 - 20)) * Math.PI / 180;
+        const speed = Math.random() * 18 + 12;
+        
+        let velX = Math.cos(angle) * speed;
+        let velY = -Math.sin(angle) * speed;
+        let posX = startX;
+        let posY = startY;
+        let rotation = Math.random() * 360;
+        let rotSpeed = Math.random() * 15 - 7.5;
+        
+        container.appendChild(particle);
+
+        function update() {
+          velY += 0.45; // gravity
+          velX *= 0.98; // air drag
+          posX += velX;
+          posY += velY;
+          rotation += rotSpeed;
+
+          particle.style.left = `${posX}px`;
+          particle.style.top = `${posY}px`;
+          particle.style.transform = `rotate(${rotation}deg)`;
+
+          if (posY < window.innerHeight + 50) {
+            requestAnimationFrame(update);
+          }
+        }
+        requestAnimationFrame(update);
+      }
+    }
+
+    // Always sliding options switcher
+    const tabList = document.querySelector('.tab-list');
+    let autoSlideInterval;
+    function startAutoSlide() {
+      autoSlideInterval = setInterval(() => {
+        if (!selectorView.classList.contains('hidden')) {
+          const buttons = Array.from(tabBtns);
+          const currentIndex = buttons.findIndex(b => b.classList.contains('active'));
+          const nextIndex = (currentIndex + 1) % buttons.length;
+          buttons[nextIndex].click();
+        }
+      }, 7000);
+    }
+    if (tabList) {
+      tabList.addEventListener('mouseenter', () => clearInterval(autoSlideInterval));
+      tabList.addEventListener('mouseleave', startAutoSlide);
+    }
+    startAutoSlide();
+
+    // Initialize
+    renderSubjectDetails();
+  </script>
+<script src="bg_spawner.js"></script>
+</body>
+</html>

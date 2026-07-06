@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Civils & Groups - Testing Center</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- CSS Styles -->
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      background-color: #030307;
+      color: #f3f4f6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    .testing-layout {
+      max-width: 1200px;
+      margin: 100px auto 40px;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 30px;
+    }
+    .testing-sidebar {
+      background: rgba(10, 10, 18, 0.45);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 20px;
+      padding: 20px;
+      height: fit-content;
+    }
+    .sidebar-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--neon-cyan);
+      text-shadow: 0 0 8px var(--neon-cyan-glow);
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+      font-family: var(--font-cyber);
+    }
+    .tab-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .tab-btn-item {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      color: #9ca3af;
+      border-radius: 12px;
+      padding: 12px 16px;
+      text-align: left;
+      font-family: var(--font-cyber);
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .tab-btn-item:hover {
+      background: rgba(0, 242, 254, 0.05);
+      color: #fff;
+      border-color: rgba(0, 242, 254, 0.3);
+    }
+    .tab-btn-item.active {
+      background: linear-gradient(135deg, rgba(0, 242, 254, 0.15), rgba(157, 78, 221, 0.15));
+      color: #fff;
+      border-color: var(--neon-cyan);
+      box-shadow: 0 0 15px rgba(0, 242, 254, 0.15);
+    }
+    .testing-main-panel {
+      background: rgba(10, 10, 18, 0.45);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 20px;
+      padding: 35px;
+      position: relative;
+    }
+    .tests-header-block {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      padding-bottom: 15px;
+      margin-bottom: 25px;
+    }
+    .tests-title {
+      font-size: 26px;
+      font-weight: 900;
+      color: #fff;
+      margin-bottom: 5px;
+      font-family: var(--font-cyber);
+    }
+    .tests-desc {
+      color: #9ca3af;
+      font-size: 14px;
+    }
+    .test-list-box {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .test-card {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 20px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      transition: all 0.3s ease;
+    }
+    .test-card:hover {
+      background: rgba(255, 255, 255, 0.04);
+      border-color: rgba(255, 255, 255, 0.1);
+      transform: translateX(4px);
+    }
+    .test-info h5 {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 4px;
+      color: #fff;
+    }
+    .test-info p {
+      font-size: 12px;
+      color: #9ca3af;
+    }
+    @media (max-width: 900px) {
+      .testing-layout {
+        grid-template-columns: 1fr;
+        margin-top: 80px;
+      }
+    }
+  </style>
+</head>
+<body class="apple-theme">
+  <!-- Ambient Glows -->
+  <div class="ambient-glows">
+    <div class="glow-sphere glow-sphere-1" style="background: radial-gradient(circle, rgba(157, 78, 221, 0.18) 0%, transparent 70%);"></div>
+    <div class="glow-sphere glow-sphere-2" style="background: radial-gradient(circle, rgba(0, 242, 254, 0.15) 0%, transparent 70%);"></div>
+  </div>
+
+  <!-- Graduation Cap Background -->
+  <div id="bg-grad-cap" class="corner-grad-cap">
+    <i class="fa-solid fa-graduation-cap"></i>
+  </div>
+
+  <!-- Top Navigation Bar -->
+  <nav class="top-nav glassmorphic">
+    <div class="nav-brand">
+      <i class="fa-solid fa-graduation-cap logo-icon"></i>
+      <span>VISION<span class="neon-purple-text">X</span> // CIVILS EXAMS</span>
+    </div>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link"><i class="fa-solid fa-house"></i> Dashboard</a>
+    </div>
+  </nav>
+
+  <div class="testing-layout">
+    <!-- Sidebar -->
+    <aside class="testing-sidebar">
+      <h4 class="sidebar-title"><i class="fa-solid fa-graduation-cap"></i> EXAM SUBJECTS</h4>
+      <div class="tab-list">
+        <button class="tab-btn-item active" data-subj="history">🏛️ Indian History</button>
+        <button class="tab-btn-item" data-subj="polity">📜 Indian Polity</button>
+        <button class="tab-btn-item" data-subj="geo">🌍 Geography & Env</button>
+        <button class="tab-btn-item" data-subj="econ">📈 Economy & Dev</button>
+        <button class="tab-btn-item" data-subj="sci">🚀 Science & Tech</button>
+        <button class="tab-btn-item" data-subj="csat">🧠 Mental Ability & CSAT</button>
+      </div>
+    </aside>
+
+    <!-- Main Exam Panel -->
+    <main class="testing-main-panel">
+      <!-- Exam Selector View -->
+      <div id="exam-selector-view">
+        <div class="tests-header-block">
+          <h2 id="disp-title" class="tests-title">Indian History</h2>
+          <p id="disp-desc" class="tests-desc">Understand historical milestones: Ancient, Medieval, and Modern Indian History, along with Indian National Movement.</p>
+        </div>
+        <div id="tests-list-container" class="test-list-box">
+          <!-- Dynamically generated tests list -->
+        </div>
+      </div>
+
+      <!-- Active Test Taker Area (Hidden by default) -->
+      <div id="active-test-panel" class="active-test-panel hidden" style="margin-top: 0;">
+        <div class="test-header">
+          <h4 id="active-test-title">Mock Test 1: Indian History</h4>
+          <button id="cancel-test-btn" class="action-btn-outline">Cancel Test</button>
+        </div>
+        <div id="test-questions-box">
+          <!-- Dynamic Questions Load Here -->
+        </div>
+        <button id="submit-test-btn" class="action-btn neon-btn-green">SUBMIT MOCK TEST</button>
+        <div id="test-results-feedback" class="quiz-feedback hidden"></div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // Civils Subject Syllabi & Mock Exams Data
+    const civilsData = {
+      history: {
+        title: "Indian History & Culture",
+        description: "Understand historical milestones: Ancient, Medieval, and Modern Indian History, along with Indian National Movement.",
+        tests: {
+          1: [
+            { q: "The Harappan civilization was discovered in which year?", o: ["1921", "1935", "1947", "1905"], a: 0 },
+            { q: "Who was the founder of the Maurya Dynasty?", o: ["Ashoka", "Chandragupta Maurya", "Bindusara", "Harsha"], a: 1 },
+            { q: "The famous 'Quit India Movement' was launched in which year?", o: ["1920", "1930", "1942", "1945"], a: 2 }
+          ],
+          2: [
+            { q: "Who was the Mughal Emperor during the Battle of Plassey (1757)?", o: ["Alamgir II", "Siraj-ud-Daulah", "Shah Alam II", "Akbar II"], a: 0 },
+            { q: "The partition of Bengal was announced by Lord Curzon in:", o: ["1905", "1911", "1919", "1921"], a: 0 },
+            { q: "The first session of Indian National Congress (1885) was held in:", o: ["Calcutta", "Bombay", "Madras", "Allahabad"], a: 1 }
+          ],
+          3: [
+            { q: "Who is known as the 'Iron Man of India'?", o: ["Lal Bahadur Shastri", "Sardar Vallabhbhai Patel", "Subhas Chandra Bose", "Bal Gangadhar Tilak"], a: 1 },
+            { q: "The famous rock-cut temples of Ellora were built by which dynasty?", o: ["Rashtrakutas", "Cholas", "Chalukyas", "Pallavas"], a: 0 },
+            { q: "Who led the Salt Satyagraha along with Mahatma Gandhi from Sabarmati to Dandi?", o: ["Sarojini Naidu", "Jawaharlal Nehru", "C. Rajagopalachari", "None of the above"], a: 0 }
+          ]
+        }
+      },
+      polity: {
+        title: "Indian Polity & Constitution",
+        description: "Analyze Indian political framework: Parliamentary governance, local self-government, statutory commissions, and human rights.",
+        tests: {
+          1: [
+            { q: "The Constitution of India was adopted by the Constituent Assembly on:", o: ["26 January 1950", "26 November 1949", "15 August 1947", "30 January 1948"], a: 1 },
+            { q: "Fundamental Rights in India are enforceable by:", o: ["Only Supreme Court", "Only High Courts", "Both Supreme Court & High Courts", "The Parliament only"], a: 2 },
+            { q: "The concept of 'Single Citizenship' in India is borrowed from which country?", o: ["USA", "UK", "Canada", "Australia"], a: 1 }
+          ],
+          2: [
+            { q: "Who acts as the ex-officio Chairman of Rajya Sabha?", o: ["The President", "The Vice-President", "The Prime Minister", "The Speaker of Lok Sabha"], a: 1 },
+            { q: "The Panchayati Raj system was first introduced in which state?", o: ["Rajasthan", "Andhra Pradesh", "Gujarat", "Maharashtra"], a: 0 },
+            { q: "Which constitutional amendment reduced the voting age from 21 to 18 years?", o: ["42nd Amendment", "44th Amendment", "61st Amendment", "86th Amendment"], a: 2 }
+          ],
+          3: [
+            { q: "How many members are nominated to the Rajya Sabha by the President of India?", o: ["2", "10", "12", "15"], a: 2 },
+            { q: "The joint sitting of the two houses of Parliament is presided over by the:", o: ["President of India", "Vice-President of India", "Speaker of Lok Sabha", "Prime Minister"], a: 2 },
+            { q: "Which Article deals with Constitutional Amendments?", o: ["Article 352", "Article 356", "Article 360", "Article 368"], a: 3 }
+          ]
+        }
+      },
+      geo: {
+        title: "Geography & Environment",
+        description: "Study physical, social, and economic geography of India and the world, along with climate change and biodiversity parameters.",
+        tests: {
+          1: [
+            { q: "Which is the highest peak in India?", o: ["Mount Everest", "Kanchenjunga", "K2 (Godwin Austen)", "Nanda Devi"], a: 2 },
+            { q: "The standard meridian of India (82.5° E) passes through which city?", o: ["Mirzapur (UP)", "Patna", "Kolkata", "Delhi"], a: 0 },
+            { q: "Which of the following is a greenhouse gas?", o: ["Oxygen", "Nitrogen", "Carbon Dioxide", "Argon"], a: 2 }
+          ],
+          2: [
+            { q: "The largest delta in the world is:", o: ["Sundarbans Delta", "Mississippi Delta", "Nile Delta", "Amazon Delta"], a: 0 },
+            { q: "The tropical grasslands of Africa are known as:", o: ["Savannas", "Steppes", "Prairies", "Pampas"], a: 0 },
+            { q: "In which layer of the atmosphere do most weather phenomena occur?", o: ["Troposphere", "Stratosphere", "Mesosphere", "Thermosphere"], a: 0 }
+          ],
+          3: [
+            { q: "Which state of India has the longest coastline?", o: ["Maharashtra", "Tamil Nadu", "Gujarat", "Andhra Pradesh"], a: 2 },
+            { q: "The silent valley national park is located in which state?", o: ["Kerala", "Karnataka", "Uttarakhand", "Himachal Pradesh"], a: 0 },
+            { q: "Kyoto Protocol is related to:", o: ["Ozone depletion", "Wetlands conservation", "Climate Change (Reduction of greenhouse gases)", "Hazardous waste transit"], a: 2 }
+          ]
+        }
+      },
+      econ: {
+        title: "Economy & Development",
+        description: "Master developmental economics: Indian economic systems, fiscal policies, banking regulations, and social inclusion initiatives.",
+        tests: {
+          1: [
+            { q: "Who is responsible for formulating the monetary policy in India?", o: ["Ministry of Finance", "NITI Aayog", "Reserve Bank of India (RBI)", "SEBI"], a: 2 },
+            { q: "The base year for calculation of National Income in India currently is:", o: ["2004-05", "2011-12", "2018-19", "2020-21"], a: 1 },
+            { q: "Which sector contributes the most to India's GDP?", o: ["Agriculture", "Industry", "Services", "Mining"], a: 2 }
+          ],
+          2: [
+            { q: "When did the Goods and Services Tax (GST) come into effect in India?", o: ["1 July 2017", "1 April 2016", "1 January 2018", "15 August 2017"], a: 0 },
+            { q: "The largest public sector bank in India is:", o: ["Punjab National Bank", "State Bank of India (SBI)", "Bank of Baroda", "Canara Bank"], a: 1 },
+            { q: "Which organization releases the Human Development Index (HDI)?", o: ["IMF", "World Bank", "UNDP", "WHO"], a: 2 }
+          ],
+          3: [
+            { q: "Frictional unemployment refers to:", o: ["Unemployment during recession", "Unemployment due to mismatch between jobs and skills", "Temporary unemployment when changing jobs", "Unemployment in agricultural sector during off-season"], a: 2 },
+            { q: "The apex body for agricultural credit in India is:", o: ["RBI", "NABARD", "SIDBI", "IDBI"], a: 1 },
+            { q: "Which of the following is a direct tax in India?", o: ["GST", "Customs duty", "Income tax", "Excise duty"], a: 2 }
+          ]
+        }
+      },
+      sci: {
+        title: "Science & Technology",
+        description: "Master science innovations: Space developments, defense systems, information technology, genetics, and biotechnology.",
+        tests: {
+          1: [
+            { q: "What is the primary objective of ISRO's Chandrayaan-3 mission?", o: ["To study solar corona", "To land a rover near moon's south pole", "To orbit Mars", "To send humans to space"], a: 1 },
+            { q: "The newly inducted Agni-V missile is a:", o: ["Short-range surface-to-air missile", "Intercontinental ballistic missile (ICBM)", "Cruise missile", "Submarine-launched ballistic missile"], a: 1 },
+            { q: "In genetic engineering, the molecular scissors used to cut DNA at specific sites are:", o: ["DNA Ligase", "Restriction enzymes", "DNA Polymerase", "Helicases"], a: 1 }
+          ],
+          2: [
+            { q: "Which technology is primarily associated with the term 'CRISPR-Cas9'?", o: ["Quantum computing", "Gene editing", "Artificial Intelligence", "Blockchain"], a: 1 },
+            { q: "The primary fuel used in India's nuclear reactors is:", o: ["Thorium", "Uranium-235", "Uranium-238", "Plutonium"], a: 1 },
+            { q: "The speed of supercomputers in India is usually measured in:", o: ["MIPS", "FLOPS / Petaflops", "Gigahertz", "Bytes"], a: 1 }
+          ],
+          3: [
+            { q: "Which of the following is India's indigenous GPS navigation system?", o: ["IRNSS / NavIC", "GPS-India", "Gaganyaan-Nav", "Bhuvan"], a: 0 },
+            { q: "The vaccine 'Covaxin' developed in India is a:", o: ["mRNA vaccine", "Inactivated virus vaccine", "Viral vector vaccine", "Subunit vaccine"], a: 1 },
+            { q: "ChatGPT is based on which model?", o: ["CNN", "RNN", "Transformer-based Large Language Model", "Support Vector Machine"], a: 2 }
+          ]
+        }
+      },
+      csat: {
+        title: "Mental Ability & CSAT",
+        description: "Excel in CSAT logical parameters: Data interpretation, analytical reasoning, quantitative aptitude, and comprehension.",
+        tests: {
+          1: [
+            { q: "If CLOCK is coded as KCOLC, how is STEPS coded?", o: ["SPETS", "PETSS", "STPES", "EPSTS"], a: 0 },
+            { q: "A man walks 3 km East, then turns left and walks 4 km. How far is he from his starting point?", o: ["5 km", "7 km", "1 km", "12 km"], a: 0 },
+            { q: "The average of 5 consecutive numbers is 20. The largest of these numbers is:", o: ["20", "21", "22", "25"], a: 2 }
+          ],
+          2: [
+            { q: "If 15% of a number is 45, what is the number?", o: ["300", "200", "150", "400"], a: 0 },
+            { q: "In a group of 40 students, 25 speak Hindi and 20 speak English. If 5 speak both, how many speak only English?", o: ["15", "20", "5", "10"], a: 0 },
+            { q: "Which number comes next in the series: 2, 6, 12, 20, 30, ...?", o: ["40", "42", "45", "50"], a: 1 }
+          ],
+          3: [
+            { q: "If A is taller than B, B is taller than C, and D is taller than A, who is the shortest?", o: ["A", "B", "C", "D"], a: 2 },
+            { q: "The ratio of ages of father and son is 5:2. If sum of their ages is 70, father's age is:", o: ["50", "20", "45", "40"], a: 0 },
+            { q: "A train 100 meters long passes a telegraph post in 10 seconds. The speed of the train in km/h is:", o: ["36", "72", "18", "54"], a: 0 }
+          ]
+        }
+      }
+    };
+
+    let activeSubject = 'history';
+    let activeTestNum = 1;
+
+    // Selectors
+    const tabBtns = document.querySelectorAll('.tab-btn-item');
+    const dispTitle = document.getElementById('disp-title');
+    const dispDesc = document.getElementById('disp-desc');
+    const selectorView = document.getElementById('exam-selector-view');
+    const testsList = document.getElementById('tests-list-container');
+
+    const activeTestPanel = document.getElementById('active-test-panel');
+    const activeTestTitle = document.getElementById('active-test-title');
+    const questionsBox = document.getElementById('test-questions-box');
+    const submitBtn = document.getElementById('submit-test-btn');
+    const cancelBtn = document.getElementById('cancel-test-btn');
+    const resultsFeedback = document.getElementById('test-results-feedback');
+
+    // Tab Handlers
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tabBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeSubject = btn.getAttribute('data-subj');
+        resetActiveTest();
+        renderSubjectDetails();
+      });
+    });
+
+    function renderSubjectDetails() {
+      const data = civilsData[activeSubject];
+      dispTitle.innerText = data.title;
+      dispDesc.innerText = data.description;
+
+      testsList.innerHTML = '';
+      
+      const testsMeta = [
+        { level: "Foundation Level", xp: "10 XP", focus: "General Syllabus Intro" },
+        { level: "Intermediate Level", xp: "15 XP", focus: "Polity / History facts review" },
+        { level: "Advanced Level", xp: "25 XP", focus: "Civils analytical MCQs" }
+      ];
+
+      [1, 2, 3].forEach(num => {
+        const meta = testsMeta[num - 1];
+        const card = document.createElement('div');
+        card.className = 'test-card';
+        card.innerHTML = `
+          <div class="test-info">
+            <h5>Mock Test ${num}: ${meta.level}</h5>
+            <p>3 Questions • ${meta.xp} Reward • ${meta.focus}</p>
+          </div>
+          <button class="action-btn neon-btn-cyan start-test-btn" data-test="${num}">START TEST</button>
+        `;
+        
+        card.querySelector('.start-test-btn').addEventListener('click', () => {
+          activeTestNum = num;
+          startMockTest();
+        });
+        
+        testsList.appendChild(card);
+      });
+    }
+
+    function startMockTest() {
+      selectorView.classList.add('hidden');
+      activeTestPanel.classList.remove('hidden');
+
+      const questions = civilsData[activeSubject].tests[activeTestNum];
+      activeTestTitle.innerText = `Mock Test ${activeTestNum}: ${activeSubject.toUpperCase()}`;
+      
+      questionsBox.innerHTML = '';
+      resultsFeedback.classList.add('hidden');
+      submitBtn.disabled = false;
+      submitBtn.style.opacity = '1';
+
+      questions.forEach((q, idx) => {
+        const group = document.createElement('div');
+        group.className = 'quiz-question-group';
+        group.innerHTML = `
+          <p class="question-text">${idx + 1}. ${q.q}</p>
+          <div class="quiz-options-col">
+            ${q.o.map((opt, oIdx) => `
+              <label class="quiz-opt-label">
+                <input type="radio" name="q_${idx}" value="${oIdx}">
+                <span class="custom-radio"></span>
+                <span class="opt-text">${opt}</span>
+              </label>
+            `).join('')}
+          </div>
+        `;
+        
+        // Bind radio toggle handlers
+        group.querySelectorAll('.quiz-opt-label').forEach(label => {
+          label.addEventListener('click', () => {
+            if (submitBtn.disabled) return;
+            group.querySelectorAll('.quiz-opt-label').forEach(l => l.classList.remove('selected'));
+            label.classList.add('selected');
+          });
+        });
+
+        questionsBox.appendChild(group);
+      });
+    }
+
+    function resetActiveTest() {
+      activeTestPanel.classList.add('hidden');
+      selectorView.classList.remove('hidden');
+      questionsBox.innerHTML = '';
+      resultsFeedback.classList.add('hidden');
+    }
+
+    cancelBtn.addEventListener('click', resetActiveTest);
+
+    submitBtn.addEventListener('click', () => {
+      const questions = civilsData[activeSubject].tests[activeTestNum];
+      let score = 0;
+      let allAnswered = true;
+
+      questions.forEach((q, idx) => {
+        const checkedInput = questionsBox.querySelector(`input[name="q_${idx}"]:checked`);
+        if (!checkedInput) {
+          allAnswered = false;
+          return;
+        }
+
+        const selectedIndex = parseInt(checkedInput.value);
+        const labels = questionsBox.querySelectorAll(`.quiz-question-group`)[idx].querySelectorAll('.quiz-opt-label');
+
+        // Reset label classes
+        labels.forEach(l => l.classList.remove('correct', 'wrong'));
+
+        if (selectedIndex === q.a) {
+          score++;
+          labels[selectedIndex].classList.add('correct');
+        } else {
+          labels[selectedIndex].classList.add('wrong');
+          labels[q.a].classList.add('correct');
+        }
+      });
+
+      if (!allAnswered) {
+        alert("Please complete all questions before submitting!");
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.style.opacity = '0.5';
+
+      if (score === 3) {
+        resultsFeedback.className = 'quiz-feedback success';
+        resultsFeedback.innerHTML = `<strong>Perfect Score! 3/3 Correct.</strong> Congratulations! Confetti blast deployed.`;
+        resultsFeedback.classList.remove('hidden');
+        triggerConfetti();
+      } else {
+        resultsFeedback.className = 'quiz-feedback error';
+        resultsFeedback.innerHTML = `<strong>Result: ${score}/3 Correct.</strong> Review green options and try again.`;
+        resultsFeedback.classList.remove('hidden');
+      }
+
+      // Lock inputs
+      questionsBox.querySelectorAll('input[type="radio"]').forEach(r => r.disabled = true);
+    });
+
+    // Confetti System
+    function triggerConfetti() {
+      const container = document.createElement('div');
+      container.style.position = 'fixed';
+      container.style.top = '0';
+      container.style.left = '0';
+      container.style.width = '100%';
+      container.style.height = '100%';
+      container.style.pointerEvents = 'none';
+      container.style.zIndex = '9999';
+      document.body.appendChild(container);
+
+      const colors = ['#00f2fe', '#ff007f', '#9d4edd', '#39ff14', '#ffea00'];
+
+      // Left blast
+      launchCloud(0, window.innerHeight, 45, container, colors);
+      // Right blast
+      launchCloud(window.innerWidth, window.innerHeight, 135, container, colors);
+
+      setTimeout(() => {
+        document.body.removeChild(container);
+      }, 5000);
+    }
+
+    function launchCloud(startX, startY, angleDeg, container, colors) {
+      for (let i = 0; i < 40; i++) {
+        const particle = document.createElement('div');
+        particle.style.position = 'absolute';
+        particle.style.left = `${startX}px`;
+        particle.style.top = `${startY}px`;
+        particle.style.width = `${Math.random() * 8 + 6}px`;
+        particle.style.height = `${Math.random() * 12 + 6}px`;
+        particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        particle.style.borderRadius = '2px';
+        
+        const angle = (angleDeg + (Math.random() * 40 - 20)) * Math.PI / 180;
+        const speed = Math.random() * 18 + 12;
+        
+        let velX = Math.cos(angle) * speed;
+        let velY = -Math.sin(angle) * speed;
+        let posX = startX;
+        let posY = startY;
+        let rotation = Math.random() * 360;
+        let rotSpeed = Math.random() * 15 - 7.5;
+        
+        container.appendChild(particle);
+
+        function update() {
+          velY += 0.45; // gravity
+          velX *= 0.98; // air drag
+          posX += velX;
+          posY += velY;
+          rotation += rotSpeed;
+
+          particle.style.left = `${posX}px`;
+          particle.style.top = `${posY}px`;
+          particle.style.transform = `rotate(${rotation}deg)`;
+
+          if (posY < window.innerHeight + 50) {
+            requestAnimationFrame(update);
+          }
+        }
+        requestAnimationFrame(update);
+      }
+    }
+
+    // Always sliding options switcher
+    const tabList = document.querySelector('.tab-list');
+    let autoSlideInterval;
+    function startAutoSlide() {
+      autoSlideInterval = setInterval(() => {
+        if (!selectorView.classList.contains('hidden')) {
+          const buttons = Array.from(tabBtns);
+          const currentIndex = buttons.findIndex(b => b.classList.contains('active'));
+          const nextIndex = (currentIndex + 1) % buttons.length;
+          buttons[nextIndex].click();
+        }
+      }, 7000);
+    }
+    if (tabList) {
+      tabList.addEventListener('mouseenter', () => clearInterval(autoSlideInterval));
+      tabList.addEventListener('mouseleave', startAutoSlide);
+    }
+    startAutoSlide();
+
+    // Initialize
+    renderSubjectDetails();
+  </script>
+<script src="bg_spawner.js"></script>
+</body>
+</html>

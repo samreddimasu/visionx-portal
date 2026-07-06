@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NEET - Testing Center</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- CSS Styles -->
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      background-color: #030307;
+      color: #f3f4f6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    .testing-layout {
+      max-width: 1200px;
+      margin: 100px auto 40px;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 30px;
+    }
+    .testing-sidebar {
+      background: rgba(10, 10, 18, 0.45);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 20px;
+      padding: 20px;
+      height: fit-content;
+    }
+    .sidebar-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--neon-cyan);
+      text-shadow: 0 0 8px var(--neon-cyan-glow);
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+      font-family: var(--font-cyber);
+    }
+    .tab-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .tab-btn-item {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      color: #9ca3af;
+      border-radius: 12px;
+      padding: 12px 16px;
+      text-align: left;
+      font-family: var(--font-cyber);
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .tab-btn-item:hover {
+      background: rgba(0, 242, 254, 0.05);
+      color: #fff;
+      border-color: rgba(0, 242, 254, 0.3);
+    }
+    .tab-btn-item.active {
+      background: linear-gradient(135deg, rgba(0, 242, 254, 0.15), rgba(157, 78, 221, 0.15));
+      color: #fff;
+      border-color: var(--neon-cyan);
+      box-shadow: 0 0 15px rgba(0, 242, 254, 0.15);
+    }
+    .testing-main-panel {
+      background: rgba(10, 10, 18, 0.45);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 20px;
+      padding: 35px;
+      position: relative;
+    }
+    .tests-header-block {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      padding-bottom: 15px;
+      margin-bottom: 25px;
+    }
+    .tests-title {
+      font-size: 26px;
+      font-weight: 900;
+      color: #fff;
+      margin-bottom: 5px;
+      font-family: var(--font-cyber);
+    }
+    .tests-desc {
+      color: #9ca3af;
+      font-size: 14px;
+    }
+    .test-list-box {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .test-card {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 20px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      transition: all 0.3s ease;
+    }
+    .test-card:hover {
+      background: rgba(255, 255, 255, 0.04);
+      border-color: rgba(255, 255, 255, 0.1);
+      transform: translateX(4px);
+    }
+    .test-info h5 {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 4px;
+      color: #fff;
+    }
+    .test-info p {
+      font-size: 12px;
+      color: #9ca3af;
+    }
+    @media (max-width: 900px) {
+      .testing-layout {
+        grid-template-columns: 1fr;
+        margin-top: 80px;
+      }
+    }
+  </style>
+</head>
+<body class="apple-theme">
+  <!-- Ambient Glows -->
+  <div class="ambient-glows">
+    <div class="glow-sphere glow-sphere-1" style="background: radial-gradient(circle, rgba(157, 78, 221, 0.18) 0%, transparent 70%);"></div>
+    <div class="glow-sphere glow-sphere-2" style="background: radial-gradient(circle, rgba(0, 242, 254, 0.15) 0%, transparent 70%);"></div>
+  </div>
+
+  <!-- Graduation Cap Background -->
+  <div id="bg-grad-cap" class="corner-grad-cap">
+    <i class="fa-solid fa-graduation-cap"></i>
+  </div>
+
+  <!-- Top Navigation Bar -->
+  <nav class="top-nav glassmorphic">
+    <div class="nav-brand">
+      <i class="fa-solid fa-graduation-cap logo-icon"></i>
+      <span>VISION<span class="neon-purple-text">X</span> // NEET EXAMS</span>
+    </div>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link"><i class="fa-solid fa-house"></i> Dashboard</a>
+    </div>
+  </nav>
+
+  <div class="testing-layout">
+    <!-- Sidebar -->
+    <aside class="testing-sidebar">
+      <h4 class="sidebar-title"><i class="fa-solid fa-graduation-cap"></i> EXAM SUBJECTS</h4>
+      <div class="tab-list">
+        <button class="tab-btn-item active" data-subj="physics">🧲 Physics</button>
+        <button class="tab-btn-item" data-subj="chemistry">🧪 Chemistry</button>
+        <button class="tab-btn-item" data-subj="botany">🌿 Botany</button>
+        <button class="tab-btn-item" data-subj="zoology">🦁 Zoology</button>
+        <button class="tab-btn-item" data-subj="plant">🌱 Plant Physiology</button>
+        <button class="tab-btn-item" data-subj="human">🧬 Human Physiology</button>
+      </div>
+    </aside>
+
+    <!-- Main Exam Panel -->
+    <main class="testing-main-panel">
+      <!-- Exam Selector View -->
+      <div id="exam-selector-view">
+        <div class="tests-header-block">
+          <h2 id="disp-title" class="tests-title">Physics</h2>
+          <p id="disp-desc" class="tests-desc">Core mechanical and wave physics principles: Kinematics, Laws of Motion, Thermodynamics, and Electrostatics.</p>
+        </div>
+        <div id="tests-list-container" class="test-list-box">
+          <!-- Dynamically generated tests list -->
+        </div>
+      </div>
+
+      <!-- Active Test Taker Area (Hidden by default) -->
+      <div id="active-test-panel" class="active-test-panel hidden" style="margin-top: 0;">
+        <div class="test-header">
+          <h4 id="active-test-title">Mock Test 1: Physics</h4>
+          <button id="cancel-test-btn" class="action-btn-outline">Cancel Test</button>
+        </div>
+        <div id="test-questions-box">
+          <!-- Dynamic Questions Load Here -->
+        </div>
+        <button id="submit-test-btn" class="action-btn neon-btn-green">SUBMIT MOCK TEST</button>
+        <div id="test-results-feedback" class="quiz-feedback hidden"></div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // NEET Subject Syllabi & Mock Exams Data
+    const neetData = {
+      physics: {
+        title: "Physics",
+        description: "Core mechanical and wave physics principles: Kinematics, Laws of Motion, Thermodynamics, and Electrostatics.",
+        tests: {
+          1: [
+            { q: "A body of mass 2 kg moves with velocity v = 3i + 4j m/s. Its kinetic energy is:", o: ["25 J", "50 J", "12.5 J", "10 J"], a: 0 },
+            { q: "The dimensional formula of universal gravitational constant G is:", o: ["M⁻¹L³T⁻²", "M¹L³T⁻²", "M⁻¹L²T⁻²", "M⁻²L³T⁻¹"], a: 0 },
+            { q: "A wire of resistance R is stretched to double its length. Its new resistance is:", o: ["2R", "4R", "R/2", "R/4"], a: 1 }
+          ],
+          2: [
+            { q: "A concave mirror has a focal length of 15 cm. The radius of curvature is:", o: ["7.5 cm", "15 cm", "30 cm", "45 cm"], a: 2 },
+            { q: "Which electromagnetic wave has the shortest wavelength?", o: ["X-rays", "Gamma rays", "Ultraviolet rays", "Infrared"], a: 1 },
+            { q: "The work function of a metal is 2.5 eV. The threshold energy is:", o: ["2.5 eV", "5.0 eV", "1.25 eV", "Zero"], a: 0 }
+          ],
+          3: [
+            { q: "The temperature at which Celsius and Fahrenheit scales read the same value is:", o: ["0°", "-40°", "40°", "-100°"], a: 1 },
+            { q: "The SI unit of magnetic flux is:", o: ["Tesla", "Weber", "Henry", "Farad"], a: 1 },
+            { q: "In a half-wave rectifier, if input frequency is 50 Hz, the output ripple frequency is:", o: ["25 Hz", "50 Hz", "100 Hz", "200 Hz"], a: 1 }
+          ]
+        }
+      },
+      chemistry: {
+        title: "Chemistry",
+        description: "Excel in chemical configurations: Periodic Classification, Organic Mechanisms, Chemical Equilibrium, and Biomolecules.",
+        tests: {
+          1: [
+            { q: "Which quantum number determines the orientation of an orbital?", o: ["Principal quantum number", "Azimuthal quantum number", "Magnetic quantum number", "Spin quantum number"], a: 2 },
+            { q: "The hybridisation of carbon in carbon dioxide (CO₂) is:", o: ["sp", "sp²", "sp³", "dsp²"], a: 0 },
+            { q: "The oxidation number of sulfur in H₂SO₄ is:", o: ["+2", "+4", "+6", "-2"], a: 2 }
+          ],
+          2: [
+            { q: "Which of the following elements is a metalloid?", o: ["Sodium", "Silicon", "Sulfur", "Copper"], a: 1 },
+            { q: "The gas law relating volume and absolute temperature at constant pressure is:", o: ["Boyle's Law", "Charles's Law", "Avogadro's Law", "Dalton's Law"], a: 1 },
+            { q: "Which of the following organic groups is present in aldehydes?", o: ["-OH", "-CHO", "-COOH", "-CO-"], a: 1 }
+          ],
+          3: [
+            { q: "The pH of a 0.001 M HCl solution is:", o: ["1", "2", "3", "4"], a: 2 },
+            { q: "Which carbohydrate is known as table sugar?", o: ["Glucose", "Fructose", "Sucrose", "Lactose"], a: 2 },
+            { q: "The chief ore of aluminum is:", o: ["Haematite", "Bauxite", "Magnetite", "Galena"], a: 1 }
+          ]
+        }
+      },
+      botany: {
+        title: "Botany",
+        description: "Master plant biology: Cell Structure, Genetics, Plant Kingdom taxonomy, and Biotechnology.",
+        tests: {
+          1: [
+            { q: "The cell organelle called the powerhouse of the cell is:", o: ["Chloroplast", "Mitochondria", "Golgi apparatus", "Ribosome"], a: 1 },
+            { q: "Double fertilization is a unique characteristic of:", o: ["Algae", "Bryophytes", "Gymnosperms", "Angiosperms"], a: 3 },
+            { q: "Which of the following is a non-vascular plant?", o: ["Fern", "Moss", "Pine", "Rose"], a: 1 }
+          ],
+          2: [
+            { q: "The phenotypic ratio of a monohybrid cross in F2 generation is:", o: ["3:1", "1:2:1", "9:3:3:1", "1:1"], a: 0 },
+            { q: "The enzyme used to join DNA fragments is:", o: ["DNA Polymerase", "DNA Ligase", "Restriction endonuclease", "Helicase"], a: 1 },
+            { q: "The primary site of photosynthesis in plants is:", o: ["Mitochondria", "Chloroplast", "Nucleus", "Vacuole"], a: 1 }
+          ],
+          3: [
+            { q: "Which plant hormone is primarily responsible for cell division?", o: ["Auxin", "Gibberellin", "Cytokinin", "Abscisic Acid"], a: 2 },
+            { q: "The scientific name of garden pea studied by Mendel is:", o: ["Pisum sativum", "Solanum tuberosum", "Mangifera indica", "Oryza sativa"], a: 0 },
+            { q: "Which of the following represents a vascular tissue in plants?", o: ["Epidermis", "Pith", "Xylem", "Cortex"], a: 2 }
+          ]
+        }
+      },
+      zoology: {
+        title: "Zoology",
+        description: "Master animal taxonomy, Structural Organisation in Animals, Human Health & Diseases, and Evolution.",
+        tests: {
+          1: [
+            { q: "The phylum characterized by jointed appendages is:", o: ["Annelida", "Arthropoda", "Mollusca", "Echinodermata"], a: 1 },
+            { q: "Which of the following diseases is caused by a protozoan?", o: ["Malaria", "Typhoid", "Tuberculosis", "AIDS"], a: 0 },
+            { q: "The theory of natural selection was proposed by:", o: ["Jean-Baptiste Lamarck", "Hugo de Vries", "Charles Darwin", "Gregor Mendel"], a: 2 }
+          ],
+          2: [
+            { q: "The connective tissue that connects muscle to bone is called a:", o: ["Ligament", "Tendon", "Cartilage", "Areolar tissue"], a: 1 },
+            { q: "Which of the following antibody classes is abundant in human colostrum?", o: ["IgG", "IgA", "IgM", "IgE"], a: 1 },
+            { q: "Homologous organs indicate:", o: ["Convergent evolution", "Divergent evolution (common ancestry)", "Parallel evolution", "No evolutionary relationship"], a: 1 }
+          ],
+          3: [
+            { q: "The primary lymphoid organ in humans where T-lymphocytes mature is:", o: ["Spleen", "Thymus", "Tonsils", "Lymph nodes"], a: 1 },
+            { q: "Which animal has a three-chambered heart?", o: ["Fish", "Frog (Amphibian)", "Crocodile", "Pigeon"], a: 1 },
+            { q: "The fossil of Archaeopteryx is a connecting link between:", o: ["Reptiles and Birds", "Amphibians and Reptiles", "Fish and Amphibians", "Birds and Mammals"], a: 0 }
+          ]
+        }
+      },
+      plant: {
+        title: "Plant Physiology",
+        description: "Study plant metabolic functions: Photosynthesis, Respiration, Mineral Nutrition, and Plant Growth Hormones.",
+        tests: {
+          1: [
+            { q: "The loss of water in the form of water vapor from aerial parts of plants is:", o: ["Guttation", "Transpiration", "Evaporation", "Exudation"], a: 1 },
+            { q: "Which element is a structural component of chlorophyll?", o: ["Iron", "Magnesium", "Manganese", "Nitrogen"], a: 1 },
+            { q: "The dark reaction of photosynthesis takes place in:", o: ["Stroma", "Thylakoid", "Grana", "Mitochondria matrix"], a: 0 }
+          ],
+          2: [
+            { q: "The conversion of glucose to pyruvic acid during respiration is called:", o: ["Krebs cycle", "Glycolysis", "Electron transport chain", "Fermentation"], a: 1 },
+            { q: "Which plant hormone is called the stress hormone?", o: ["Auxin", "Gibberellic Acid", "Abscisic Acid", "Ethylene"], a: 2 },
+            { q: "The primary acceptor of CO₂ in C3 plants is:", o: ["PEP", "RuBP (Ribulose 1,5-bisphosphate)", "OAA", "PGA"], a: 1 }
+          ],
+          3: [
+            { q: "The nitrogen-fixing bacterium found in root nodules of legumes is:", o: ["Azotobacter", "Rhizobium", "Clostridium", "Nitrosomonas"], a: 1 },
+            { q: "The site of Krebs cycle in a plant cell is:", o: ["Cytoplasm", "Mitochondrial stroma / matrix", "Chloroplast stroma", "Ribosomes"], a: 1 },
+            { q: "The hormone that causes bolting in rosette plants is:", o: ["Auxin", "Gibberellin", "Cytokinin", "Ethylene"], a: 1 }
+          ]
+        }
+      },
+      human: {
+        title: "Human Physiology",
+        description: "Review organ systems: Digestion, Respiration, Circulation, Excretion, Coordination, and Reproduction.",
+        tests: {
+          1: [
+            { q: "The enzyme salivary amylase acts on which component of food?", o: ["Proteins", "Starch / Carbohydrates", "Fats", "Vitamins"], a: 1 },
+            { q: "The respiratory pigment in human blood that binds oxygen is:", o: ["Haemoglobin", "Haemocyanin", "Myoglobin", "Bilirubin"], a: 0 },
+            { q: "The functional unit of human kidney is:", o: ["Neuron", "Nephron", "Alveolus", "Osteon"], a: 1 }
+          ],
+          2: [
+            { q: "The master gland of the endocrine system is:", o: ["Thyroid gland", "Adrenal gland", "Pituitary gland", "Pancreas"], a: 2 },
+            { q: "The double-layered membrane that protects human heart is:", o: ["Pleura", "Pericardium", "Peritoneum", "Meninges"], a: 1 },
+            { q: "Which part of the brain controls body temperature and hunger?", o: ["Cerebrum", "Cerebellum", "Hypothalamus", "Medulla oblongata"], a: 2 }
+          ],
+          3: [
+            { q: "The lifespan of red blood cells in humans is approximately:", o: ["60 days", "120 days", "180 days", "240 days"], a: 1 },
+            { q: "Which hormone triggers ovulation during menstrual cycle?", o: ["Estrogen", "Progesterone", "Luteinizing Hormone (LH)", "FSH"], a: 2 },
+            { q: "The joint between humerus and pectoral girdle is:", o: ["Hinge joint", "Pivot joint", "Ball and socket joint", "Gliding joint"], a: 2 }
+          ]
+        }
+      }
+    };
+
+    let activeSubject = 'physics';
+    let activeTestNum = 1;
+
+    // Selectors
+    const tabBtns = document.querySelectorAll('.tab-btn-item');
+    const dispTitle = document.getElementById('disp-title');
+    const dispDesc = document.getElementById('disp-desc');
+    const selectorView = document.getElementById('exam-selector-view');
+    const testsList = document.getElementById('tests-list-container');
+
+    const activeTestPanel = document.getElementById('active-test-panel');
+    const activeTestTitle = document.getElementById('active-test-title');
+    const questionsBox = document.getElementById('test-questions-box');
+    const submitBtn = document.getElementById('submit-test-btn');
+    const cancelBtn = document.getElementById('cancel-test-btn');
+    const resultsFeedback = document.getElementById('test-results-feedback');
+
+    // Tab Handlers
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tabBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeSubject = btn.getAttribute('data-subj');
+        resetActiveTest();
+        renderSubjectDetails();
+      });
+    });
+
+    function renderSubjectDetails() {
+      const data = neetData[activeSubject];
+      dispTitle.innerText = data.title;
+      dispDesc.innerText = data.description;
+
+      testsList.innerHTML = '';
+      
+      const testsMeta = [
+        { level: "Foundation Level", xp: "10 XP", focus: "General Syllabus Intro" },
+        { level: "Intermediate Level", xp: "15 XP", focus: "Conceptual Core Diagrams" },
+        { level: "Advanced Level", xp: "25 XP", focus: "Analytical Biology case studies" }
+      ];
+
+      [1, 2, 3].forEach(num => {
+        const meta = testsMeta[num - 1];
+        const card = document.createElement('div');
+        card.className = 'test-card';
+        card.innerHTML = `
+          <div class="test-info">
+            <h5>Mock Test ${num}: ${meta.level}</h5>
+            <p>3 Questions • ${meta.xp} Reward • ${meta.focus}</p>
+          </div>
+          <button class="action-btn neon-btn-cyan start-test-btn" data-test="${num}">START TEST</button>
+        `;
+        
+        card.querySelector('.start-test-btn').addEventListener('click', () => {
+          activeTestNum = num;
+          startMockTest();
+        });
+        
+        testsList.appendChild(card);
+      });
+    }
+
+    function startMockTest() {
+      selectorView.classList.add('hidden');
+      activeTestPanel.classList.remove('hidden');
+
+      const questions = neetData[activeSubject].tests[activeTestNum];
+      activeTestTitle.innerText = `Mock Test ${activeTestNum}: ${activeSubject.toUpperCase()}`;
+      
+      questionsBox.innerHTML = '';
+      resultsFeedback.classList.add('hidden');
+      submitBtn.disabled = false;
+      submitBtn.style.opacity = '1';
+
+      questions.forEach((q, idx) => {
+        const group = document.createElement('div');
+        group.className = 'quiz-question-group';
+        group.innerHTML = `
+          <p class="question-text">${idx + 1}. ${q.q}</p>
+          <div class="quiz-options-col">
+            ${q.o.map((opt, oIdx) => `
+              <label class="quiz-opt-label">
+                <input type="radio" name="q_${idx}" value="${oIdx}">
+                <span class="custom-radio"></span>
+                <span class="opt-text">${opt}</span>
+              </label>
+            `).join('')}
+          </div>
+        `;
+        
+        // Bind radio toggle handlers
+        group.querySelectorAll('.quiz-opt-label').forEach(label => {
+          label.addEventListener('click', () => {
+            if (submitBtn.disabled) return;
+            group.querySelectorAll('.quiz-opt-label').forEach(l => l.classList.remove('selected'));
+            label.classList.add('selected');
+          });
+        });
+
+        questionsBox.appendChild(group);
+      });
+    }
+
+    function resetActiveTest() {
+      activeTestPanel.classList.add('hidden');
+      selectorView.classList.remove('hidden');
+      questionsBox.innerHTML = '';
+      resultsFeedback.classList.add('hidden');
+    }
+
+    cancelBtn.addEventListener('click', resetActiveTest);
+
+    submitBtn.addEventListener('click', () => {
+      const questions = neetData[activeSubject].tests[activeTestNum];
+      let score = 0;
+      let allAnswered = true;
+
+      questions.forEach((q, idx) => {
+        const checkedInput = questionsBox.querySelector(`input[name="q_${idx}"]:checked`);
+        if (!checkedInput) {
+          allAnswered = false;
+          return;
+        }
+
+        const selectedIndex = parseInt(checkedInput.value);
+        const labels = questionsBox.querySelectorAll(`.quiz-question-group`)[idx].querySelectorAll('.quiz-opt-label');
+
+        // Reset label classes
+        labels.forEach(l => l.classList.remove('correct', 'wrong'));
+
+        if (selectedIndex === q.a) {
+          score++;
+          labels[selectedIndex].classList.add('correct');
+        } else {
+          labels[selectedIndex].classList.add('wrong');
+          labels[q.a].classList.add('correct');
+        }
+      });
+
+      if (!allAnswered) {
+        alert("Please complete all questions before submitting!");
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.style.opacity = '0.5';
+
+      if (score === 3) {
+        resultsFeedback.className = 'quiz-feedback success';
+        resultsFeedback.innerHTML = `<strong>Perfect Score! 3/3 Correct.</strong> Congratulations! Confetti blast deployed.`;
+        resultsFeedback.classList.remove('hidden');
+        triggerConfetti();
+      } else {
+        resultsFeedback.className = 'quiz-feedback error';
+        resultsFeedback.innerHTML = `<strong>Result: ${score}/3 Correct.</strong> Review green options and try again.`;
+        resultsFeedback.classList.remove('hidden');
+      }
+
+      // Lock inputs
+      questionsBox.querySelectorAll('input[type="radio"]').forEach(r => r.disabled = true);
+    });
+
+    // Confetti System
+    function triggerConfetti() {
+      const container = document.createElement('div');
+      container.style.position = 'fixed';
+      container.style.top = '0';
+      container.style.left = '0';
+      container.style.width = '100%';
+      container.style.height = '100%';
+      container.style.pointerEvents = 'none';
+      container.style.zIndex = '9999';
+      document.body.appendChild(container);
+
+      const colors = ['#00f2fe', '#ff007f', '#9d4edd', '#39ff14', '#ffea00'];
+
+      // Left blast
+      launchCloud(0, window.innerHeight, 45, container, colors);
+      // Right blast
+      launchCloud(window.innerWidth, window.innerHeight, 135, container, colors);
+
+      setTimeout(() => {
+        document.body.removeChild(container);
+      }, 5000);
+    }
+
+    function launchCloud(startX, startY, angleDeg, container, colors) {
+      for (let i = 0; i < 40; i++) {
+        const particle = document.createElement('div');
+        particle.style.position = 'absolute';
+        particle.style.left = `${startX}px`;
+        particle.style.top = `${startY}px`;
+        particle.style.width = `${Math.random() * 8 + 6}px`;
+        particle.style.height = `${Math.random() * 12 + 6}px`;
+        particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        particle.style.borderRadius = '2px';
+        
+        const angle = (angleDeg + (Math.random() * 40 - 20)) * Math.PI / 180;
+        const speed = Math.random() * 18 + 12;
+        
+        let velX = Math.cos(angle) * speed;
+        let velY = -Math.sin(angle) * speed;
+        let posX = startX;
+        let posY = startY;
+        let rotation = Math.random() * 360;
+        let rotSpeed = Math.random() * 15 - 7.5;
+        
+        container.appendChild(particle);
+
+        function update() {
+          velY += 0.45; // gravity
+          velX *= 0.98; // air drag
+          posX += velX;
+          posY += velY;
+          rotation += rotSpeed;
+
+          particle.style.left = `${posX}px`;
+          particle.style.top = `${posY}px`;
+          particle.style.transform = `rotate(${rotation}deg)`;
+
+          if (posY < window.innerHeight + 50) {
+            requestAnimationFrame(update);
+          }
+        }
+        requestAnimationFrame(update);
+      }
+    }
+
+    // Always sliding options switcher
+    const tabList = document.querySelector('.tab-list');
+    let autoSlideInterval;
+    function startAutoSlide() {
+      autoSlideInterval = setInterval(() => {
+        if (!selectorView.classList.contains('hidden')) {
+          const buttons = Array.from(tabBtns);
+          const currentIndex = buttons.findIndex(b => b.classList.contains('active'));
+          const nextIndex = (currentIndex + 1) % buttons.length;
+          buttons[nextIndex].click();
+        }
+      }, 7000);
+    }
+    if (tabList) {
+      tabList.addEventListener('mouseenter', () => clearInterval(autoSlideInterval));
+      tabList.addEventListener('mouseleave', startAutoSlide);
+    }
+    startAutoSlide();
+
+    // Initialize
+    renderSubjectDetails();
+  </script>
+<script src="bg_spawner.js"></script>
+</body>
+</html>

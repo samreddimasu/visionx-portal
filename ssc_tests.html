@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SSC - Interactive Testing Center</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- CSS Styles -->
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      background-color: #030307;
+      color: #f3f4f6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    .testing-layout {
+      max-width: 1200px;
+      margin: 100px auto 40px;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 30px;
+    }
+    .testing-sidebar {
+      background: rgba(10, 10, 18, 0.45);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 20px;
+      padding: 20px;
+      height: fit-content;
+    }
+    .sidebar-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--neon-cyan);
+      text-shadow: 0 0 8px var(--neon-cyan-glow);
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+      font-family: var(--font-cyber);
+    }
+    .tab-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .tab-btn-item {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      color: #9ca3af;
+      border-radius: 12px;
+      padding: 12px 16px;
+      text-align: left;
+      font-family: var(--font-cyber);
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .tab-btn-item:hover {
+      background: rgba(0, 242, 254, 0.05);
+      color: #fff;
+      border-color: rgba(0, 242, 254, 0.3);
+    }
+    .tab-btn-item.active {
+      background: linear-gradient(135deg, rgba(0, 242, 254, 0.15), rgba(157, 78, 221, 0.15));
+      color: #fff;
+      border-color: var(--neon-cyan);
+      box-shadow: 0 0 15px rgba(0, 242, 254, 0.15);
+    }
+    .testing-main-panel {
+      background: rgba(10, 10, 18, 0.45);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 20px;
+      padding: 35px;
+      position: relative;
+    }
+    .tests-header-block {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      padding-bottom: 15px;
+      margin-bottom: 25px;
+    }
+    .tests-title {
+      font-size: 26px;
+      font-weight: 900;
+      color: #fff;
+      margin-bottom: 5px;
+      font-family: var(--font-cyber);
+    }
+    .tests-desc {
+      color: #9ca3af;
+      font-size: 14px;
+    }
+    .test-list-box {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .test-card {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 20px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      transition: all 0.3s ease;
+    }
+    .test-card:hover {
+      background: rgba(255, 255, 255, 0.04);
+      border-color: rgba(255, 255, 255, 0.1);
+      transform: translateX(4px);
+    }
+    .test-info h5 {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 4px;
+      color: #fff;
+    }
+    .test-info p {
+      font-size: 12px;
+      color: #9ca3af;
+    }
+    @media (max-width: 900px) {
+      .testing-layout {
+        grid-template-columns: 1fr;
+        margin-top: 80px;
+      }
+    }
+  </style>
+</head>
+<body class="apple-theme">
+  <!-- Ambient Glows -->
+  <div class="ambient-glows">
+    <div class="glow-sphere glow-sphere-1" style="background: radial-gradient(circle, rgba(157, 78, 221, 0.18) 0%, transparent 70%);"></div>
+    <div class="glow-sphere glow-sphere-2" style="background: radial-gradient(circle, rgba(0, 242, 254, 0.15) 0%, transparent 70%);"></div>
+  </div>
+
+  <!-- Graduation Cap Background -->
+  <div id="bg-grad-cap" class="corner-grad-cap">
+    <i class="fa-solid fa-graduation-cap"></i>
+  </div>
+
+  <!-- Top Navigation Bar -->
+  <nav class="top-nav glassmorphic">
+    <div class="nav-brand">
+      <i class="fa-solid fa-graduation-cap logo-icon"></i>
+      <span>VISION<span class="neon-purple-text">X</span> // SSC MOCK EXAMS</span>
+    </div>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link"><i class="fa-solid fa-house"></i> Dashboard</a>
+    </div>
+  </nav>
+
+  <div class="testing-layout">
+    <!-- Sidebar -->
+    <aside class="testing-sidebar">
+      <h4 class="sidebar-title"><i class="fa-solid fa-graduation-cap"></i> EXAM SUBJECTS</h4>
+      <div class="tab-list">
+        <button class="tab-btn-item active" data-subj="math">📐 Mathematics</button>
+        <button class="tab-btn-item" data-subj="physics">🧲 Physical Science</button>
+        <button class="tab-btn-item" data-subj="chemistry">🧪 Chemistry</button>
+        <button class="tab-btn-item" data-subj="biology">🧬 Biology</button>
+        <button class="tab-btn-item" data-subj="social">🌍 Social Studies</button>
+        <button class="tab-btn-item" data-subj="english">📖 English</button>
+      </div>
+    </aside>
+
+    <!-- Main Exam Panel -->
+    <main class="testing-main-panel">
+      <!-- Exam Selector View -->
+      <div id="exam-selector-view">
+        <div class="tests-header-block">
+          <h2 id="disp-title" class="tests-title">Mathematics</h2>
+          <p id="disp-desc" class="tests-desc">Master State board SSC syllabus topics: Real Numbers, Progressions, Mensuration, Coordinate Geometry, Trigonometry, and Probability.</p>
+        </div>
+        <div id="tests-list-container" class="test-list-box">
+          <!-- Dynamically generated tests list -->
+        </div>
+      </div>
+
+      <!-- Active Test Taker Area (Hidden by default) -->
+      <div id="active-test-panel" class="active-test-panel hidden" style="margin-top: 0;">
+        <div class="test-header">
+          <h4 id="active-test-title">Mock Test 1: Mathematics</h4>
+          <button id="cancel-test-btn" class="action-btn-outline">Cancel Test</button>
+        </div>
+        <div id="test-questions-box">
+          <!-- Dynamic Questions Load Here -->
+        </div>
+        <button id="submit-test-btn" class="action-btn neon-btn-green">SUBMIT MOCK TEST</button>
+        <div id="test-results-feedback" class="quiz-feedback hidden"></div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // SSC Subject Syllabi & Mock Exams Data
+    const sscData = {
+      math: {
+        title: "Mathematics",
+        description: "Master State board SSC syllabus topics: Real Numbers, Progressions, Mensuration, Coordinate Geometry, Trigonometry, and Probability.",
+        tests: {
+          1: [
+            { q: "If HCF of 306 and 657 is 9, what is their LCM?", o: ["22338", "3069", "2285", "10124"], a: 0 },
+            { q: "If x, y, z are in Arithmetic Progression (AP), then 2y is equal to:", o: ["x + z", "xz", "x - z", "(x + z)/2"], a: 0 },
+            { q: "The distance between the points (a, b) and (-a, -b) is:", o: ["2√(a²+b²)", "√(a²+b²)", "2(a+b)", "0"], a: 0 }
+          ],
+          2: [
+            { q: "The total surface area of a solid hemisphere of radius r is:", o: ["2πr²", "3πr²", "4πr²", "πr²"], a: 1 },
+            { q: "If P(E) = 0.05, what is the probability of 'not E'?", o: ["0.95", "0.05", "0.5", "0"], a: 0 },
+            { q: "If tan A = 4/3, then sin A is:", o: ["3/5", "4/5", "5/4", "3/4"], a: 1 }
+          ],
+          3: [
+            { q: "The class interval having the highest frequency in a grouped data is called:", o: ["Median class", "Modal class", "Mean class", "Class width"], a: 1 },
+            { q: "A cylindrical pencil sharpened at one edge is the combination of:", o: ["A cylinder and a cone", "A cylinder and a hemisphere", "A cone and a hemisphere", "Two cylinders"], a: 0 },
+            { q: "Which of the following cannot be the probability of an event?", o: ["2/3", "-1.5", "15%", "0.7"], a: 1 }
+          ]
+        }
+      },
+      physics: {
+        title: "Physical Science (Physics)",
+        description: "Understand State board topics in Heat, Refraction at Curved Surfaces, Lenses, Electric Current, and Electromagnetism.",
+        tests: {
+          1: [
+            { q: "The SI unit of heat is:", o: ["Joule", "Calorie", "Celsius", "Kelvin"], a: 0 },
+            { q: "A focal length of a plano-convex lens of refractive index 1.5 and radius of curvature 20 cm is:", o: ["20 cm", "40 cm", "10 cm", "30 cm"], a: 1 },
+            { q: "The device used for producing electric current is called a:", o: ["Generator", "Galvanometer", "Ammeter", "Motor"], a: 0 }
+          ],
+          2: [
+            { q: "Which lens is used to correct presbyopia?", o: ["Convex lens", "Concave lens", "Bifocal lens", "Cylindrical lens"], a: 2 },
+            { q: "According to Snell's law, the ratio sin i / sin r is equal to:", o: ["Constant", "Zero", "1", "Infinity"], a: 0 },
+            { q: "The electrical resistance of a conductor is directly proportional to its:", o: ["Length", "Area of cross-section", "Temperature", "Current"], a: 0 }
+          ],
+          3: [
+            { q: "The magnetic field lines inside a current-carrying straight solenoid are:", o: ["Concentric circles", "Parallel straight lines", "Divergent lines", "Zero"], a: 1 },
+            { q: "Which color of light deviates the least through a glass prism?", o: ["Violet", "Red", "Green", "Yellow"], a: 1 },
+            { q: "What is the relation between focal length f and radius of curvature R of a spherical mirror?", o: ["f = 2R", "f = R/2", "f = R", "f = R/3"], a: 1 }
+          ]
+        }
+      },
+      chemistry: {
+        title: "Chemistry",
+        description: "Excel in State board modules: Chemical Equations, Acids Bases & Salts, Atomic Structure, Chemical Bonding, Metallurgy, and Carbon Compounds.",
+        tests: {
+          1: [
+            { q: "The process of heating an ore strongly below its melting point in the presence of excess air is:", o: ["Roasting", "Calcination", "Smelting", "Reduction"], a: 0 },
+            { q: "Which acid is present in tomato?", o: ["Citric acid", "Oxalic acid", "Acetic acid", "Tartaric acid"], a: 1 },
+            { q: "The maximum number of electrons that can be accommodated in the M-shell is:", o: ["2", "8", "18", "32"], a: 2 }
+          ],
+          2: [
+            { q: "The bond formed by sharing of electron pairs between two atoms is called:", o: ["Ionic bond", "Covalent bond", "Metallic bond", "Coordinate bond"], a: 1 },
+            { q: "The modern periodic table is classified into how many groups and periods?", o: ["18 groups, 7 periods", "7 groups, 18 periods", "8 groups, 7 periods", "18 groups, 8 periods"], a: 0 },
+            { q: "Which element is the chief constituent of all organic compounds?", o: ["Hydrogen", "Carbon", "Oxygen", "Nitrogen"], a: 1 }
+          ],
+          3: [
+            { q: "The chemical formula of Rust is:", o: ["Fe₃O₄", "Fe₂O₃ · xH₂O", "Fe(OH)₃", "FeCO₃"], a: 1 },
+            { q: "An element reacts with oxygen to give a compound with a high melting point. This compound is soluble in water. The element is likely to be:", o: ["Calcium", "Carbon", "Silicon", "Iron"], a: 0 },
+            { q: "Which of the following hydrocarbons is unsaturated?", o: ["CH₄", "C₂H₆", "C₂H₄", "C₃H₈"], a: 2 }
+          ]
+        }
+      },
+      biology: {
+        title: "Biology / Natural Science",
+        description: "Study State board SSC topics: Nutrition, Respiration, Transportation, Coordination, Reproduction, and Coordination in Life Processes.",
+        tests: {
+          1: [
+            { q: "The study of internal structure of plants is called:", o: ["Anatomy", "Morphology", "Physiology", "Taxonomy"], a: 0 },
+            { q: "Which part of the brain controls reflex actions and simple responses?", o: ["Cerebrum", "Cerebellum", "Medulla Oblongata", "Spinal Cord"], a: 3 },
+            { q: "The structure that prevents entry of food into the windpipe is:", o: ["Pharynx", "Larynx", "Epiglottis", "Esophagus"], a: 2 }
+          ],
+          2: [
+            { q: "During photosynthesis, light energy is converted into:", o: ["Chemical energy", "Heat energy", "Electrical energy", "Mechanical energy"], a: 0 },
+            { q: "The number of salivary glands present in the human mouth is:", o: ["2 pairs", "3 pairs", "4 pairs", "5 pairs"], a: 1 },
+            { q: "The process of gaseous exchange in plants takes place through:", o: ["Stomata", "Lenticels", "Root hairs", "Both Stomata & Lenticels"], a: 3 }
+          ],
+          3: [
+            { q: "Which blood cells are responsible for blood clotting at injury sites?", o: ["Red Blood Cells", "White Blood Cells", "Blood Platelets", "Plasma"], a: 2 },
+            { q: "The structural and functional unit of human kidney is:", o: ["Neuron", "Nephron", "Alveoli", "Ureter"], a: 1 },
+            { q: "The hormone that regulates carbohydrate metabolism in human body is:", o: ["Adrenaline", "Insulin", "Thyroxine", "Estrogen"], a: 1 }
+          ]
+        }
+      },
+      social: {
+        title: "Social Studies",
+        description: "Excel in State board modules: India Relief Features, Ideas of Development, Production & Employment, and World Wars era.",
+        tests: {
+          1: [
+            { q: "The highest peak in India (Kanchenjunga) has an elevation of:", o: ["8586 m", "8848 m", "8611 m", "8126 m"], a: 0 },
+            { q: "In which year was the Suez Canal opened, shortening trade distance to Europe?", o: ["1859", "1869", "1889", "1909"], a: 1 },
+            { q: "Which institution is responsible for issuing currency notes in India?", o: ["State Bank of India", "Reserve Bank of India", "Finance Ministry", "NITI Aayog"], a: 1 }
+          ],
+          2: [
+            { q: "Which of the following lines of latitude passes through India?", o: ["Equator", "Tropic of Cancer", "Tropic of Capricorn", "Arctic Circle"], a: 1 },
+            { q: "The primary sector of economy in India provides employment to approximately:", o: ["20%", "45%", "60%", "10%"], a: 1 },
+            { q: "The Treaty of Versailles, signed after WWI, was heavily biassed against:", o: ["France", "Germany", "Italy", "Great Britain"], a: 1 }
+          ],
+          3: [
+            { q: "The Great Depression started in which year?", o: ["1929", "1939", "1919", "1945"], a: 0 },
+            { q: "Which state in India has the highest literacy rate?", o: ["Kerala", "Tamil Nadu", "Maharashtra", "Delhi"], a: 0 },
+            { q: "The right to information act (RTI) was enacted in India in:", o: ["2001", "2005", "2010", "2015"], a: 1 }
+          ]
+        }
+      },
+      english: {
+        title: "English",
+        description: "Master State board SSC curriculum: Voice, Direct & Indirect Speech, Prepositions, Synonyms, and Sentence Corrections.",
+        tests: {
+          1: [
+            { q: "What is the plural of 'Index'?", o: ["Indexes", "Indices", "Indexess", "Indicies"], a: 1 },
+            { q: "Fill in the blank: If I ____ a bird, I would fly to you.", o: ["am", "was", "were", "had been"], a: 2 },
+            { q: "What is the synonym of the word 'Courageous'?", o: ["Fearful", "Brave", "Timid", "Weak"], a: 1 }
+          ],
+          2: [
+            { q: "Fill in: He has been living here ____ five years.", o: ["since", "for", "from", "during"], a: 1 },
+            { q: "What is the reported speech of: He said, 'I am writing a letter.'?", o: ["He said that he was writing a letter", "He said he is writing a letter", "He told that he wrote a letter", "He said that he had written a letter"], a: 0 },
+            { q: "Which word is an adjective?", o: ["Beauty", "Beautiful", "Beautifully", "Beautify"], a: 1 }
+          ],
+          3: [
+            { q: "Choose the correct passive voice: 'Close the door.'", o: ["Let the door close", "Let the door be closed", "You should close the door", "Let door close"], a: 1 },
+            { q: "Find the odd one out in spelling:", o: ["Committee", "Millennium", "Embarrass", "Ocurrence"], a: 3 },
+            { q: "Identify the figure of speech: As bold as a lion.", o: ["Metaphor", "Simile", "Alliteration", "Irony"], a: 1 }
+          ]
+        }
+      }
+    };
+
+    let activeSubject = 'math';
+    let activeTestNum = 1;
+
+    // Selectors
+    const tabBtns = document.querySelectorAll('.tab-btn-item');
+    const dispTitle = document.getElementById('disp-title');
+    const dispDesc = document.getElementById('disp-desc');
+    const selectorView = document.getElementById('exam-selector-view');
+    const testsList = document.getElementById('tests-list-container');
+
+    const activeTestPanel = document.getElementById('active-test-panel');
+    const activeTestTitle = document.getElementById('active-test-title');
+    const questionsBox = document.getElementById('test-questions-box');
+    const submitBtn = document.getElementById('submit-test-btn');
+    const cancelBtn = document.getElementById('cancel-test-btn');
+    const resultsFeedback = document.getElementById('test-results-feedback');
+
+    // Tab Handlers
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tabBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeSubject = btn.getAttribute('data-subj');
+        resetActiveTest();
+        renderSubjectDetails();
+      });
+    });
+
+    function renderSubjectDetails() {
+      const data = sscData[activeSubject];
+      dispTitle.innerText = data.title;
+      dispDesc.innerText = data.description;
+
+      testsList.innerHTML = '';
+      
+      const testsMeta = [
+        { level: "Foundation Level", xp: "10 XP", focus: "General Syllabus Intro" },
+        { level: "Intermediate Level", xp: "15 XP", focus: "Formula Applications" },
+        { level: "Advanced Level", xp: "25 XP", focus: "Hard Problem Solving" }
+      ];
+
+      [1, 2, 3].forEach(num => {
+        const meta = testsMeta[num - 1];
+        const card = document.createElement('div');
+        card.className = 'test-card';
+        card.innerHTML = `
+          <div class="test-info">
+            <h5>Mock Test ${num}: ${meta.level}</h5>
+            <p>3 Questions • ${meta.xp} Reward • ${meta.focus}</p>
+          </div>
+          <button class="action-btn neon-btn-cyan start-test-btn" data-test="${num}">START TEST</button>
+        `;
+        
+        card.querySelector('.start-test-btn').addEventListener('click', () => {
+          activeTestNum = num;
+          startMockTest();
+        });
+        
+        testsList.appendChild(card);
+      });
+    }
+
+    function startMockTest() {
+      selectorView.classList.add('hidden');
+      activeTestPanel.classList.remove('hidden');
+
+      const questions = sscData[activeSubject].tests[activeTestNum];
+      activeTestTitle.innerText = `Mock Test ${activeTestNum}: ${activeSubject.toUpperCase()}`;
+      
+      questionsBox.innerHTML = '';
+      resultsFeedback.classList.add('hidden');
+      submitBtn.disabled = false;
+      submitBtn.style.opacity = '1';
+
+      questions.forEach((q, idx) => {
+        const group = document.createElement('div');
+        group.className = 'quiz-question-group';
+        group.innerHTML = `
+          <p class="question-text">${idx + 1}. ${q.q}</p>
+          <div class="quiz-options-col">
+            ${q.o.map((opt, oIdx) => `
+              <label class="quiz-opt-label">
+                <input type="radio" name="q_${idx}" value="${oIdx}">
+                <span class="custom-radio"></span>
+                <span class="opt-text">${opt}</span>
+              </label>
+            `).join('')}
+          </div>
+        `;
+        
+        // Bind radio toggle handlers
+        group.querySelectorAll('.quiz-opt-label').forEach(label => {
+          label.addEventListener('click', () => {
+            if (submitBtn.disabled) return;
+            group.querySelectorAll('.quiz-opt-label').forEach(l => l.classList.remove('selected'));
+            label.classList.add('selected');
+          });
+        });
+
+        questionsBox.appendChild(group);
+      });
+    }
+
+    function resetActiveTest() {
+      activeTestPanel.classList.add('hidden');
+      selectorView.classList.remove('hidden');
+      questionsBox.innerHTML = '';
+      resultsFeedback.classList.add('hidden');
+    }
+
+    cancelBtn.addEventListener('click', resetActiveTest);
+
+    submitBtn.addEventListener('click', () => {
+      const questions = sscData[activeSubject].tests[activeTestNum];
+      let score = 0;
+      let allAnswered = true;
+
+      questions.forEach((q, idx) => {
+        const checkedInput = questionsBox.querySelector(`input[name="q_${idx}"]:checked`);
+        if (!checkedInput) {
+          allAnswered = false;
+          return;
+        }
+
+        const selectedIndex = parseInt(checkedInput.value);
+        const labels = questionsBox.querySelectorAll(`.quiz-question-group`)[idx].querySelectorAll('.quiz-opt-label');
+
+        // Reset label classes
+        labels.forEach(l => l.classList.remove('correct', 'wrong'));
+
+        if (selectedIndex === q.a) {
+          score++;
+          labels[selectedIndex].classList.add('correct');
+        } else {
+          labels[selectedIndex].classList.add('wrong');
+          labels[q.a].classList.add('correct');
+        }
+      });
+
+      if (!allAnswered) {
+        alert("Please complete all questions before submitting!");
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.style.opacity = '0.5';
+
+      if (score === 3) {
+        resultsFeedback.className = 'quiz-feedback success';
+        resultsFeedback.innerHTML = `<strong>Perfect Score! 3/3 Correct.</strong> Congratulations! Confetti blast deployed.`;
+        resultsFeedback.classList.remove('hidden');
+        triggerConfetti();
+      } else {
+        resultsFeedback.className = 'quiz-feedback error';
+        resultsFeedback.innerHTML = `<strong>Result: ${score}/3 Correct.</strong> Review green options and try again.`;
+        resultsFeedback.classList.remove('hidden');
+      }
+
+      // Lock inputs
+      questionsBox.querySelectorAll('input[type="radio"]').forEach(r => r.disabled = true);
+    });
+
+    // Confetti System
+    function triggerConfetti() {
+      const container = document.createElement('div');
+      container.style.position = 'fixed';
+      container.style.top = '0';
+      container.style.left = '0';
+      container.style.width = '100%';
+      container.style.height = '100%';
+      container.style.pointerEvents = 'none';
+      container.style.zIndex = '9999';
+      document.body.appendChild(container);
+
+      const colors = ['#00f2fe', '#ff007f', '#9d4edd', '#39ff14', '#ffea00'];
+
+      // Left blast
+      launchCloud(0, window.innerHeight, 45, container, colors);
+      // Right blast
+      launchCloud(window.innerWidth, window.innerHeight, 135, container, colors);
+
+      setTimeout(() => {
+        document.body.removeChild(container);
+      }, 5000);
+    }
+
+    function launchCloud(startX, startY, angleDeg, container, colors) {
+      for (let i = 0; i < 40; i++) {
+        const particle = document.createElement('div');
+        particle.style.position = 'absolute';
+        particle.style.left = `${startX}px`;
+        particle.style.top = `${startY}px`;
+        particle.style.width = `${Math.random() * 8 + 6}px`;
+        particle.style.height = `${Math.random() * 12 + 6}px`;
+        particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        particle.style.borderRadius = '2px';
+        
+        const angle = (angleDeg + (Math.random() * 40 - 20)) * Math.PI / 180;
+        const speed = Math.random() * 18 + 12;
+        
+        let velX = Math.cos(angle) * speed;
+        let velY = -Math.sin(angle) * speed;
+        let posX = startX;
+        let posY = startY;
+        let rotation = Math.random() * 360;
+        let rotSpeed = Math.random() * 15 - 7.5;
+        
+        container.appendChild(particle);
+
+        function update() {
+          velY += 0.45; // gravity
+          velX *= 0.98; // air drag
+          posX += velX;
+          posY += velY;
+          rotation += rotSpeed;
+
+          particle.style.left = `${posX}px`;
+          particle.style.top = `${posY}px`;
+          particle.style.transform = `rotate(${rotation}deg)`;
+
+          if (posY < window.innerHeight + 50) {
+            requestAnimationFrame(update);
+          }
+        }
+        requestAnimationFrame(update);
+      }
+    }
+
+    // Always sliding options switcher
+    const tabList = document.querySelector('.tab-list');
+    let autoSlideInterval;
+    function startAutoSlide() {
+      autoSlideInterval = setInterval(() => {
+        // Only auto slide if we are in the selector view (not active taking test)
+        if (!selectorView.classList.contains('hidden')) {
+          const buttons = Array.from(tabBtns);
+          const currentIndex = buttons.findIndex(b => b.classList.contains('active'));
+          const nextIndex = (currentIndex + 1) % buttons.length;
+          buttons[nextIndex].click();
+        }
+      }, 7000);
+    }
+    if (tabList) {
+      tabList.addEventListener('mouseenter', () => clearInterval(autoSlideInterval));
+      tabList.addEventListener('mouseleave', startAutoSlide);
+    }
+    startAutoSlide();
+
+    // Initialize
+    renderSubjectDetails();
+  </script>
+<script src="bg_spawner.js"></script>
+</body>
+</html>

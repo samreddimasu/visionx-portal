@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Polytechnic - Testing Center</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- CSS Styles -->
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      background-color: #030307;
+      color: #f3f4f6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    .testing-layout {
+      max-width: 1200px;
+      margin: 100px auto 40px;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 30px;
+    }
+    .testing-sidebar {
+      background: rgba(10, 10, 18, 0.45);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 20px;
+      padding: 20px;
+      height: fit-content;
+    }
+    .sidebar-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--neon-cyan);
+      text-shadow: 0 0 8px var(--neon-cyan-glow);
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+      font-family: var(--font-cyber);
+    }
+    .tab-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .tab-btn-item {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      color: #9ca3af;
+      border-radius: 12px;
+      padding: 12px 16px;
+      text-align: left;
+      font-family: var(--font-cyber);
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .tab-btn-item:hover {
+      background: rgba(0, 242, 254, 0.05);
+      color: #fff;
+      border-color: rgba(0, 242, 254, 0.3);
+    }
+    .tab-btn-item.active {
+      background: linear-gradient(135deg, rgba(0, 242, 254, 0.15), rgba(157, 78, 221, 0.15));
+      color: #fff;
+      border-color: var(--neon-cyan);
+      box-shadow: 0 0 15px rgba(0, 242, 254, 0.15);
+    }
+    .testing-main-panel {
+      background: rgba(10, 10, 18, 0.45);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 20px;
+      padding: 35px;
+      position: relative;
+    }
+    .tests-header-block {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      padding-bottom: 15px;
+      margin-bottom: 25px;
+    }
+    .tests-title {
+      font-size: 26px;
+      font-weight: 900;
+      color: #fff;
+      margin-bottom: 5px;
+      font-family: var(--font-cyber);
+    }
+    .tests-desc {
+      color: #9ca3af;
+      font-size: 14px;
+    }
+    .test-list-box {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .test-card {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 20px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      transition: all 0.3s ease;
+    }
+    .test-card:hover {
+      background: rgba(255, 255, 255, 0.04);
+      border-color: rgba(255, 255, 255, 0.1);
+      transform: translateX(4px);
+    }
+    .test-info h5 {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 4px;
+      color: #fff;
+    }
+    .test-info p {
+      font-size: 12px;
+      color: #9ca3af;
+    }
+    @media (max-width: 900px) {
+      .testing-layout {
+        grid-template-columns: 1fr;
+        margin-top: 80px;
+      }
+    }
+  </style>
+</head>
+<body class="apple-theme">
+  <!-- Ambient Glows -->
+  <div class="ambient-glows">
+    <div class="glow-sphere glow-sphere-1" style="background: radial-gradient(circle, rgba(157, 78, 221, 0.18) 0%, transparent 70%);"></div>
+    <div class="glow-sphere glow-sphere-2" style="background: radial-gradient(circle, rgba(0, 242, 254, 0.15) 0%, transparent 70%);"></div>
+  </div>
+
+  <!-- Graduation Cap Background -->
+  <div id="bg-grad-cap" class="corner-grad-cap">
+    <i class="fa-solid fa-graduation-cap"></i>
+  </div>
+
+  <!-- Top Navigation Bar -->
+  <nav class="top-nav glassmorphic">
+    <div class="nav-brand">
+      <i class="fa-solid fa-graduation-cap logo-icon"></i>
+      <span>VISION<span class="neon-purple-text">X</span> // POLYTECHNIC EXAMS</span>
+    </div>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link"><i class="fa-solid fa-house"></i> Dashboard</a>
+    </div>
+  </nav>
+
+  <div class="testing-layout">
+    <!-- Sidebar -->
+    <aside class="testing-sidebar">
+      <h4 class="sidebar-title"><i class="fa-solid fa-graduation-cap"></i> EXAM SUBJECTS</h4>
+      <div class="tab-list">
+        <button class="tab-btn-item active" data-subj="math">📐 Applied Mathematics</button>
+        <button class="tab-btn-item" data-subj="physics">🧲 Applied Physics</button>
+        <button class="tab-btn-item" data-subj="chemistry">🧪 Applied Chemistry</button>
+        <button class="tab-btn-item" data-subj="cs">💻 Information Technology</button>
+        <button class="tab-btn-item" data-subj="electrical">⚡ Basic Electrical & Electronics</button>
+        <button class="tab-btn-item" data-subj="mechanics">⚙️ Engineering Mechanics</button>
+      </div>
+    </aside>
+
+    <!-- Main Exam Panel -->
+    <main class="testing-main-panel">
+      <!-- Exam Selector View -->
+      <div id="exam-selector-view">
+        <div class="tests-header-block">
+          <h2 id="disp-title" class="tests-title">Applied Mathematics</h2>
+          <p id="disp-desc" class="tests-desc">Build advanced computation skills: Matrices, Complex Numbers, Analytical Geometry, Differential and Integral Calculus.</p>
+        </div>
+        <div id="tests-list-container" class="test-list-box">
+          <!-- Dynamically generated tests list -->
+        </div>
+      </div>
+
+      <!-- Active Test Taker Area (Hidden by default) -->
+      <div id="active-test-panel" class="active-test-panel hidden" style="margin-top: 0;">
+        <div class="test-header">
+          <h4 id="active-test-title">Mock Test 1: Mathematics</h4>
+          <button id="cancel-test-btn" class="action-btn-outline">Cancel Test</button>
+        </div>
+        <div id="test-questions-box">
+          <!-- Dynamic Questions Load Here -->
+        </div>
+        <button id="submit-test-btn" class="action-btn neon-btn-green">SUBMIT MOCK TEST</button>
+        <div id="test-results-feedback" class="quiz-feedback hidden"></div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // Polytechnic Subject Syllabi & Mock Exams Data
+    const polyData = {
+      math: {
+        title: "Applied Mathematics",
+        description: "Build advanced computation skills: Matrices, Complex Numbers, Analytical Geometry, Differential and Integral Calculus.",
+        tests: {
+          1: [
+            { q: "If A is a square matrix of order 3 such that |A| = 5, then |adj A| is equal to:", o: ["5", "25", "125", "10"], a: 1 },
+            { q: "The value of i^99 is equal to:", o: ["1", "-1", "i", "-i"], a: 3 },
+            { q: "The eccentricity of the ellipse 4x² + 9y² = 36 is:", o: ["√5/3", "5/9", "2/3", "1/2"], a: 0 }
+          ],
+          2: [
+            { q: "The derivative of log(sec x) with respect to x is:", o: ["tan x", "cot x", "sec x", "cos x"], a: 0 },
+            { q: "The integral of (1 / x) dx is:", o: ["log |x| + C", "e^x + C", "-1/x² + C", "x + C"], a: 0 },
+            { q: "The order of the differential equation d²y/dx² + (dy/dx)³ = 0 is:", o: ["1", "2", "3", "4"], a: 1 }
+          ],
+          3: [
+            { q: "The distance between the parallel lines 3x - 4y + 5 = 0 and 3x - 4y + 15 = 0 is:", o: ["2", "5", "10", "1"], a: 0 },
+            { q: "The value of limit (sin x) / x as x approaches 0 is:", o: ["0", "1", "Infinity", "Undefined"], a: 1 },
+            { q: "If two vectors A and B are perpendicular, their dot product A·B is equal to:", o: ["0", "1", "AB", "-1"], a: 0 }
+          ]
+        }
+      },
+      physics: {
+        title: "Applied Physics",
+        description: "Study core principles of physical measurement: Units & Dimensions, Elements of Vectors, Kinematics & Friction, and Modern Physics.",
+        tests: {
+          1: [
+            { q: "The dimensional formula of Force is:", o: ["M L T⁻¹", "M L T⁻²", "M L² T⁻²", "M L⁻¹ T⁻²"], a: 1 },
+            { q: "Which of the following is a scalar quantity?", o: ["Displacement", "Acceleration", "Work", "Force"], a: 2 },
+            { q: "The coefficient of friction depends on:", o: ["Area of contact", "Nature of surfaces", "Weight of body", "Speed of sliding"], a: 1 }
+          ],
+          2: [
+            { q: "What is the relation between linear velocity v and angular velocity w?", o: ["v = w / r", "v = r w", "v = r² w", "v = w"], a: 1 },
+            { q: "A body is thrown vertically upwards with a velocity of 49 m/s. The time taken to reach the maximum height is (g = 9.8 m/s²):", o: ["5 s", "10 s", "2.5 s", "8 s"], a: 0 },
+            { q: "The phenomenon of light bending around obstacles is called:", o: ["Refraction", "Diffraction", "Polarization", "Interference"], a: 1 }
+          ],
+          3: [
+            { q: "According to Einstein's photoelectric equation, the maximum kinetic energy of emitted photoelectrons depends on:", o: ["Intensity of light", "Frequency of light", "Velocity of light", "Source size"], a: 1 },
+            { q: "The speed of sound in dry air at 0°C is approximately:", o: ["330 m/s", "344 m/s", "1500 m/s", "3 × 10⁸ m/s"], a: 0 },
+            { q: "The escape velocity of a projectile from the Earth is approximately:", o: ["11.2 km/s", "8.0 km/s", "11.2 m/s", "9.8 km/s"], a: 0 }
+          ]
+        }
+      },
+      chemistry: {
+        title: "Applied Chemistry",
+        description: "Excel in chemical technology parameters: Atomic Structure, Water Technology, Electrochemistry, Corrosion, and Polymers.",
+        tests: {
+          1: [
+            { q: "Which quantum number determines the orientation of orbitals in space?", o: ["Principal quantum number", "Azimuthal quantum number", "Magnetic quantum number", "Spin quantum number"], a: 2 },
+            { q: "The temporary hardness of water is due to the presence of bicarbonates of:", o: ["Calcium & Magnesium", "Sodium & Potassium", "Iron & Manganese", "Copper & Zinc"], a: 0 },
+            { q: "Which process is used for water softening using synthetic resins?", o: ["Zeolite process", "Ion-exchange process", "Lime-Soda process", "Permutit process"], a: 1 }
+          ],
+          2: [
+            { q: "The pH of a neutral solution at 25°C is:", o: ["0", "7", "14", "1"], a: 1 },
+            { q: "In an electrochemical cell, oxidation takes place at the:", o: ["Anode", "Cathode", "Salt bridge", "Electrolyte"], a: 0 },
+            { q: "The chemical composition of Rust is:", o: ["Fe₃O₄", "Fe₂O₃ · xH₂O", "Fe(OH)₃", "FeO"], a: 1 }
+          ],
+          3: [
+            { q: "Which of the following is an example of an addition polymer?", o: ["Nylon 6,6", "Polythene", "Bakelite", "Terylene"], a: 1 },
+            { q: "The main constituent of Natural Gas is:", o: ["Methane", "Ethane", "Propane", "Butane"], a: 0 },
+            { q: "Volcanization of rubber involves heating raw rubber with:", o: ["Sulfur", "Carbon", "Oxygen", "Phosphorus"], a: 0 }
+          ]
+        }
+      },
+      cs: {
+        title: "Information Technology & Computer Programming",
+        description: "Understand fundamental software patterns: Basic IT concepts, Operating Systems, C Programming Basics, Loops, Arrays, and Functions.",
+        tests: {
+          1: [
+            { q: "In C programming, which symbol is used for single-line comments?", o: ["/*", "//", "#", "--"], a: 1 },
+            { q: "What is the size of an 'int' data type in standard 32-bit C compilers?", o: ["1 byte", "2 bytes", "4 bytes", "8 bytes"], a: 2 },
+            { q: "Which loop structure in C is guaranteed to execute at least once?", o: ["while", "for", "do-while", "nested loop"], a: 2 }
+          ],
+          2: [
+            { q: "In C, array indices always start from:", o: ["1", "0", "-1", "any value"], a: 1 },
+            { q: "Which keyword is used to return value from a function in C?", o: ["exit", "void", "return", "break"], a: 2 },
+            { q: "A pointer variable is used to store:", o: ["Integer values", "Character strings", "Address of another variable", "Decimal floats"], a: 2 }
+          ],
+          3: [
+            { q: "Which header file is required to use printf() and scanf() in C?", o: ["conio.h", "math.h", "stdio.h", "stdlib.h"], a: 2 },
+            { q: "The process of translating source code into machine language is done by a:", o: ["Linker", "Compiler", "Interpreter", "Debugger"], a: 1 },
+            { q: "What is the extension of a compiled C executable on Windows?", o: [".c", ".obj", ".exe", ".h"], a: 2 }
+          ]
+        }
+      },
+      electrical: {
+        title: "Basic Electrical & Electronics",
+        description: "Grasp electrical infrastructure parameters: Ohm's Law, DC circuits, Electromagnetic Induction, AC basics, and Semiconductor Diodes.",
+        tests: {
+          1: [
+            { q: "According to Ohm's Law, current (I) is equal to:", o: ["V / R", "V * R", "R / V", "V² / R"], a: 0 },
+            { q: "Three resistors of 6 ohms each are connected in parallel. Equivalent resistance is:", o: ["18 ohms", "2 ohms", "3 ohms", "0.5 ohms"], a: 1 },
+            { q: "The unit of electric potential is:", o: ["Ampere", "Ohm", "Volt", "Watt"], a: 2 }
+          ],
+          2: [
+            { q: "The frequency of AC mains supply in India is:", o: ["50 Hz", "60 Hz", "110 Hz", "220 Hz"], a: 0 },
+            { q: "A transformer works on the principle of:", o: ["Self-induction", "Mutual induction", "Electrostatic attraction", "Magnetic hysteresis"], a: 1 },
+            { q: "Which semiconductor material is most commonly used in electronics?", o: ["Germanium", "Silicon", "Carbon", "Gallium"], a: 1 }
+          ],
+          3: [
+            { q: "A P-N junction diode acts as a closed switch during:", o: ["Reverse bias", "Forward bias", "Zero bias", "Breakdown region"], a: 1 },
+            { q: "The binary equivalent of decimal number 5 is:", o: ["101", "110", "100", "011"], a: 0 },
+            { q: "Which logic gate outputs a high signal ONLY when all inputs are high?", o: ["OR gate", "AND gate", "NAND gate", "XOR gate"], a: 1 }
+          ]
+        }
+      },
+      mechanics: {
+        title: "Engineering Mechanics",
+        description: "Master mechanical structural frameworks: Coplanar Force Systems, Friction, Centroids, Moment of Inertia, and Simple Machines.",
+        tests: {
+          1: [
+            { q: "According to Lami's Theorem, forces must be:", o: ["Coplanar & collinear", "Coplanar & concurrent", "Non-coplanar & parallel", "Concurrent & parallel"], a: 1 },
+            { q: "The angle which the resultant force makes with the normal of contact surfaces during limiting friction is:", o: ["Angle of repose", "Angle of friction", "Angle of shear", "Zero"], a: 1 },
+            { q: "The centroid of a right-angled triangle of base b and height h from its vertical side is located at:", o: ["b/3", "b/2", "2b/3", "h/3"], a: 0 }
+          ],
+          2: [
+            { q: "The moment of inertia of a circular section of diameter d about its centroidal axis is:", o: ["πd⁴ / 64", "πd⁴ / 32", "πd³ / 32", "πd⁴ / 128"], a: 0 },
+            { q: "In a simple machine, the ratio of mechanical advantage (MA) to velocity ratio (VR) is called:", o: ["Output Work", "Efficiency", "Input power", "Mechanical strain"], a: 1 },
+            { q: "The mechanical advantage of a first-class lever can be:", o: ["Less than 1", "Greater than 1", "Equal to 1", "Any of these"], a: 3 }
+          ],
+          3: [
+            { q: "A machine is said to be reversible if its efficiency is:", o: ["Greater than 50%", "Less than 50%", "Equal to 100%", "Zero"], a: 0 },
+            { q: "The SI unit of Moment of Inertia of area is:", o: ["kg·m²", "m⁴", "m³", "N·m"], a: 1 },
+            { q: "The force resolution along horizontal axis of a force F acting at angle A with horizontal is:", o: ["F cos A", "F sin A", "F tan A", "F cot A"], a: 0 }
+          ]
+        }
+      }
+    };
+
+    let activeSubject = 'math';
+    let activeTestNum = 1;
+
+    // Selectors
+    const tabBtns = document.querySelectorAll('.tab-btn-item');
+    const dispTitle = document.getElementById('disp-title');
+    const dispDesc = document.getElementById('disp-desc');
+    const selectorView = document.getElementById('exam-selector-view');
+    const testsList = document.getElementById('tests-list-container');
+
+    const activeTestPanel = document.getElementById('active-test-panel');
+    const activeTestTitle = document.getElementById('active-test-title');
+    const questionsBox = document.getElementById('test-questions-box');
+    const submitBtn = document.getElementById('submit-test-btn');
+    const cancelBtn = document.getElementById('cancel-test-btn');
+    const resultsFeedback = document.getElementById('test-results-feedback');
+
+    // Tab Handlers
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tabBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeSubject = btn.getAttribute('data-subj');
+        resetActiveTest();
+        renderSubjectDetails();
+      });
+    });
+
+    function renderSubjectDetails() {
+      const data = polyData[activeSubject];
+      dispTitle.innerText = data.title;
+      dispDesc.innerText = data.description;
+
+      testsList.innerHTML = '';
+      
+      const testsMeta = [
+        { level: "Foundation Level", xp: "10 XP", focus: "General Syllabus Intro" },
+        { level: "Intermediate Level", xp: "15 XP", focus: "Formula Applications" },
+        { level: "Advanced Level", xp: "25 XP", focus: "Hard Problem Solving" }
+      ];
+
+      [1, 2, 3].forEach(num => {
+        const meta = testsMeta[num - 1];
+        const card = document.createElement('div');
+        card.className = 'test-card';
+        card.innerHTML = `
+          <div class="test-info">
+            <h5>Mock Test ${num}: ${meta.level}</h5>
+            <p>3 Questions • ${meta.xp} Reward • ${meta.focus}</p>
+          </div>
+          <button class="action-btn neon-btn-cyan start-test-btn" data-test="${num}">START TEST</button>
+        `;
+        
+        card.querySelector('.start-test-btn').addEventListener('click', () => {
+          activeTestNum = num;
+          startMockTest();
+        });
+        
+        testsList.appendChild(card);
+      });
+    }
+
+    function startMockTest() {
+      selectorView.classList.add('hidden');
+      activeTestPanel.classList.remove('hidden');
+
+      const questions = polyData[activeSubject].tests[activeTestNum];
+      activeTestTitle.innerText = `Mock Test ${activeTestNum}: ${activeSubject.toUpperCase()}`;
+      
+      questionsBox.innerHTML = '';
+      resultsFeedback.classList.add('hidden');
+      submitBtn.disabled = false;
+      submitBtn.style.opacity = '1';
+
+      questions.forEach((q, idx) => {
+        const group = document.createElement('div');
+        group.className = 'quiz-question-group';
+        group.innerHTML = `
+          <p class="question-text">${idx + 1}. ${q.q}</p>
+          <div class="quiz-options-col">
+            ${q.o.map((opt, oIdx) => `
+              <label class="quiz-opt-label">
+                <input type="radio" name="q_${idx}" value="${oIdx}">
+                <span class="custom-radio"></span>
+                <span class="opt-text">${opt}</span>
+              </label>
+            `).join('')}
+          </div>
+        `;
+        
+        // Bind radio toggle handlers
+        group.querySelectorAll('.quiz-opt-label').forEach(label => {
+          label.addEventListener('click', () => {
+            if (submitBtn.disabled) return;
+            group.querySelectorAll('.quiz-opt-label').forEach(l => l.classList.remove('selected'));
+            label.classList.add('selected');
+          });
+        });
+
+        questionsBox.appendChild(group);
+      });
+    }
+
+    function resetActiveTest() {
+      activeTestPanel.classList.add('hidden');
+      selectorView.classList.remove('hidden');
+      questionsBox.innerHTML = '';
+      resultsFeedback.classList.add('hidden');
+    }
+
+    cancelBtn.addEventListener('click', resetActiveTest);
+
+    submitBtn.addEventListener('click', () => {
+      const questions = polyData[activeSubject].tests[activeTestNum];
+      let score = 0;
+      let allAnswered = true;
+
+      questions.forEach((q, idx) => {
+        const checkedInput = questionsBox.querySelector(`input[name="q_${idx}"]:checked`);
+        if (!checkedInput) {
+          allAnswered = false;
+          return;
+        }
+
+        const selectedIndex = parseInt(checkedInput.value);
+        const labels = questionsBox.querySelectorAll(`.quiz-question-group`)[idx].querySelectorAll('.quiz-opt-label');
+
+        // Reset label classes
+        labels.forEach(l => l.classList.remove('correct', 'wrong'));
+
+        if (selectedIndex === q.a) {
+          score++;
+          labels[selectedIndex].classList.add('correct');
+        } else {
+          labels[selectedIndex].classList.add('wrong');
+          labels[q.a].classList.add('correct');
+        }
+      });
+
+      if (!allAnswered) {
+        alert("Please complete all questions before submitting!");
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.style.opacity = '0.5';
+
+      if (score === 3) {
+        resultsFeedback.className = 'quiz-feedback success';
+        resultsFeedback.innerHTML = `<strong>Perfect Score! 3/3 Correct.</strong> Congratulations! Confetti blast deployed.`;
+        resultsFeedback.classList.remove('hidden');
+        triggerConfetti();
+      } else {
+        resultsFeedback.className = 'quiz-feedback error';
+        resultsFeedback.innerHTML = `<strong>Result: ${score}/3 Correct.</strong> Review green options and try again.`;
+        resultsFeedback.classList.remove('hidden');
+      }
+
+      // Lock inputs
+      questionsBox.querySelectorAll('input[type="radio"]').forEach(r => r.disabled = true);
+    });
+
+    // Confetti System
+    function triggerConfetti() {
+      const container = document.createElement('div');
+      container.style.position = 'fixed';
+      container.style.top = '0';
+      container.style.left = '0';
+      container.style.width = '100%';
+      container.style.height = '100%';
+      container.style.pointerEvents = 'none';
+      container.style.zIndex = '9999';
+      document.body.appendChild(container);
+
+      const colors = ['#00f2fe', '#ff007f', '#9d4edd', '#39ff14', '#ffea00'];
+
+      // Left blast
+      launchCloud(0, window.innerHeight, 45, container, colors);
+      // Right blast
+      launchCloud(window.innerWidth, window.innerHeight, 135, container, colors);
+
+      setTimeout(() => {
+        document.body.removeChild(container);
+      }, 5000);
+    }
+
+    function launchCloud(startX, startY, angleDeg, container, colors) {
+      for (let i = 0; i < 40; i++) {
+        const particle = document.createElement('div');
+        particle.style.position = 'absolute';
+        particle.style.left = `${startX}px`;
+        particle.style.top = `${startY}px`;
+        particle.style.width = `${Math.random() * 8 + 6}px`;
+        particle.style.height = `${Math.random() * 12 + 6}px`;
+        particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        particle.style.borderRadius = '2px';
+        
+        const angle = (angleDeg + (Math.random() * 40 - 20)) * Math.PI / 180;
+        const speed = Math.random() * 18 + 12;
+        
+        let velX = Math.cos(angle) * speed;
+        let velY = -Math.sin(angle) * speed;
+        let posX = startX;
+        let posY = startY;
+        let rotation = Math.random() * 360;
+        let rotSpeed = Math.random() * 15 - 7.5;
+        
+        container.appendChild(particle);
+
+        function update() {
+          velY += 0.45; // gravity
+          velX *= 0.98; // air drag
+          posX += velX;
+          posY += velY;
+          rotation += rotSpeed;
+
+          particle.style.left = `${posX}px`;
+          particle.style.top = `${posY}px`;
+          particle.style.transform = `rotate(${rotation}deg)`;
+
+          if (posY < window.innerHeight + 50) {
+            requestAnimationFrame(update);
+          }
+        }
+        requestAnimationFrame(update);
+      }
+    }
+
+    // Always sliding highlight highlight transition helper
+    const tabList = document.querySelector('.tab-list');
+    // Implement auto sliding transitions for subject choice preview:
+    let autoSlideInterval;
+    function startAutoSlide() {
+      autoSlideInterval = setInterval(() => {
+        const buttons = Array.from(tabBtns);
+        const currentIndex = buttons.findIndex(b => b.classList.contains('active'));
+        const nextIndex = (currentIndex + 1) % buttons.length;
+        buttons[nextIndex].click();
+      }, 7000); // Toggles subjects automatically every 7 seconds
+    }
+    
+    // Pause auto slide on hover or click
+    tabList.addEventListener('mouseenter', () => clearInterval(autoSlideInterval));
+    tabList.addEventListener('mouseleave', startAutoSlide);
+    
+    startAutoSlide();
+
+    // Initialize
+    renderSubjectDetails();
+  </script>
+<script src="bg_spawner.js"></script>
+</body>
+</html>

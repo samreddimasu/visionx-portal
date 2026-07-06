@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EAPCET - Syllabus Hub</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- CSS Styles -->
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      background-color: #030307;
+      color: #f3f4f6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    .syllabus-layout {
+      max-width: 1200px;
+      margin: 100px auto 40px;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 30px;
+    }
+    .syllabus-sidebar {
+      background: rgba(10, 10, 18, 0.45);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 20px;
+      padding: 20px;
+      height: fit-content;
+    }
+    .sidebar-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--neon-cyan);
+      text-shadow: 0 0 8px var(--neon-cyan-glow);
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+      font-family: var(--font-cyber);
+    }
+    .syllabus-tab-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .tab-item-btn {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      color: #9ca3af;
+      border-radius: 12px;
+      padding: 12px 16px;
+      text-align: left;
+      font-family: var(--font-cyber);
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .tab-item-btn:hover {
+      background: rgba(0, 242, 254, 0.05);
+      color: #fff;
+      border-color: rgba(0, 242, 254, 0.3);
+    }
+    .tab-item-btn.active {
+      background: linear-gradient(135deg, rgba(0, 242, 254, 0.15), rgba(157, 78, 221, 0.15));
+      color: #fff;
+      border-color: var(--neon-cyan);
+      box-shadow: 0 0 15px rgba(0, 242, 254, 0.15);
+    }
+    .syllabus-main-panel {
+      background: rgba(10, 10, 18, 0.45);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 20px;
+      padding: 35px;
+    }
+    .syllabus-header-block {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      padding-bottom: 20px;
+      margin-bottom: 25px;
+    }
+    .syllabus-title {
+      font-size: 26px;
+      font-weight: 900;
+      color: #fff;
+      margin-bottom: 8px;
+      font-family: var(--font-cyber);
+    }
+    .syllabus-desc {
+      color: #9ca3af;
+      line-height: 1.6;
+      font-size: 14px;
+    }
+    .resources-title-bar {
+      font-size: 14px;
+      color: var(--neon-cyan);
+      letter-spacing: 0.5px;
+      margin-bottom: 15px;
+      font-family: var(--font-cyber);
+    }
+    .grid-card-resource {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 14px;
+      padding: 14px 18px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    .grid-card-resource:hover {
+      background: rgba(0, 242, 254, 0.05);
+      border-color: rgba(0, 242, 254, 0.3);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(0, 242, 254, 0.15);
+    }
+    @media (max-width: 900px) {
+      .syllabus-layout {
+        grid-template-columns: 1fr;
+        margin-top: 80px;
+      }
+    }
+  </style>
+</head>
+<body class="apple-theme">
+  <!-- Ambient glows -->
+  <div class="ambient-glows">
+    <div class="glow-sphere glow-sphere-1" style="background: radial-gradient(circle, rgba(157, 78, 221, 0.18) 0%, transparent 70%);"></div>
+    <div class="glow-sphere glow-sphere-2" style="background: radial-gradient(circle, rgba(0, 242, 254, 0.15) 0%, transparent 70%);"></div>
+  </div>
+
+  <!-- Colorful Graduation Cap Background Graphic -->
+  <div id="bg-grad-cap" class="corner-grad-cap">
+    <i class="fa-solid fa-graduation-cap"></i>
+  </div>
+
+  <!-- Navigation Bar -->
+  <nav class="top-nav glassmorphic">
+    <div class="nav-brand">
+      <i class="fa-solid fa-graduation-cap logo-icon"></i>
+      <span>VISION<span class="neon-purple-text">X</span> // EAPCET SYLLABUS</span>
+    </div>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link"><i class="fa-solid fa-house"></i> Dashboard</a>
+    </div>
+  </nav>
+
+  <div class="syllabus-layout">
+    <!-- Sidebar -->
+    <aside class="syllabus-sidebar">
+      <h4 class="sidebar-title"><i class="fa-solid fa-graduation-cap"></i> SELECT SUBJECT</h4>
+      <div class="syllabus-tab-list">
+        <button class="tab-item-btn active" data-subj="math">📐 Mathematics</button>
+        <button class="tab-item-btn" data-subj="physics">🧲 Physics</button>
+        <button class="tab-item-btn" data-subj="chemistry">🧪 Chemistry</button>
+        <button class="tab-item-btn" data-subj="botany">🌿 Botany</button>
+        <button class="tab-item-btn" data-subj="zoology">🦁 Zoology</button>
+        <button class="tab-item-btn" data-subj="agri">🌾 Agricultural Science</button>
+      </div>
+    </aside>
+
+    <!-- Main Syllabus content -->
+    <main class="syllabus-main-panel">
+      <div class="syllabus-header-block">
+        <h2 id="disp-title" class="syllabus-title">Mathematics</h2>
+        <p id="disp-desc" class="syllabus-desc">Build complex problem-solving speed: Algebra, Vector Algebra, Trigonometry, Coordinate Geometry, and Calculus.</p>
+        <div style="margin-top: 15px;">
+          <button id="btn-download-core" class="action-btn neon-btn-cyan" style="font-size: 11px; padding: 8px 16px;">
+            <i class="fa-solid fa-file-pdf"></i> DOWNLOAD CORE SYLLABUS OUTLINE (PDF)
+          </button>
+        </div>
+      </div>
+
+      <div class="syllabus-resources-section">
+        <h5 class="resources-title-bar">
+          <i class="fa-solid fa-folder-open"></i> AVAILABLE STUDY RESOURCES (VERIFIED PDF COMPILATIONS)
+        </h5>
+        <div id="resources-grid-box" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px;">
+          <!-- Dynamically loaded resource cards -->
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // EAPCET Subject Syllabi Data
+    const eapcetData = {
+      math: {
+        title: "Mathematics",
+        description: "Build complex problem-solving speed: Algebra, Vector Algebra, Trigonometry, Coordinate Geometry, and Calculus.",
+        resources: [
+          { name: "Algebra & Calculus Blueprint.pdf", size: "162 KB" },
+          { name: "Coordinate Geometry Cheat Sheet.pdf", size: "395 KB" },
+          { name: "EAPCET Previous Years Keys.pdf", size: "1.6 MB" }
+        ],
+        topics: ["Algebra (Functions, Matrices)", "Trigonometry", "Vector Algebra", "Measures of Dispersion", "Coordinate Geometry (Circles, Conics)", "Calculus (Limits, Integration)"]
+      },
+      physics: {
+        title: "Physics",
+        description: "Excel in standard physical conceptual formulas: Waves, Ray Optics, Thermodynamics, Electrostatic Potential, and Magnetic Effects.",
+        resources: [
+          { name: "Physics Syllabus Scope.pdf", size: "135 KB" },
+          { name: "Thermodynamics & Waves Notes.pdf", size: "540 KB" },
+          { name: "Formulas & Derivations Sheet.pdf", size: "290 KB" }
+        ],
+        topics: ["Physical World & Measurement", "Kinematics", "Laws of Motion", "Thermodynamics", "Oscillations & Waves", "Electrostatics & Current Electricity", "Dual Nature of Matter"]
+      },
+      chemistry: {
+        title: "Chemistry",
+        description: "Excel in general chemical configurations: Atomic Structure, Chemical Bonding, Organic Compounds, Coordination Chemistry, and Thermodynamics.",
+        resources: [
+          { name: "Chemistry Syllabus Scope.pdf", size: "120 KB" },
+          { name: "Organic Chemistry Revision.pdf", size: "285 KB" },
+          { name: "Chemical Bonding cheat sheet.pdf", size: "210 KB" }
+        ],
+        topics: ["Atomic Structure", "Classification of Elements", "Chemical Bonding", "States of Matter", "Chemical Thermodynamics", "Organic Chemistry (Hydrocarbons)", "Coordination Compounds"]
+      },
+      botany: {
+        title: "Botany",
+        description: "Study botanical structures: Diversity in living world, Structural Organization, Plant Systematics, Cell biology, and Genetics.",
+        resources: [
+          { name: "Plant Biology Blueprint.pdf", size: "115 KB" },
+          { name: "Syllabus Diagrams & Cycles.pdf", size: "680 KB" },
+          { name: "Plant Physiology summary notes.pdf", size: "340 KB" }
+        ],
+        topics: ["Diversity in the Living World", "Structural Organisation in Plants", "Plant Systematics", "Cell Structure and Functions", "Internal Organisation of Plants", "Plant Physiology", "Genetics & Biotechnology"]
+      },
+      zoology: {
+        title: "Zoology",
+        description: "Master animal biology structures: Human Anatomy & Physiology, Locomotion, Reproduction, and Applied Biology.",
+        resources: [
+          { name: "Animal Biology Blueprint.pdf", size: "148 KB" },
+          { name: "Human Anatomy revision guide.pdf", size: "1.3 MB" },
+          { name: "Animal Kingdom classification.pdf", size: "410 KB" }
+        ],
+        topics: ["Diversity of Living World", "Structural Organization in Animals", "Animal Diversity (Invertebrates/Vertebrates)", "Locomotion and Reproduction", "Biology & Human Welfare", "Human Anatomy and Physiology"]
+      },
+      agri: {
+        title: "Agricultural Science",
+        description: "Review agrarian parameters: Crop Production technology, Soil Science, Horticulture basics, and Crop Protection methods.",
+        resources: [
+          { name: "Agronomy Syllabus Scope.pdf", size: "105 KB" },
+          { name: "Soil Science & Nutrients guide.pdf", size: "198 KB" },
+          { name: "Crop Protection cheat sheet.pdf", size: "150 KB" }
+        ],
+        topics: ["Introduction to Agronomy", "Soil Science & Management", "Horticulture Principles", "Plant Protection (Diseases & Pests)", "Livestock & Poultry Management"]
+      }
+    };
+
+    let activeSubject = 'math';
+
+    // Selectors
+    const tabBtns = document.querySelectorAll('.tab-item-btn');
+    const dispTitle = document.getElementById('disp-title');
+    const dispDesc = document.getElementById('disp-desc');
+    const resourcesGrid = document.getElementById('resources-grid-box');
+    const btnDownloadCore = document.getElementById('btn-download-core');
+
+    // Tab Handlers
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tabBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeSubject = btn.getAttribute('data-subj');
+        renderSubjectDetails();
+      });
+    });
+
+    function renderSubjectDetails() {
+      const data = eapcetData[activeSubject];
+      dispTitle.innerText = data.title;
+      dispDesc.innerText = data.description;
+
+      // Populate resource cards
+      resourcesGrid.innerHTML = '';
+      data.resources.forEach(res => {
+        const card = document.createElement('div');
+        card.className = 'grid-card-resource';
+        card.innerHTML = `
+          <i class="fa-solid fa-file-pdf resource-icon-badge"></i>
+          <div class="resource-info">
+            <div class="resource-name">${res.name}</div>
+            <div class="resource-size">${res.size} • PDF Reference</div>
+          </div>
+          <i class="fa-solid fa-download resource-dl-arrow"></i>
+        `;
+        card.addEventListener('click', () => {
+          downloadResourceFile('EAPCET', activeSubject, res.name);
+        });
+        resourcesGrid.appendChild(card);
+      });
+    }
+
+    // Download handlers
+    btnDownloadCore.addEventListener('click', () => {
+      const data = eapcetData[activeSubject];
+      const fileTitle = `EAPCET - ${data.title.toUpperCase()} OFFICIAL SYLLABUS BLUEPRINT`;
+      let topicsListText = data.topics.map((t, i) => `${i + 1}. ${t}`).join('\n');
+      
+      const content = `======================================================================
+${fileTitle}
+======================================================================
+Course: Engineering, Agriculture and Pharmacy Common Entrance (EAPCET)
+Subject: ${data.title}
+Generated On: ${new Date().toLocaleDateString()}
+
+Syllabus Scope & Objectives:
+-----------------------------
+${data.description}
+
+Core Topics to Master:
+-----------------------------
+${topicsListText}
+
+VISIONX gateway verification: SECURE HANDSHAKE ACTIVE
+======================================================================`;
+
+      triggerFileDownload('eapcet', `${activeSubject}_syllabus_blueprint.txt`, content);
+    });
+
+    function downloadResourceFile(board, subject, fileName) {
+      const content = `======================================================================
+${board} - ${subject.toUpperCase()} - ${fileName.toUpperCase()}
+======================================================================
+Resource: ${fileName}
+Generated: ${new Date().toLocaleDateString()}
+Status: VERIFIED SECURE SYLLABUS REFERENCE COPY
+
+Outline:
+This study guide compiles the recommended revision parameters, timeline, and 
+chapters required to perfect the student in ${subject.toUpperCase()} syllabus.
+
+----------------------------------------------------------------------
+Verification: SHA256-RES-${board}-${subject.toUpperCase()}
+======================================================================`;
+
+      triggerFileDownload(board, `${subject}_${fileName.toLowerCase().replace('.pdf', '.txt')}`, content);
+    }
+
+    function triggerFileDownload(board, fileName, textContent) {
+      const blob = new Blob([textContent], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${board.toLowerCase()}_${fileName}`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    // Always sliding highlight highlight transition helper
+    const tabList = document.querySelector('.syllabus-tab-list');
+    let autoSlideInterval;
+    function startAutoSlide() {
+      autoSlideInterval = setInterval(() => {
+        const buttons = Array.from(tabBtns);
+        const currentIndex = buttons.findIndex(b => b.classList.contains('active'));
+        const nextIndex = (currentIndex + 1) % buttons.length;
+        buttons[nextIndex].click();
+      }, 7000);
+    }
+    if (tabList) {
+      tabList.addEventListener('mouseenter', () => clearInterval(autoSlideInterval));
+      tabList.addEventListener('mouseleave', startAutoSlide);
+    }
+    startAutoSlide();
+
+    // Initialize
+    renderSubjectDetails();
+  </script>
+<script src="bg_spawner.js"></script>
+</body>
+</html>

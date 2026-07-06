@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ECET - Testing Center</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- CSS Styles -->
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      background-color: #030307;
+      color: #f3f4f6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    .testing-layout {
+      max-width: 1200px;
+      margin: 100px auto 40px;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 30px;
+    }
+    .testing-sidebar {
+      background: rgba(10, 10, 18, 0.45);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 20px;
+      padding: 20px;
+      height: fit-content;
+    }
+    .sidebar-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--neon-cyan);
+      text-shadow: 0 0 8px var(--neon-cyan-glow);
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+      font-family: var(--font-cyber);
+    }
+    .tab-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .tab-btn-item {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      color: #9ca3af;
+      border-radius: 12px;
+      padding: 12px 16px;
+      text-align: left;
+      font-family: var(--font-cyber);
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .tab-btn-item:hover {
+      background: rgba(0, 242, 254, 0.05);
+      color: #fff;
+      border-color: rgba(0, 242, 254, 0.3);
+    }
+    .tab-btn-item.active {
+      background: linear-gradient(135deg, rgba(0, 242, 254, 0.15), rgba(157, 78, 221, 0.15));
+      color: #fff;
+      border-color: var(--neon-cyan);
+      box-shadow: 0 0 15px rgba(0, 242, 254, 0.15);
+    }
+    .testing-main-panel {
+      background: rgba(10, 10, 18, 0.45);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 20px;
+      padding: 35px;
+      position: relative;
+    }
+    .tests-header-block {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      padding-bottom: 15px;
+      margin-bottom: 25px;
+    }
+    .tests-title {
+      font-size: 26px;
+      font-weight: 900;
+      color: #fff;
+      margin-bottom: 5px;
+      font-family: var(--font-cyber);
+    }
+    .tests-desc {
+      color: #9ca3af;
+      font-size: 14px;
+    }
+    .test-list-box {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .test-card {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 20px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      transition: all 0.3s ease;
+    }
+    .test-card:hover {
+      background: rgba(255, 255, 255, 0.04);
+      border-color: rgba(255, 255, 255, 0.1);
+      transform: translateX(4px);
+    }
+    .test-info h5 {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 4px;
+      color: #fff;
+    }
+    .test-info p {
+      font-size: 12px;
+      color: #9ca3af;
+    }
+    @media (max-width: 900px) {
+      .testing-layout {
+        grid-template-columns: 1fr;
+        margin-top: 80px;
+      }
+    }
+  </style>
+</head>
+<body class="apple-theme">
+  <!-- Ambient Glows -->
+  <div class="ambient-glows">
+    <div class="glow-sphere glow-sphere-1" style="background: radial-gradient(circle, rgba(157, 78, 221, 0.18) 0%, transparent 70%);"></div>
+    <div class="glow-sphere glow-sphere-2" style="background: radial-gradient(circle, rgba(0, 242, 254, 0.15) 0%, transparent 70%);"></div>
+  </div>
+
+  <!-- Graduation Cap Background -->
+  <div id="bg-grad-cap" class="corner-grad-cap">
+    <i class="fa-solid fa-graduation-cap"></i>
+  </div>
+
+  <!-- Top Navigation Bar -->
+  <nav class="top-nav glassmorphic">
+    <div class="nav-brand">
+      <i class="fa-solid fa-graduation-cap logo-icon"></i>
+      <span>VISION<span class="neon-purple-text">X</span> // ECET EXAMS</span>
+    </div>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link"><i class="fa-solid fa-house"></i> Dashboard</a>
+    </div>
+  </nav>
+
+  <div class="testing-layout">
+    <!-- Sidebar -->
+    <aside class="testing-sidebar">
+      <h4 class="sidebar-title"><i class="fa-solid fa-graduation-cap"></i> EXAM SUBJECTS</h4>
+      <div class="tab-list">
+        <button class="tab-btn-item active" data-subj="math">📐 Mathematics</button>
+        <button class="tab-btn-item" data-subj="physics">🧲 Physics</button>
+        <button class="tab-btn-item" data-subj="chemistry">🧪 Chemistry</button>
+        <button class="tab-btn-item" data-subj="cs">💻 Computer Science Core</button>
+        <button class="tab-btn-item" data-subj="eee">⚡ Electrical & Electronics</button>
+        <button class="tab-btn-item" data-subj="mech">⚙️ Mechanical & Civil</button>
+      </div>
+    </aside>
+
+    <!-- Main Exam Panel -->
+    <main class="testing-main-panel">
+      <!-- Exam Selector View -->
+      <div id="exam-selector-view">
+        <div class="tests-header-block">
+          <h2 id="disp-title" class="tests-title">Mathematics</h2>
+          <p id="disp-desc" class="tests-desc">Revision of core lateral entry math: Matrices, Integration, Differential Equations, and Laplace Transforms.</p>
+        </div>
+        <div id="tests-list-container" class="test-list-box">
+          <!-- Dynamically generated tests list -->
+        </div>
+      </div>
+
+      <!-- Active Test Taker Area (Hidden by default) -->
+      <div id="active-test-panel" class="active-test-panel hidden" style="margin-top: 0;">
+        <div class="test-header">
+          <h4 id="active-test-title">Mock Test 1: Mathematics</h4>
+          <button id="cancel-test-btn" class="action-btn-outline">Cancel Test</button>
+        </div>
+        <div id="test-questions-box">
+          <!-- Dynamic Questions Load Here -->
+        </div>
+        <button id="submit-test-btn" class="action-btn neon-btn-green">SUBMIT MOCK TEST</button>
+        <div id="test-results-feedback" class="quiz-feedback hidden"></div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // ECET Subject Syllabi & Mock Exams Data
+    const ecetData = {
+      math: {
+        title: "Mathematics",
+        description: "Revision of core lateral entry math: Matrices, Integration, Differential Equations, and Laplace Transforms.",
+        tests: {
+          1: [
+            { q: "If A is a square matrix of order 3 such that A + A^T = I, then trace of A is:", o: ["1", "1.5", "3", "0.5"], a: 1 },
+            { q: "The value of Laplace transform of e^(at) is:", o: ["1 / (s - a)", "1 / (s + a)", "a / (s² + a²)", "s / (s² - a²)"], a: 0 },
+            { q: "The general solution of differential equation dy/dx + y = e^x is:", o: ["y = e^x/2 + Ce^-x", "y = e^x + Ce^-x", "y = e^-x/2 + Ce^x", "y = e^x/2 + C"], a: 0 }
+          ],
+          2: [
+            { q: "The integrating factor of the differential equation dy/dx + P(x)y = Q(x) is:", o: ["e^∫P dx", "e^∫Q dx", "∫P dx", "e^-∫P dx"], a: 0 },
+            { q: "The value of Laplace transform of sin(at) is:", o: ["a / (s² + a²)", "s / (s² + a²)", "a / (s² - a²)", "s / (s² - a²)"], a: 0 },
+            { q: "The area bounded by the curve y = x², x-axis and lines x=1, x=2 is:", o: ["7/3", "3/2", "8/3", "4/3"], a: 0 }
+          ],
+          3: [
+            { q: "If the determinant of a 2x2 matrix is 0, it is called a:", o: ["Symmetric matrix", "Skew-symmetric matrix", "Singular matrix", "Identity matrix"], a: 2 },
+            { q: "The inverse Laplace transform of 1 / (s² + 4) is:", o: ["(sin 2t)/2", "sin 2t", "cos 2t", "(cos 2t)/2"], a: 0 },
+            { q: "The order of differential equation for the family of circles having center at origin is:", o: ["1", "2", "3", "4"], a: 0 }
+          ]
+        }
+      },
+      physics: {
+        title: "Physics",
+        description: "Study key applied physical modules: Elements of vectors, Simple Harmonic Motion, Modern Physics, and Semiconductor Devices.",
+        tests: {
+          1: [
+            { q: "Two forces of equal magnitude F act at angle 120° to each other. The magnitude of resultant is:", o: ["F", "2F", "√2 F", "F/2"], a: 0 },
+            { q: "For a body executing Simple Harmonic Motion, acceleration is maximum at:", o: ["Mean position", "Extreme positions", "Midway between mean & extreme", "Always constant"], a: 1 },
+            { q: "The unit of coefficient of viscosity is:", o: ["Poise", "Pascal", "Newton", "Joule"], a: 0 }
+          ],
+          2: [
+            { q: "The relation between frequency n and time period T in wave motion is:", o: ["n = 1/T", "n = T", "n = T²", "n = √T"], a: 0 },
+            { q: "A gas at pressure P is compressed to half its volume isothermally. The final pressure is:", o: ["P/2", "2P", "4P", "P"], a: 1 },
+            { q: "The threshold frequency in photoelectric emission depends on:", o: ["Intensity of light", "Nature of metal surface", "Applied potential", "Angle of incidence"], a: 1 }
+          ],
+          3: [
+            { q: "Which semiconductor diode is used for voltage regulation?", o: ["P-N junction diode", "Zener diode", "LED", "Photodiode"], a: 1 },
+            { q: "The speed of light in vacuum is approximately:", o: ["3 × 10⁸ m/s", "3 × 10⁸ km/s", "340 m/s", "1500 m/s"], a: 0 },
+            { q: "The escape velocity of a body from the surface of Earth depends on:", o: ["Mass of the body", "Radius of the Earth", "Mass of the Earth", "Both Earth's mass and radius"], a: 3 }
+          ]
+        }
+      },
+      chemistry: {
+        title: "Chemistry",
+        description: "Excel in chemical concepts: Solutions, Fuels, Corrosion parameters, Environmental studies, and Electrochemistry.",
+        tests: {
+          1: [
+            { q: "Which element has the electronic configuration 1s² 2s² 2p⁶ 3s¹?", o: ["Sodium", "Magnesium", "Aluminum", "Potassium"], a: 0 },
+            { q: "A solution of pH = 3 is mixed with solution of pH = 11. The resultant solution is likely to be:", o: ["Acidic", "Basic", "Neutral", "Depends on volume ratios"], a: 3 },
+            { q: "The electrochemical process of coating zinc on iron is called:", o: ["Galvanizing", "Anodizing", "Tinning", "Electroplating"], a: 0 }
+          ],
+          2: [
+            { q: "Which of the following acts as an anode during rust formation on iron?", o: ["Iron", "Oxygen", "Carbon dioxide", "Moisture"], a: 0 },
+            { q: "The hardness of water is usually expressed in terms of equivalents of:", o: ["CaCO₃", "MgSO₄", "CaCl₂", "MgCO₃"], a: 0 },
+            { q: "Which polymer is used for making non-stick cookware coatings?", o: ["PVC", "Teflon (PTFE)", "Polystyrene", "Bakelite"], a: 1 }
+          ],
+          3: [
+            { q: "The primary greenhouse gas responsible for global warming is:", o: ["Carbon Dioxide", "Oxygen", "Nitrogen", "Argon"], a: 0 },
+            { q: "The fuel with the highest calorific value is:", o: ["Coal", "Petrol", "LPG", "Hydrogen"], a: 3 },
+            { q: "Volcanization of rubber increases its:", o: ["Elasticity & Strength", "Solubility in water", "Chemical reactivity", "Stickiness"], a: 0 }
+          ]
+        }
+      },
+      cs: {
+        title: "Computer Science & IT Core",
+        description: "Revision of engineering branch concepts: Digital Electronics, Java Programming, DBMS, and Data Structures.",
+        tests: {
+          1: [
+            { q: "A binary tree in which every node has either 0 or 2 children is called:", o: ["Full binary tree", "Complete binary tree", "Strict binary tree", "Perfect binary tree"], a: 2 },
+            { q: "The SQL statement used to retrieve data from a database table is:", o: ["GET", "SELECT", "RETRIEVE", "OPEN"], a: 1 },
+            { q: "In Java, which keyword is used to prevent method overriding?", o: ["static", "final", "abstract", "private"], a: 1 }
+          ],
+          2: [
+            { q: "Which data structure operates on Last In First Out (LIFO) principle?", o: ["Queue", "Stack", "Linked List", "Graph"], a: 1 },
+            { q: "A microprocessor with 16 address lines can address up to:", o: ["16 KB", "64 KB", "1 MB", "256 KB"], a: 1 },
+            { q: "The primary key of a table uniquely identifies records and cannot contain:", o: ["Null values", "Negative integers", "Floating floats", "Strings"], a: 0 }
+          ],
+          3: [
+            { q: "In Java, what is the default value of a boolean variable?", o: ["true", "false", "null", "0"], a: 1 },
+            { q: "The boolean algebraic expression A + A'B is equal to:", o: ["A + B", "A", "B", "AB"], a: 0 },
+            { q: "Which sorting algorithm has the best average-case complexity?", o: ["Bubble sort", "Selection sort", "Merge sort", "Insertion sort"], a: 2 }
+          ]
+        }
+      },
+      eee: {
+        title: "Electrical & Electronics Engineering Core",
+        description: "Review electrical engineering parameters: AC/DC circuits, Electrical Machines, Power systems, and Control systems.",
+        tests: {
+          1: [
+            { q: "According to Kirchhoff's Current Law (KCL), the algebraic sum of currents meeting at a node is:", o: ["Zero", "Infinity", "Constant", "Product of resistances"], a: 0 },
+            { q: "The back EMF of a DC motor is proportional to its:", o: ["Speed", "Armature current", "Terminal voltage", "Field resistance"], a: 0 },
+            { q: "The power factor of a purely capacitive AC circuit is:", o: ["0 leading", "0 lagging", "Unity", "0.5 leading"], a: 0 }
+          ],
+          2: [
+            { q: "The regulation of a transformer is defined as ratio of:", o: ["No-load to Full-load voltage", "Change in terminal voltage from no-load to full-load to rated voltage", "Copper loss to Iron loss", "Output power to Input power"], a: 1 },
+            { q: "A 3-phase induction motor runs at a speed:", o: ["Equal to synchronous speed", "Less than synchronous speed", "Greater than synchronous speed", "Double the synchronous speed"], a: 1 },
+            { q: "The unit of electrical energy is:", o: ["Watt", "Joule", "Kilowatt-hour (kWh)", "Volt-Ampere"], a: 2 }
+          ],
+          3: [
+            { q: "The semiconductor diode is a unilateral device because it conducts in:", o: ["Both directions", "One direction only", "Reverse bias only", "AC cycles only"], a: 1 },
+            { q: "Which feedback controller reduces steady-state error to zero?", o: ["Proportional", "Derivative", "Integral", "PD controller"], a: 2 },
+            { q: "The decimal equivalent of binary number 1111 is:", o: ["7", "15", "10", "31"], a: 1 }
+          ]
+        }
+      },
+      mech: {
+        title: "Mechanical & Civil Engineering Core",
+        description: "Review mechanics structures: Strength of Materials, Fluid Mechanics, Engineering Mechanics, and Manufacturing tech.",
+        tests: {
+          1: [
+            { q: "Young's modulus is defined as the ratio of:", o: ["Linear stress to linear strain", "Lateral stress to lateral strain", "Shear stress to shear strain", "Stress to volumetric strain"], a: 0 },
+            { q: "A fluid whose viscosity does not change with rate of shear strain is a:", o: ["Newtonian fluid", "Non-Newtonian fluid", "Ideal fluid", "Real fluid"], a: 0 },
+            { q: "Lami's theorem states that if three concurrent coplanar forces are in equilibrium, each force is proportional to the sine of the angle:", o: ["Between the other two forces", "Made with horizontal", "Opposite to vertical", "Between normal planes"], a: 0 }
+          ],
+          2: [
+            { q: "The moment of inertia of a rectangular section of base b and depth d about its centroidal x-axis is:", o: ["bd³ / 12", "db³ / 12", "bd³ / 36", "bd³ / 64"], a: 0 },
+            { q: "The property of a material by virtue of which it can be drawn into thin wires is:", o: ["Malleability", "Ductility", "Elasticity", "Plasticity"], a: 1 },
+            { q: "Bernoulli's equation is based on the law of conservation of:", o: ["Mass", "Energy", "Momentum", "Viscosity"], a: 1 }
+          ],
+          3: [
+            { q: "The point of contra-flexure occurs in a beam where:", o: ["Bending moment is maximum", "Bending moment changes sign", "Shear force is zero", "Shear force changes sign"], a: 1 },
+            { q: "Which tool is used for measuring discharge of a fluid in a pipe line?", o: ["Venturimeter", "Manometer", "Anemometer", "Pitot tube"], a: 0 },
+            { q: "A simple machine has a velocity ratio of 5 and mechanical advantage of 4. Its efficiency is:", o: ["80%", "20%", "100%", "40%"], a: 0 }
+          ]
+        }
+      }
+    };
+
+    let activeSubject = 'math';
+    let activeTestNum = 1;
+
+    // Selectors
+    const tabBtns = document.querySelectorAll('.tab-btn-item');
+    const dispTitle = document.getElementById('disp-title');
+    const dispDesc = document.getElementById('disp-desc');
+    const selectorView = document.getElementById('exam-selector-view');
+    const testsList = document.getElementById('tests-list-container');
+
+    const activeTestPanel = document.getElementById('active-test-panel');
+    const activeTestTitle = document.getElementById('active-test-title');
+    const questionsBox = document.getElementById('test-questions-box');
+    const submitBtn = document.getElementById('submit-test-btn');
+    const cancelBtn = document.getElementById('cancel-test-btn');
+    const resultsFeedback = document.getElementById('test-results-feedback');
+
+    // Tab Handlers
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tabBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeSubject = btn.getAttribute('data-subj');
+        resetActiveTest();
+        renderSubjectDetails();
+      });
+    });
+
+    function renderSubjectDetails() {
+      const data = ecetData[activeSubject];
+      dispTitle.innerText = data.title;
+      dispDesc.innerText = data.description;
+
+      testsList.innerHTML = '';
+      
+      const testsMeta = [
+        { level: "Foundation Level", xp: "10 XP", focus: "General Syllabus Intro" },
+        { level: "Intermediate Level", xp: "15 XP", focus: "Formula Applications" },
+        { level: "Advanced Level", xp: "25 XP", focus: "Hard Problem Solving" }
+      ];
+
+      [1, 2, 3].forEach(num => {
+        const meta = testsMeta[num - 1];
+        const card = document.createElement('div');
+        card.className = 'test-card';
+        card.innerHTML = `
+          <div class="test-info">
+            <h5>Mock Test ${num}: ${meta.level}</h5>
+            <p>3 Questions • ${meta.xp} Reward • ${meta.focus}</p>
+          </div>
+          <button class="action-btn neon-btn-cyan start-test-btn" data-test="${num}">START TEST</button>
+        `;
+        
+        card.querySelector('.start-test-btn').addEventListener('click', () => {
+          activeTestNum = num;
+          startMockTest();
+        });
+        
+        testsList.appendChild(card);
+      });
+    }
+
+    function startMockTest() {
+      selectorView.classList.add('hidden');
+      activeTestPanel.classList.remove('hidden');
+
+      const questions = ecetData[activeSubject].tests[activeTestNum];
+      activeTestTitle.innerText = `Mock Test ${activeTestNum}: ${activeSubject.toUpperCase()}`;
+      
+      questionsBox.innerHTML = '';
+      resultsFeedback.classList.add('hidden');
+      submitBtn.disabled = false;
+      submitBtn.style.opacity = '1';
+
+      questions.forEach((q, idx) => {
+        const group = document.createElement('div');
+        group.className = 'quiz-question-group';
+        group.innerHTML = `
+          <p class="question-text">${idx + 1}. ${q.q}</p>
+          <div class="quiz-options-col">
+            ${q.o.map((opt, oIdx) => `
+              <label class="quiz-opt-label">
+                <input type="radio" name="q_${idx}" value="${oIdx}">
+                <span class="custom-radio"></span>
+                <span class="opt-text">${opt}</span>
+              </label>
+            `).join('')}
+          </div>
+        `;
+        
+        // Bind radio toggle handlers
+        group.querySelectorAll('.quiz-opt-label').forEach(label => {
+          label.addEventListener('click', () => {
+            if (submitBtn.disabled) return;
+            group.querySelectorAll('.quiz-opt-label').forEach(l => l.classList.remove('selected'));
+            label.classList.add('selected');
+          });
+        });
+
+        questionsBox.appendChild(group);
+      });
+    }
+
+    function resetActiveTest() {
+      activeTestPanel.classList.add('hidden');
+      selectorView.classList.remove('hidden');
+      questionsBox.innerHTML = '';
+      resultsFeedback.classList.add('hidden');
+    }
+
+    cancelBtn.addEventListener('click', resetActiveTest);
+
+    submitBtn.addEventListener('click', () => {
+      const questions = ecetData[activeSubject].tests[activeTestNum];
+      let score = 0;
+      let allAnswered = true;
+
+      questions.forEach((q, idx) => {
+        const checkedInput = questionsBox.querySelector(`input[name="q_${idx}"]:checked`);
+        if (!checkedInput) {
+          allAnswered = false;
+          return;
+        }
+
+        const selectedIndex = parseInt(checkedInput.value);
+        const labels = questionsBox.querySelectorAll(`.quiz-question-group`)[idx].querySelectorAll('.quiz-opt-label');
+
+        // Reset label classes
+        labels.forEach(l => l.classList.remove('correct', 'wrong'));
+
+        if (selectedIndex === q.a) {
+          score++;
+          labels[selectedIndex].classList.add('correct');
+        } else {
+          labels[selectedIndex].classList.add('wrong');
+          labels[q.a].classList.add('correct');
+        }
+      });
+
+      if (!allAnswered) {
+        alert("Please complete all questions before submitting!");
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.style.opacity = '0.5';
+
+      if (score === 3) {
+        resultsFeedback.className = 'quiz-feedback success';
+        resultsFeedback.innerHTML = `<strong>Perfect Score! 3/3 Correct.</strong> Congratulations! Confetti blast deployed.`;
+        resultsFeedback.classList.remove('hidden');
+        triggerConfetti();
+      } else {
+        resultsFeedback.className = 'quiz-feedback error';
+        resultsFeedback.innerHTML = `<strong>Result: ${score}/3 Correct.</strong> Review green options and try again.`;
+        resultsFeedback.classList.remove('hidden');
+      }
+
+      // Lock inputs
+      questionsBox.querySelectorAll('input[type="radio"]').forEach(r => r.disabled = true);
+    });
+
+    // Confetti System
+    function triggerConfetti() {
+      const container = document.createElement('div');
+      container.style.position = 'fixed';
+      container.style.top = '0';
+      container.style.left = '0';
+      container.style.width = '100%';
+      container.style.height = '100%';
+      container.style.pointerEvents = 'none';
+      container.style.zIndex = '9999';
+      document.body.appendChild(container);
+
+      const colors = ['#00f2fe', '#ff007f', '#9d4edd', '#39ff14', '#ffea00'];
+
+      // Left blast
+      launchCloud(0, window.innerHeight, 45, container, colors);
+      // Right blast
+      launchCloud(window.innerWidth, window.innerHeight, 135, container, colors);
+
+      setTimeout(() => {
+        document.body.removeChild(container);
+      }, 5000);
+    }
+
+    function launchCloud(startX, startY, angleDeg, container, colors) {
+      for (let i = 0; i < 40; i++) {
+        const particle = document.createElement('div');
+        particle.style.position = 'absolute';
+        particle.style.left = `${startX}px`;
+        particle.style.top = `${startY}px`;
+        particle.style.width = `${Math.random() * 8 + 6}px`;
+        particle.style.height = `${Math.random() * 12 + 6}px`;
+        particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        particle.style.borderRadius = '2px';
+        
+        const angle = (angleDeg + (Math.random() * 40 - 20)) * Math.PI / 180;
+        const speed = Math.random() * 18 + 12;
+        
+        let velX = Math.cos(angle) * speed;
+        let velY = -Math.sin(angle) * speed;
+        let posX = startX;
+        let posY = startY;
+        let rotation = Math.random() * 360;
+        let rotSpeed = Math.random() * 15 - 7.5;
+        
+        container.appendChild(particle);
+
+        function update() {
+          velY += 0.45; // gravity
+          velX *= 0.98; // air drag
+          posX += velX;
+          posY += velY;
+          rotation += rotSpeed;
+
+          particle.style.left = `${posX}px`;
+          particle.style.top = `${posY}px`;
+          particle.style.transform = `rotate(${rotation}deg)`;
+
+          if (posY < window.innerHeight + 50) {
+            requestAnimationFrame(update);
+          }
+        }
+        requestAnimationFrame(update);
+      }
+    }
+
+    // Always sliding options switcher
+    const tabList = document.querySelector('.tab-list');
+    let autoSlideInterval;
+    function startAutoSlide() {
+      autoSlideInterval = setInterval(() => {
+        if (!selectorView.classList.contains('hidden')) {
+          const buttons = Array.from(tabBtns);
+          const currentIndex = buttons.findIndex(b => b.classList.contains('active'));
+          const nextIndex = (currentIndex + 1) % buttons.length;
+          buttons[nextIndex].click();
+        }
+      }, 7000);
+    }
+    if (tabList) {
+      tabList.addEventListener('mouseenter', () => clearInterval(autoSlideInterval));
+      tabList.addEventListener('mouseleave', startAutoSlide);
+    }
+    startAutoSlide();
+
+    // Initialize
+    renderSubjectDetails();
+  </script>
+<script src="bg_spawner.js"></script>
+</body>
+</html>

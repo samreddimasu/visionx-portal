@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CBSE Boards - Syllabus Hub</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- CSS Styles -->
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      background-color: #030307;
+      color: #f3f4f6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    .syllabus-layout {
+      max-width: 1200px;
+      margin: 100px auto 40px;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 30px;
+    }
+    .syllabus-sidebar {
+      background: rgba(10, 10, 18, 0.45);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 20px;
+      padding: 20px;
+      height: fit-content;
+    }
+    .sidebar-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--neon-cyan);
+      text-shadow: 0 0 8px var(--neon-cyan-glow);
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+      font-family: var(--font-cyber);
+    }
+    .syllabus-tab-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .tab-item-btn {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      color: #9ca3af;
+      border-radius: 12px;
+      padding: 12px 16px;
+      text-align: left;
+      font-family: var(--font-cyber);
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .tab-item-btn:hover {
+      background: rgba(0, 242, 254, 0.05);
+      color: #fff;
+      border-color: rgba(0, 242, 254, 0.3);
+    }
+    .tab-item-btn.active {
+      background: linear-gradient(135deg, rgba(0, 242, 254, 0.15), rgba(157, 78, 221, 0.15));
+      color: #fff;
+      border-color: var(--neon-cyan);
+      box-shadow: 0 0 15px rgba(0, 242, 254, 0.15);
+    }
+    .syllabus-main-panel {
+      background: rgba(10, 10, 18, 0.45);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 20px;
+      padding: 35px;
+    }
+    .syllabus-header-block {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      padding-bottom: 20px;
+      margin-bottom: 25px;
+    }
+    .syllabus-title {
+      font-size: 26px;
+      font-weight: 900;
+      color: #fff;
+      margin-bottom: 8px;
+      font-family: var(--font-cyber);
+    }
+    .syllabus-desc {
+      color: #9ca3af;
+      line-height: 1.6;
+      font-size: 14px;
+    }
+    .resources-title-bar {
+      font-size: 14px;
+      color: var(--neon-cyan);
+      letter-spacing: 0.5px;
+      margin-bottom: 15px;
+      font-family: var(--font-cyber);
+    }
+    .grid-card-resource {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 14px;
+      padding: 14px 18px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    .grid-card-resource:hover {
+      background: rgba(0, 242, 254, 0.05);
+      border-color: rgba(0, 242, 254, 0.3);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(0, 242, 254, 0.15);
+    }
+    @media (max-width: 900px) {
+      .syllabus-layout {
+        grid-template-columns: 1fr;
+        margin-top: 80px;
+      }
+    }
+  </style>
+</head>
+<body class="apple-theme">
+  <!-- Ambient glows -->
+  <div class="ambient-glows">
+    <div class="glow-sphere glow-sphere-1" style="background: radial-gradient(circle, rgba(157, 78, 221, 0.18) 0%, transparent 70%);"></div>
+    <div class="glow-sphere glow-sphere-2" style="background: radial-gradient(circle, rgba(0, 242, 254, 0.15) 0%, transparent 70%);"></div>
+  </div>
+
+  <!-- Colorful Graduation Cap Background Graphic -->
+  <div id="bg-grad-cap" class="corner-grad-cap">
+    <i class="fa-solid fa-graduation-cap"></i>
+  </div>
+
+  <!-- Navigation Bar -->
+  <nav class="top-nav glassmorphic">
+    <div class="nav-brand">
+      <i class="fa-solid fa-graduation-cap logo-icon"></i>
+      <span>VISION<span class="neon-purple-text">X</span> // CBSE SYLLABUS</span>
+    </div>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link"><i class="fa-solid fa-house"></i> Dashboard</a>
+    </div>
+  </nav>
+
+  <div class="syllabus-layout">
+    <!-- Sidebar -->
+    <aside class="syllabus-sidebar">
+      <h4 class="sidebar-title"><i class="fa-solid fa-graduation-cap"></i> SELECT SUBJECT</h4>
+      <div class="syllabus-tab-list">
+        <button class="tab-item-btn active" data-subj="math">📐 Mathematics</button>
+        <button class="tab-item-btn" data-subj="physics">🧲 Physical Science</button>
+        <button class="tab-item-btn" data-subj="chemistry">🧪 Chemistry</button>
+        <button class="tab-item-btn" data-subj="biology">🧬 Biology</button>
+        <button class="tab-item-btn" data-subj="social">🌍 Social Studies</button>
+        <button class="tab-item-btn" data-subj="english">📖 English</button>
+      </div>
+    </aside>
+
+    <!-- Main Syllabus content -->
+    <main class="syllabus-main-panel">
+      <div class="syllabus-header-block">
+        <h2 id="disp-title" class="syllabus-title">Mathematics</h2>
+        <p id="disp-desc" class="syllabus-desc">Master syllabus concepts in Quadratic Equations, Arithmetic Progressions, Coordinate Geometry, Trigonometry, and Statistics.</p>
+        <div style="margin-top: 15px;">
+          <button id="btn-download-core" class="action-btn neon-btn-cyan" style="font-size: 11px; padding: 8px 16px;">
+            <i class="fa-solid fa-file-pdf"></i> DOWNLOAD CORE SYLLABUS OUTLINE (PDF)
+          </button>
+        </div>
+      </div>
+
+      <div class="syllabus-resources-section">
+        <h5 class="resources-title-bar">
+          <i class="fa-solid fa-folder-open"></i> AVAILABLE STUDY RESOURCES (VERIFIED PDF COMPILATIONS)
+        </h5>
+        <div id="resources-grid-box" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px;">
+          <!-- Dynamically loaded resource cards -->
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // CBSE Subject Syllabi Data
+    const cbseData = {
+      math: {
+        title: "Mathematics",
+        description: "Master syllabus concepts in Quadratic Equations, Arithmetic Progressions, Coordinate Geometry, Trigonometry, and Statistics.",
+        resources: [
+          { name: "Syllabus Blueprint & Topics.pdf", size: "142 KB" },
+          { name: "Formula Sheet & Proofs.pdf", size: "320 KB" },
+          { name: "Previous Year Questions.pdf", size: "1.2 MB" }
+        ],
+        topics: ["Quadratic Equations", "Arithmetic Progressions", "Coordinate Geometry", "Triangles", "Introduction to Trigonometry", "Some Applications of Trigonometry", "Circles", "Areas Related to Circles", "Surface Areas and Volumes", "Statistics", "Probability"]
+      },
+      physics: {
+        title: "Physical Science (Physics)",
+        description: "Study Core concepts in Light Reflection & Refraction, Human Eye & Colorful World, Electricity, and Magnetic Effects of Electric Current.",
+        resources: [
+          { name: "Physics Syllabus Outline.pdf", size: "118 KB" },
+          { name: "Ray Diagrams & Lens Guide.pdf", size: "480 KB" },
+          { name: "Formula & Concept Sheets.pdf", size: "210 KB" }
+        ],
+        topics: ["Light Reflection & Refraction", "Human Eye & Colorful World", "Electricity", "Magnetic Effects of Electric Current"]
+      },
+      chemistry: {
+        title: "Chemistry",
+        description: "Excel in Chemical Reactions & Equations, Acids Bases & Salts, Metals & Non-Metals, and Carbon & its Compounds.",
+        resources: [
+          { name: "Chemistry Syllabus Scope.pdf", size: "98 KB" },
+          { name: "Chemical Reactions cheat sheet.pdf", size: "245 KB" },
+          { name: "Salt Analysis & Formulas.pdf", size: "185 KB" }
+        ],
+        topics: ["Chemical Reactions and Equations", "Acids, Bases and Salts", "Metals and Non-Metals", "Carbon and its Compounds", "Periodic Classification of Elements"]
+      },
+      biology: {
+        title: "Biology",
+        description: "Explore syllabus modules: Life Processes, Control & Coordination, How do Organisms Reproduce?, Heredity and Evolution, and Our Environment.",
+        resources: [
+          { name: "Biology Core Syllabus Map.pdf", size: "135 KB" },
+          { name: "Important Diagrams & Labels.pdf", size: "620 KB" },
+          { name: "Excretion & Repro Notes.pdf", size: "290 KB" }
+        ],
+        topics: ["Life Processes", "Control and Coordination", "How do Organisms Reproduce?", "Heredity and Evolution", "Our Environment"]
+      },
+      social: {
+        title: "Social Studies",
+        description: "Master key syllabus topics: Nationalism in Europe & India, Resources & Development, Power Sharing & Federalism, and Economic Development.",
+        resources: [
+          { name: "Syllabus Timeline & Scope.pdf", size: "155 KB" },
+          { name: "History & Geography Maps.pdf", size: "1.4 MB" },
+          { name: "Core Notes & Timeline.pdf", size: "380 KB" }
+        ],
+        topics: ["Rise of Nationalism in Europe", "Nationalism in India", "Resources and Development", "Water Resources", "Agriculture", "Minerals and Energy Resources", "Power Sharing", "Federalism", "Gender, Religion and Caste", "Development", "Sectors of Indian Economy", "Money and Credit"]
+      },
+      english: {
+        title: "English Language & Literature",
+        description: "Refine language elements: Reading Comprehension, Grammar Rules, Active-Passive voice, Tenses, and Figure of Speech.",
+        resources: [
+          { name: "English Grammar Syllabus.pdf", size: "90 KB" },
+          { name: "Active-Passive & Tense Rules.pdf", size: "180 KB" },
+          { name: "Figure of Speech Guide.pdf", size: "130 KB" }
+        ],
+        topics: ["Reading Comprehension", "Writing Skills & Grammar", "Tenses", "Modals", "Subject-Verb Concord", "Reported Speech", "Literature Textbooks (Prose/Poetry)"]
+      }
+    };
+
+    let activeSubject = 'math';
+
+    // Selectors
+    const tabBtns = document.querySelectorAll('.tab-item-btn');
+    const dispTitle = document.getElementById('disp-title');
+    const dispDesc = document.getElementById('disp-desc');
+    const resourcesGrid = document.getElementById('resources-grid-box');
+    const btnDownloadCore = document.getElementById('btn-download-core');
+
+    // Tab Handlers
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tabBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeSubject = btn.getAttribute('data-subj');
+        renderSubjectDetails();
+      });
+    });
+
+    function renderSubjectDetails() {
+      const data = cbseData[activeSubject];
+      dispTitle.innerText = data.title;
+      dispDesc.innerText = data.description;
+
+      // Populate resource cards
+      resourcesGrid.innerHTML = '';
+      data.resources.forEach(res => {
+        const card = document.createElement('div');
+        card.className = 'grid-card-resource';
+        card.innerHTML = `
+          <i class="fa-solid fa-file-pdf resource-icon-badge"></i>
+          <div class="resource-info">
+            <div class="resource-name">${res.name}</div>
+            <div class="resource-size">${res.size} • PDF Reference</div>
+          </div>
+          <i class="fa-solid fa-download resource-dl-arrow"></i>
+        `;
+        card.addEventListener('click', () => {
+          downloadResourceFile('CBSE', activeSubject, res.name);
+        });
+        resourcesGrid.appendChild(card);
+      });
+    }
+
+    // Download handlers
+    btnDownloadCore.addEventListener('click', () => {
+      const data = cbseData[activeSubject];
+      const fileTitle = `CBSE - ${data.title.toUpperCase()} OFFICIAL SYLLABUS BLUEPRINT`;
+      let topicsListText = data.topics.map((t, i) => `${i + 1}. ${t}`).join('\n');
+      
+      const content = `======================================================================
+${fileTitle}
+======================================================================
+Course: Central Board of Secondary Education (CBSE)
+Subject: ${data.title}
+Generated On: ${new Date().toLocaleDateString()}
+
+Syllabus Scope & Objectives:
+-----------------------------
+${data.description}
+
+Core Topics to Master:
+-----------------------------
+${topicsListText}
+
+VISIONX gateway verification: SECURE HANDSHAKE ACTIVE
+======================================================================`;
+
+      triggerFileDownload('cbse', `${activeSubject}_syllabus_blueprint.txt`, content);
+    });
+
+    function downloadResourceFile(board, subject, fileName) {
+      const content = `======================================================================
+${board} - ${subject.toUpperCase()} - ${fileName.toUpperCase()}
+======================================================================
+Resource: ${fileName}
+Generated: ${new Date().toLocaleDateString()}
+Status: VERIFIED SECURE SYLLABUS REFERENCE COPY
+
+Outline:
+This study guide compiles the recommended revision parameters, timeline, and 
+chapters required to perfect the student in ${subject.toUpperCase()} syllabus.
+
+----------------------------------------------------------------------
+Verification: SHA256-RES-${board}-${subject.toUpperCase()}
+======================================================================`;
+
+      triggerFileDownload(board, `${subject}_${fileName.toLowerCase().replace('.pdf', '.txt')}`, content);
+    }
+
+    function triggerFileDownload(board, fileName, textContent) {
+      const blob = new Blob([textContent], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${board.toLowerCase()}_${fileName}`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    // Always sliding options switcher
+    const tabList = document.querySelector('.syllabus-tab-list');
+    let autoSlideInterval;
+    function startAutoSlide() {
+      autoSlideInterval = setInterval(() => {
+        const buttons = Array.from(tabBtns);
+        const currentIndex = buttons.findIndex(b => b.classList.contains('active'));
+        const nextIndex = (currentIndex + 1) % buttons.length;
+        buttons[nextIndex].click();
+      }, 7000);
+    }
+    if (tabList) {
+      tabList.addEventListener('mouseenter', () => clearInterval(autoSlideInterval));
+      tabList.addEventListener('mouseleave', startAutoSlide);
+    }
+    startAutoSlide();
+
+    // Initialize
+    renderSubjectDetails();
+  </script>
+<script src="bg_spawner.js"></script>
+</body>
+</html>

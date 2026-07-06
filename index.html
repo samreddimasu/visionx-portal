@@ -25,22 +25,36 @@
   <!-- Animated Background -->
   <div id="vanta-bg"></div>
 
+  <!-- Apple-Style Ambient Glass Glow Spheres -->
+  <div class="ambient-glows">
+    <div class="glow-sphere glow-sphere-1"></div>
+    <div class="glow-sphere glow-sphere-2"></div>
+    <div class="glow-sphere glow-sphere-3"></div>
+    <div class="glow-sphere glow-sphere-4"></div>
+  </div>
+
+  <!-- Educational Background Animation Layer -->
+  <div id="edu-floating-bg" class="edu-background-layer"></div>
+
+  <!-- Corner Graduation Cap Background Graphic -->
+  <div id="bg-grad-cap" class="corner-grad-cap">
+    <i class="fa-solid fa-graduation-cap"></i>
+  </div>
+
   <!-- TOP GLASSMORPHIC NAVIGATION BAR -->
   <nav class="top-nav glassmorphic">
     <div class="nav-brand">
-      <i class="fa-solid fa-terminal logo-icon neon-purple"></i>
+      <i class="fa-solid fa-graduation-cap logo-icon"></i>
       <span>VISION<span class="neon-purple-text">X</span></span>
     </div>
     <div class="nav-links">
       <a href="#" id="nav-home" class="nav-link active"><i class="fa-solid fa-house"></i> Home</a>
+      <a href="#" id="nav-courses" class="nav-link"><i class="fa-solid fa-graduation-cap"></i> Courses</a>
       <a href="#" id="nav-about" class="nav-link"><i class="fa-solid fa-circle-info"></i> About</a>
       <a href="#" id="nav-contact" class="nav-link"><i class="fa-solid fa-paper-plane"></i> Contact Us</a>
     </div>
     <div class="nav-actions">
-      <!-- Database Settings gear (integrated in navbar) -->
-      <button id="settings-trigger" class="settings-nav-btn" title="Supabase Settings">
-        <i class="fa-solid fa-gear"></i>
-      </button>
+      <!-- Admin controls removed from global top navbar -->
     </div>
 
     <!-- Animated School Bus Riding the Bottom Border Road -->
@@ -81,6 +95,26 @@
           <input type="checkbox" id="use-mock" checked>
           <label for="use-mock">Force Local Mock Database (Runs offline)</label>
         </div>
+        
+        <details class="supabase-sql-details">
+          <summary><i class="fa-solid fa-code"></i> Supabase SQL Schema Setup</summary>
+          <div class="sql-instructions">
+            <p class="sql-note">Run this SQL code in your Supabase SQL Editor to support participant profile sync, email verification status, and Excel/CSV exporting:</p>
+            <pre class="sql-code"><code>CREATE TABLE IF NOT EXISTS public.profiles (
+  id UUID REFERENCES auth.users ON DELETE CASCADE PRIMARY KEY,
+  email TEXT NOT NULL,
+  full_name TEXT,
+  verified BOOLEAN DEFAULT FALSE,
+  event TEXT DEFAULT 'None',
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now())
+);
+
+-- Enable RLS & policies
+ALTER TABLE public.profiles ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Allow public read" ON public.profiles FOR SELECT USING (true);
+CREATE POLICY "Allow insert/update by user" ON public.profiles FOR ALL USING (auth.uid() = id);</code></pre>
+          </div>
+        </details>
       </div>
       <div class="modal-footer">
         <button id="save-settings" class="neon-btn-cyan">Apply Credentials</button>
@@ -130,6 +164,27 @@
           <div class="feat"><i class="fa-solid fa-graduation-cap neon-purple"></i> Custom Syllabus</div>
           <div class="feat"><i class="fa-solid fa-shield-halved neon-magenta"></i> Secure Vault</div>
         </div>
+
+        <!-- Faculty Section -->
+        <div class="about-divider"></div>
+        <div class="faculty-section">
+          <h4 class="faculty-title"><i class="fa-solid fa-users neon-cyan"></i> OUR TEAM OF EDUCATED MENTORS</h4>
+          <div class="faculty-scroller">
+            <div class="faculty-track">
+              <span class="fac-slide">🎓 Koushik Yadhav</span>
+              <span class="fac-slide">🎓 Sam Joel Karipalayel</span>
+              <span class="fac-slide">🎓 G Charan</span>
+              <span class="fac-slide">🎓 B Manishwar</span>
+              <span class="fac-slide">🎓 Syammantak K</span>
+              <!-- Looped duplicates for infinite scroll -->
+              <span class="fac-slide">🎓 Koushik Yadhav</span>
+              <span class="fac-slide">🎓 Sam Joel Karipalayel</span>
+              <span class="fac-slide">🎓 G Charan</span>
+              <span class="fac-slide">🎓 B Manishwar</span>
+              <span class="fac-slide">🎓 Syammantak K</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -167,11 +222,137 @@
     </div>
   </div>
 
+  <!-- Premium Courses Modal -->
+  <div id="courses-modal" class="modal-overlay hidden">
+    <div class="modal-card glassmorphic courses-modal-card">
+      <div class="modal-header">
+        <h2><i class="fa-solid fa-graduation-cap neon-cyan"></i> Premium Educational Courses</h2>
+        <button id="courses-close" class="close-btn">&times;</button>
+      </div>
+      <div class="modal-body courses-body">
+        <p class="modal-desc">Explore premium modules and coaching cohorts at KK TUTORS, designed for absolute academic mastery.</p>
+        
+        <div class="courses-grid">
+          <!-- Card 1 -->
+          <div class="course-card-item glass-subcard">
+            <span class="course-badge badge-cyan">Full-Term Course</span>
+            <h3>Academic Grade Mastery</h3>
+            <p>Complete curriculum sync for Board syllabus with custom study sheets, live checks, and outline downloads.</p>
+            <div class="course-meta">
+              <span><i class="fa-regular fa-clock"></i> 6 Months</span>
+              <span><i class="fa-solid fa-book"></i> Grades 6-12</span>
+            </div>
+            <button class="join-btn neon-btn-cyan enroll-course-btn" data-course="Academic Grade Mastery">
+              <span>ENROLL NOW</span>
+            </button>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="course-card-item glass-subcard">
+            <span class="course-badge badge-purple">Elite Prep</span>
+            <h3>JEE Mains & Advanced Prep</h3>
+            <p>Deep analytical physics, high-order chemistry logic, and coordinate geometry coaching cohorts.</p>
+            <div class="course-meta">
+              <span><i class="fa-regular fa-clock"></i> 1 Year</span>
+              <span><i class="fa-solid fa-flask"></i> JEE Focus</span>
+            </div>
+            <button class="join-btn neon-btn-purple enroll-course-btn" data-course="JEE Prep">
+              <span>ENROLL NOW</span>
+            </button>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="course-card-item glass-subcard">
+            <span class="course-badge badge-magenta">Medical Master</span>
+            <h3>NEET Challenger Cohort</h3>
+            <p>Systematic biology, chemistry alongside plant and human physiology guides and interactive tests.</p>
+            <div class="course-meta">
+              <span><i class="fa-regular fa-clock"></i> 1 Year</span>
+              <span><i class="fa-solid fa-dna"></i> NEET Focus</span>
+            </div>
+            <button class="join-btn neon-btn-magenta enroll-course-btn" data-course="NEET Challenger">
+              <span>ENROLL NOW</span>
+            </button>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="course-card-item glass-subcard">
+            <span class="course-badge badge-green">Professional Law</span>
+            <h3>LAWCET Entrance Suite</h3>
+            <p>Legal reasoning parameters, Indian Constitutional frameworks, and current affairs mock exam prep.</p>
+            <div class="course-meta">
+              <span><i class="fa-regular fa-clock"></i> 3 Months</span>
+              <span><i class="fa-solid fa-scale-balanced"></i> Law Focus</span>
+            </div>
+            <button class="join-btn neon-btn-green enroll-course-btn" data-course="LAWCET Suite">
+              <span>ENROLL NOW</span>
+            </button>
+          </div>
+
+          <!-- Card 5 -->
+          <div class="course-card-item glass-subcard">
+            <span class="course-badge badge-orange">Public Admin</span>
+            <h3>Civils & State Groups Gateway</h3>
+            <p>Indian Polity, economy structures, historical evolutions, and quantitative mental ability modules.</p>
+            <div class="course-meta">
+              <span><i class="fa-regular fa-clock"></i> 1 Year</span>
+              <span><i class="fa-solid fa-landmark"></i> Civil Services</span>
+            </div>
+            <button class="join-btn neon-btn-orange enroll-course-btn" data-course="Civils Gateway">
+              <span>ENROLL NOW</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Toast Notification Wrapper -->
   <div id="toast-container"></div>
 
   <!-- AUTHENTICATION CARD VIEWPORT -->
-  <div id="auth-viewport" class="viewport-wrapper">
+  <div id="auth-viewport" class="viewport-wrapper split-viewport">
+    <!-- Left Column: Automatic Sliding Promo Carousel -->
+    <div class="promo-column glassmorphic">
+      <!-- Glow Borders -->
+      <div class="glow-border top"></div>
+      <div class="glow-border bottom"></div>
+      
+      <div class="promo-slider" id="promo-slider">
+        <!-- Slide 1 -->
+        <div class="promo-slide active" data-index="0">
+          <div class="slide-icon-box">
+            <i class="fa-solid fa-graduation-cap neon-cyan"></i>
+          </div>
+          <h2 class="slide-title">Unleash Academic Innovation</h2>
+          <p class="slide-text">Participate in curriculum-aligned assessments. Compete in high-yield challenges mapping to boards, SSC benchmarks, and core scientific computing.</p>
+        </div>
+        <!-- Slide 2 -->
+        <div class="promo-slide" data-index="1">
+          <div class="slide-icon-box">
+            <i class="fa-solid fa-atom neon-purple"></i>
+          </div>
+          <h2 class="slide-title">Interactive Preparation Modules</h2>
+          <p class="slide-text">Learn concepts in real-time, trace syllabus guidelines, and practice boards challenges in active test compilers designed for students.</p>
+        </div>
+        <!-- Slide 3 -->
+        <div class="promo-slide" data-index="2">
+          <div class="slide-icon-box">
+            <i class="fa-solid fa-trophy neon-magenta"></i>
+          </div>
+          <h2 class="slide-title">Earn Globally Recognised Certs</h2>
+          <p class="slide-text">Increase your academic status, compete in global leaderboards, claim badges, and unlock direct educational channels.</p>
+        </div>
+      </div>
+      <!-- Slider Navigation Dots -->
+      <div class="slider-dots">
+        <span class="dot active" data-slide="0"></span>
+        <span class="dot" data-slide="1"></span>
+        <span class="dot" data-slide="2"></span>
+      </div>
+    </div>
+
+    <!-- Right Column: Authentication Card -->
     <main class="auth-card glassmorphic">
       <!-- Glow Borders -->
       <div class="glow-border top"></div>
@@ -180,10 +361,10 @@
       <!-- App Header -->
       <div class="auth-header">
         <div class="logo-box">
-          <i class="fa-solid fa-terminal logo-icon"></i>
+          <i class="fa-solid fa-graduation-cap logo-icon"></i>
         </div>
-        <h1 class="brand-title">VISION<span class="neon-purple-text">X</span></h1>
-        <p class="brand-subtitle">The Advanced Educational Gateway</p>
+        <h1 class="brand-title scramble-target" data-value="VISIONX">VISION<span class="neon-purple-text">X</span></h1>
+        <p class="brand-subtitle">Advanced Education Gateway</p>
       </div>
 
       <!-- Tab Controls -->
@@ -251,6 +432,18 @@
             <label for="signup-email">Email Address</label>
             <i class="fa-solid fa-envelope input-icon"></i>
           </div>
+          <!-- Real-time Email Verification & Handshake Sub-panel -->
+          <div id="signup-email-checker" class="email-checker-widget hidden">
+            <div class="checker-header">
+              <span class="checker-spinner"><i class="fa-solid fa-circle-notch fa-spin"></i></span>
+              <span class="checker-status-text">Analysing email profile...</span>
+            </div>
+            <ul class="checker-steps">
+              <li id="signup-step-syntax" class="pending"><i class="fa-solid fa-circle-dot"></i> Syntax verification</li>
+              <li id="signup-step-mx" class="pending"><i class="fa-solid fa-circle-dot"></i> MX server lookup</li>
+              <li id="signup-step-smtp" class="pending"><i class="fa-solid fa-circle-dot"></i> SMTP mailbox handshake</li>
+            </ul>
+          </div>
           <div class="input-group">
             <input type="password" id="signup-password" required placeholder=" ">
             <label for="signup-password">Create Password</label>
@@ -275,7 +468,7 @@
             </label>
           </div>
           <button type="submit" class="submit-btn neon-btn-cyan">
-            <span>REGISTER DEVELOPER PROFILE</span>
+            <span>REGISTER USER PROFILE</span>
           </button>
         </form>
       </div>
@@ -309,13 +502,23 @@
       <!-- Dashboard Header / Navigation -->
       <header class="dash-header">
         <div class="dash-brand">
-          <i class="fa-solid fa-terminal logo-icon neon-cyan"></i>
-          <h2>VISION<span class="neon-cyan-text">X</span> // CONTROL_CENTRE</h2>
+          <i class="fa-solid fa-graduation-cap logo-icon"></i>
+          <h2 class="scramble-target" data-value="VISIONX">VISION<span class="neon-cyan-text">X</span></h2>
         </div>
+        
+        <!-- Animated Famous Education Quote Ticker -->
+        <div class="header-quote-ticker">
+          <i class="fa-solid fa-quote-left quote-icon neon-cyan"></i>
+          <div class="quote-text-wrapper">
+            <span id="header-quote-text">"Education is the most powerful weapon which you can use to change the world."</span>
+            <span id="header-quote-author">— Nelson Mandela</span>
+          </div>
+        </div>
+
         <div class="user-profile-badge">
           <div class="user-details">
-            <span id="user-display-name" class="user-name">Developer Name</span>
-            <span id="user-display-email" class="user-role">dev@visionx.io</span>
+            <span id="user-display-name" class="user-name">User Name</span>
+            <span id="user-display-email" class="user-role">user@visionx.io</span>
           </div>
           <button id="logout-btn" class="logout-btn" title="Disconnect Session">
             <i class="fa-solid fa-power-off"></i>
@@ -328,36 +531,241 @@
         <!-- Main Panel -->
         <main class="dash-main">
           <section class="welcome-section">
-            <h1>WELCOME BACK, <span id="dash-greeting-name" class="neon-cyan-text">DEVELOPER</span>!</h1>
+            <h1 class="typing-welcome">WELCOME BACK, <span id="dash-greeting-name" class="neon-cyan-text">USER</span>!</h1>
             <p>Accessing educational modules, upcoming examinations, and curriculum runtimes.</p>
+          </section>
+
+          <!-- SYLLABUS PROGRESS TRACKER -->
+          <section class="dashboard-widget glass-subcard progress-tracker-card">
+            <h3 class="section-title"><i class="fa-solid fa-chart-pie neon-cyan"></i> YOUR SYLLABUS SYNC</h3>
+            <div class="subject-progress-grid">
+              <div class="subject-prog-item">
+                <div class="prog-details">
+                  <span>📐 Mathematics</span>
+                  <span class="prog-percentage">68%</span>
+                </div>
+                <div class="prog-bar-bg">
+                  <div class="prog-bar-fill fill-cyan" style="width: 68%"></div>
+                </div>
+              </div>
+              <div class="subject-prog-item">
+                <div class="prog-details">
+                  <span>🔬 Physics & Chemistry</span>
+                  <span class="prog-percentage">45%</span>
+                </div>
+                <div class="prog-bar-bg">
+                  <div class="prog-bar-fill fill-purple" style="width: 45%"></div>
+                </div>
+              </div>
+              <div class="subject-prog-item">
+                <div class="prog-details">
+                  <span>💻 Computer Science</span>
+                  <span class="prog-percentage">82%</span>
+                </div>
+                <div class="prog-bar-bg">
+                  <div class="prog-bar-fill fill-magenta" style="width: 82%"></div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- COORDINATOR COMMAND CENTRE -->
+          <section id="coordinator-panel" class="coordinator-section glass-subcard glow-hover-cyan hidden">
+            <div class="coord-header">
+              <h3 class="section-title"><i class="fa-solid fa-sliders neon-cyan"></i> USER COMMAND CENTRE</h3>
+              <div class="coord-actions">
+                <button id="btn-export-excel" class="action-btn neon-btn-cyan">
+                  <i class="fa-solid fa-file-excel"></i> EXPORT REGISTRATIONS (EXCEL/CSV)
+                </button>
+                <button id="btn-generate-mock" class="action-btn-outline" title="Simulate registration records for testing">
+                  <i class="fa-solid fa-user-plus"></i> ADD TEST DATA
+                </button>
+                <button id="settings-trigger" class="settings-nav-btn" title="Supabase Settings">
+                  <i class="fa-solid fa-gear"></i>
+                </button>
+              </div>
+            </div>
+            <p class="coord-desc">Manage profiles, check real-time email verification statuses, and download compiled registration data as spreadsheets.</p>
+            <div class="table-wrapper">
+              <table class="coord-table">
+                <thead>
+                  <tr>
+                    <th>Participant Name</th>
+                    <th>Email Address</th>
+                    <th>Verification Status</th>
+                    <th>Registered Event</th>
+                    <th>Registration Date</th>
+                  </tr>
+                </thead>
+                <tbody id="coord-registrations-tbody">
+                  <!-- Dynamic user list loaded here -->
+                  <tr class="empty-row"><td colspan="5"><i class="fa-solid fa-circle-notch fa-spin"></i> Initialising participant dataset...</td></tr>
+                </tbody>
+              </table>
+            </div>
           </section>
 
           <!-- Cards Row -->
           <section class="events-section">
             <h3 class="section-title"><i class="fa-solid fa-trophy neon-magenta"></i> CURRENT EDUCATIONAL EVENTS</h3>
-            <div class="events-grid">
-              <!-- Event 1: SSC Prep -->
-              <div class="event-card glass-subcard glow-hover-purple">
-                <div class="event-status open">ACTIVE NOW</div>
-                <h4>SSC Preparation Challenge</h4>
-                <p>Construct deep problem-solving speed and accuracy using active quizzes, reasoning compilers, and syllabus trackers mapped to SSC guidelines.</p>
-                <div class="event-meta">
-                  <span><i class="fa-solid fa-users"></i> 1,420 Registered</span>
-                  <span><i class="fa-solid fa-code"></i> Quant / GK / Reasoning</span>
+            <div class="events-slider-container">
+              <div class="events-slider-track" id="events-slider-track">
+                <!-- Slide 1 -->
+                <div class="events-slide">
+                  <div class="event-card glass-subcard glow-hover-purple" style="height: 100%;">
+                    <div class="event-badge badge-purple">ACTIVE</div>
+                    <h4>SSC Preparation Challenge</h4>
+                    <p>Sharpen your analytical and solving speeds for the upcoming State board exams.</p>
+                    <div class="event-meta">
+                      <span><i class="fa-solid fa-shield"></i> Core SSC Subjects Hub</span>
+                    </div>
+                    <div class="event-actions-row">
+                      <button class="join-btn open-syllabus-btn neon-btn-magenta" data-board="SSC" data-mode="syllabus">SYLLABUS</button>
+                      <button class="join-btn open-syllabus-btn neon-btn-purple" data-board="SSC" data-mode="test">TEST</button>
+                    </div>
+                  </div>
                 </div>
-                <button class="join-btn register-event-btn" data-event="SSC Preparation Challenge">ACCESS WORKSPACE</button>
+
+                <!-- Slide 2 -->
+                <div class="events-slide">
+                  <div class="event-card glass-subcard glow-hover-cyan" style="height: 100%;">
+                    <div class="event-badge badge-cyan">HOT</div>
+                    <h4>CBSE Boards Coding Blitz</h4>
+                    <p>Unlock mock papers, practical lab guides, and deep syllabus revisions.</p>
+                    <div class="event-meta">
+                      <span><i class="fa-solid fa-shield"></i> Math / Science / IT</span>
+                    </div>
+                    <div class="event-actions-row">
+                      <button class="join-btn open-syllabus-btn neon-btn-cyan" data-board="CBSE" data-mode="syllabus">SYLLABUS</button>
+                      <button class="join-btn open-syllabus-btn neon-btn-blue" data-board="CBSE" data-mode="test">TEST</button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Slide 3 (Polytechnic) -->
+                <div class="events-slide">
+                  <div class="event-card glass-subcard glow-hover-blue" style="height: 100%;">
+                    <div class="event-badge badge-blue" style="background: rgba(0, 168, 255, 0.15); color: #00a8ff; border-color: rgba(0, 168, 255, 0.4);">NEW</div>
+                    <h4>Polytechnic Entrance & Diploma Gateway</h4>
+                    <p>Master applied sciences and foundational engineering modules with guides and tests.</p>
+                    <div class="event-meta">
+                      <span><i class="fa-solid fa-shield"></i> Applied Sciences / Engineering</span>
+                    </div>
+                    <div class="event-actions-row">
+                      <button class="join-btn open-syllabus-btn neon-btn-cyan" data-board="POLYTECHNIC" data-mode="syllabus">SYLLABUS</button>
+                      <button class="join-btn open-syllabus-btn neon-btn-blue" data-board="POLYTECHNIC" data-mode="test">TEST</button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Slide 4 (EAPCET) -->
+                <div class="events-slide">
+                  <div class="event-card glass-subcard glow-hover-magenta" style="height: 100%;">
+                    <div class="event-badge badge-magenta" style="background: rgba(255, 0, 127, 0.15); color: #ff007f; border-color: rgba(255, 0, 127, 0.4);">HOT</div>
+                    <h4>EAPCET Engineering & Pharmacy Entrance</h4>
+                    <p>Perfect your conceptual score weightage in Applied Mathematics, Physics, Chemistry, and Biological Sciences.</p>
+                    <div class="event-meta">
+                      <span><i class="fa-solid fa-shield"></i> Engineering / Agriculture / Bio-Science</span>
+                    </div>
+                    <div class="event-actions-row">
+                      <button class="join-btn open-syllabus-btn neon-btn-magenta" data-board="EAPCET" data-mode="syllabus">SYLLABUS</button>
+                      <button class="join-btn open-syllabus-btn neon-btn-purple" data-board="EAPCET" data-mode="test">TEST</button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Slide 5 (ECET) -->
+                <div class="events-slide">
+                  <div class="event-card glass-subcard glow-hover-purple" style="height: 100%;">
+                    <div class="event-badge badge-purple" style="background: rgba(157, 78, 221, 0.15); color: #9d4edd; border-color: rgba(157, 78, 221, 0.4);">RECOMMENDED</div>
+                    <h4>ECET Lateral Entry Engineering Challenge</h4>
+                    <p>Designed for diploma holders pursuing direct B.Tech lateral entries: Core and Branch modules revision.</p>
+                    <div class="event-meta">
+                      <span><i class="fa-solid fa-shield"></i> Math / Science / Branch Engineering</span>
+                    </div>
+                    <div class="event-actions-row">
+                      <button class="join-btn open-syllabus-btn neon-btn-cyan" data-board="ECET" data-mode="syllabus">SYLLABUS</button>
+                      <button class="join-btn open-syllabus-btn neon-btn-blue" data-board="ECET" data-mode="test">TEST</button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Slide 6 (LAWCET) -->
+                <div class="events-slide">
+                  <div class="event-card glass-subcard glow-hover-blue" style="height: 100%;">
+                    <div class="event-badge badge-blue" style="background: rgba(0, 168, 255, 0.15); color: #00a8ff; border-color: rgba(0, 168, 255, 0.4);">ACTIVE</div>
+                    <h4>LAWCET Common Law Entrance</h4>
+                    <p>Revision of GK, Current Affairs, Constitution parameters, and Legal Aptitude case scenarios.</p>
+                    <div class="event-meta">
+                      <span><i class="fa-solid fa-shield"></i> Constitutional Law / GK / Current Affairs</span>
+                    </div>
+                    <div class="event-actions-row">
+                      <button class="join-btn open-syllabus-btn neon-btn-magenta" data-board="LAWCET" data-mode="syllabus">SYLLABUS</button>
+                      <button class="join-btn open-syllabus-btn neon-btn-purple" data-board="LAWCET" data-mode="test">TEST</button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Slide 7 (NEET) -->
+                <div class="events-slide">
+                  <div class="event-card glass-subcard glow-hover-magenta" style="height: 100%;">
+                    <div class="event-badge badge-magenta" style="background: rgba(255, 0, 127, 0.15); color: #ff007f; border-color: rgba(255, 0, 127, 0.4);">HOT</div>
+                    <h4>NEET Medical Entrance Challenger</h4>
+                    <p>Focus on Physics, Chemistry, Botany, and Zoology parameters with conceptual mock examinations.</p>
+                    <div class="event-meta">
+                      <span><i class="fa-solid fa-shield"></i> Medical Entrance / Biology & Science</span>
+                    </div>
+                    <div class="event-actions-row">
+                      <button class="join-btn open-syllabus-btn neon-btn-cyan" data-board="NEET" data-mode="syllabus">SYLLABUS</button>
+                      <button class="join-btn open-syllabus-btn neon-btn-blue" data-board="NEET" data-mode="test">TEST</button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Slide 8 (JEE) -->
+                <div class="events-slide">
+                  <div class="event-card glass-subcard glow-hover-cyan" style="height: 100%;">
+                    <div class="event-badge badge-cyan" style="background: rgba(0, 242, 254, 0.15); color: var(--neon-cyan); border-color: rgba(0, 242, 254, 0.4);">HOT</div>
+                    <h4>JEE Mains & Advanced Engineering</h4>
+                    <p>Master advanced Physics, Chemistry, and complex Mathematics. Perfect your analytical solve speeds.</p>
+                    <div class="event-meta">
+                      <span><i class="fa-solid fa-shield"></i> Advanced Mathematics / Physics / Chemistry</span>
+                    </div>
+                    <div class="event-actions-row">
+                      <button class="join-btn open-syllabus-btn neon-btn-magenta" data-board="JEE" data-mode="syllabus">SYLLABUS</button>
+                      <button class="join-btn open-syllabus-btn neon-btn-purple" data-board="JEE" data-mode="test">TEST</button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Slide 9 (Civils & Groups) -->
+                <div class="events-slide">
+                  <div class="event-card glass-subcard glow-hover-purple" style="height: 100%;">
+                    <div class="event-badge badge-purple" style="background: rgba(157, 78, 221, 0.15); color: #9d4edd; border-color: rgba(157, 78, 221, 0.4);">ACTIVE</div>
+                    <h4>Civils & State Groups Gateway</h4>
+                    <p>Comprehensive preparation modules for Public Service commissions: History, Polity, Economy, and CSAT.</p>
+                    <div class="event-meta">
+                      <span><i class="fa-solid fa-shield"></i> Public Administration / History / GS</span>
+                    </div>
+                    <div class="event-actions-row">
+                      <button class="join-btn open-syllabus-btn neon-btn-cyan" data-board="CIVILS" data-mode="syllabus">SYLLABUS</button>
+                      <button class="join-btn open-syllabus-btn neon-btn-blue" data-board="CIVILS" data-mode="test">TEST</button>
+                    </div>
+                  </div>
+                </div>
               </div>
 
-              <!-- Event 2: CBSE Prep -->
-              <div class="event-card glass-subcard glow-hover-cyan">
-                <div class="event-status upcoming">STARTING SOON</div>
-                <h4>CBSE Boards Coding Blitz</h4>
-                <p>Learn core curriculum syllabus modules for Science, Mathematics, and Computer Science using board-pattern mock test environments.</p>
-                <div class="event-meta">
-                  <span><i class="fa-solid fa-users"></i> 890 Registered</span>
-                  <span><i class="fa-solid fa-shield"></i> Math / Science / IT</span>
-                </div>
-                <button class="join-btn register-event-btn" data-event="CBSE Boards Coding Blitz">REGISTER SEAT</button>
+              <!-- Slider Navigation Dots -->
+              <div class="events-slider-dots" id="events-slider-dots">
+                <span class="event-dot active" data-index="0"></span>
+                <span class="event-dot" data-index="1"></span>
+                <span class="event-dot" data-index="2"></span>
+                <span class="event-dot" data-index="3"></span>
+                <span class="event-dot" data-index="4"></span>
+                <span class="event-dot" data-index="5"></span>
+                <span class="event-dot" data-index="6"></span>
+                <span class="event-dot" data-index="7"></span>
+                <span class="event-dot" data-index="8"></span>
               </div>
             </div>
           </section>
@@ -365,34 +773,17 @@
 
         <!-- Right Side Panel -->
         <aside class="dash-sidebar">
-          <!-- Countdown Card -->
-          <div class="sidebar-widget glass-subcard glow-hover-magenta">
-            <h4>NEXT MAJOR ASSESSMENT BEGINS IN</h4>
-            <div class="countdown-clock">
-              <div class="clock-segment">
-                <span id="hours" class="time-num neon-magenta-text">24</span>
-                <span class="time-label">HRS</span>
-              </div>
-              <div class="clock-colon">:</div>
-              <div class="clock-segment">
-                <span id="minutes" class="time-num neon-magenta-text">00</span>
-                <span class="time-label">MIN</span>
-              </div>
-              <div class="clock-colon">:</div>
-              <div class="clock-segment">
-                <span id="seconds" class="time-num neon-magenta-text">00</span>
-                <span class="time-label">SEC</span>
+            <!-- Compact Live Clock Card -->
+            <div class="sidebar-widget glass-subcard time-widget">
+              <h4>SYSTEM CLOCK</h4>
+              <div class="small-clock">
+                <span id="live-time-val" class="time-num neon-magenta-text">00:00:00 AM</span>
               </div>
             </div>
-            <div class="event-short-info">
-              <h5>Global Innovation Board Challenge</h5>
-              <p>Optimize your solving speeds through daily high-yield tests.</p>
-            </div>
-          </div>
 
           <!-- Quick Stats -->
           <div class="sidebar-widget glass-subcard stats-widget">
-            <h4>DEVELOPER STATISTICS</h4>
+            <h4>STUDENT RECORD</h4>
             <ul class="stats-list">
               <li>
                 <span class="stat-name"><i class="fa-solid fa-ranking-star"></i> Global Rank</span>
@@ -408,7 +799,150 @@
               </li>
             </ul>
           </div>
+
+          <!-- Pomodoro Study Timer -->
+          <div class="sidebar-widget glass-subcard pomodoro-widget">
+            <h4>STUDY TIMER (POMODORO)</h4>
+            <div class="pomo-display">
+              <span id="pomo-time">25:00</span>
+              <span id="pomo-label" class="badge-cyan">STUDY</span>
+            </div>
+            <div class="pomo-controls">
+              <button id="pomo-start-btn" class="action-btn-outline"><i class="fa-solid fa-play"></i></button>
+              <button id="pomo-reset-btn" class="action-btn-outline"><i class="fa-solid fa-rotate-right"></i></button>
+            </div>
+          </div>
+
+          <!-- Practice Quiz Widget -->
+          <div class="sidebar-widget glass-subcard quiz-widget">
+            <h4>ACADEMIC CHALLENGE OF THE DAY</h4>
+            <div id="quiz-question-box">
+              <p class="quiz-question">Which gas is released when sodium metal reacts vigorously with cold water?</p>
+              <div class="quiz-options">
+                <button class="quiz-opt-btn" data-correct="false">Oxygen (O₂)</button>
+                <button class="quiz-opt-btn" data-correct="true">Hydrogen (H₂)</button>
+                <button class="quiz-opt-btn" data-correct="false">Chlorine (Cl₂)</button>
+                <button class="quiz-opt-btn" data-correct="false">Nitrogen (N₂)</button>
+              </div>
+              <p id="quiz-feedback" class="quiz-feedback hidden"></p>
+            </div>
+          </div>
         </aside>
+      </div>
+    </div>
+  </div>
+  <!-- SYLLABUS & MOCK TEST MODAL -->
+  <div id="syllabus-modal" class="modal-wrapper hidden">
+    <div class="modal-content glassmorphic syllabus-modal-content">
+      <header class="modal-header">
+        <h3><i class="fa-solid fa-book-open neon-cyan"></i> <span id="modal-board-title">CBSE</span> SYLLABUS HUB</h3>
+        <button id="close-syllabus-modal" class="close-modal-btn">&times;</button>
+      </header>
+      
+      <!-- Subjects Navigation -->
+      <div class="subject-tabs">
+        <button class="subject-tab-btn active" data-subject="math">📐 Mathematics</button>
+        <button class="subject-tab-btn" data-subject="physics">🧲 Physical Science</button>
+        <button class="subject-tab-btn" data-subject="chemistry">🧪 Chemistry</button>
+        <button class="subject-tab-btn" data-subject="biology">🧬 Biology</button>
+        <button class="subject-tab-btn" data-subject="social">🌍 Social Studies</button>
+        <button class="subject-tab-btn" data-subject="english">📖 English</button>
+      </div>
+
+      <!-- Subject Content Area -->
+      <div class="subject-content-panel">
+        <!-- Syllabus description -->
+        <div class="syllabus-info-box">
+          <h4 id="subject-title">Mathematics</h4>
+          <p id="subject-description">Master concepts in Quadratic Equations, Geometry, Trigonometry, and Probability.</p>
+          <div style="margin-top: 14px; display: flex; gap: 10px; flex-wrap: wrap;">
+            <button id="btn-download-syllabus-pdf" class="action-btn neon-btn-cyan" style="font-size: 11px; padding: 8px 14px;">
+              <i class="fa-solid fa-file-pdf"></i> DOWNLOAD CORE SYLLABUS GUIDE (PDF)
+            </button>
+          </div>
+
+          <!-- Subject Specific Resource Library -->
+          <div class="syllabus-resources-section" style="margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 15px;">
+            <h5 style="font-size: 13px; color: var(--neon-cyan); letter-spacing: 0.5px; margin-bottom: 12px; font-family: var(--font-cyber);">
+              <i class="fa-solid fa-folder-open"></i> DOWNLOADABLE SUBJECT RESOURCES (PDFs & CHEAT SHEETS)
+            </h5>
+            <div id="syllabus-resources-list" class="resources-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px;">
+              <!-- Dynamic Resource Items will load here -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Mock Tests Section -->
+        <div class="mock-tests-container">
+          <h4>AVAILABLE MOCK TESTS (3 FOR EACH SUBJECT)</h4>
+          <div class="mock-tests-list">
+            <!-- Mock Test Card 1 -->
+            <div class="mock-test-card glass-subcard">
+              <div class="mock-info">
+                <h5>Mock Test 1: Foundation Level</h5>
+                <p>3 Questions • 10 XP Reward • General Syllabus Intro</p>
+              </div>
+              <button class="start-test-btn action-btn neon-btn-cyan" data-test="1">START TEST</button>
+            </div>
+            <!-- Mock Test Card 2 -->
+            <div class="mock-test-card glass-subcard">
+              <div class="mock-info">
+                <h5>Mock Test 2: Intermediate Level</h5>
+                <p>3 Questions • 15 XP Reward • Formula Applications</p>
+              </div>
+              <button class="start-test-btn action-btn neon-btn-cyan" data-test="2">START TEST</button>
+            </div>
+            <!-- Mock Test Card 3 -->
+            <div class="mock-test-card glass-subcard">
+              <div class="mock-info">
+                <h5>Mock Test 3: Advanced Level</h5>
+                <p>3 Questions • 25 XP Reward • Hard Problem Solving</p>
+              </div>
+              <button class="start-test-btn action-btn neon-btn-cyan" data-test="3">START TEST</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Active Test Area (Hidden by default, shows when test starts) -->
+        <div id="active-test-panel" class="active-test-panel hidden">
+          <div class="test-header">
+            <h4 id="active-test-title">Mock Test 1: Mathematics</h4>
+            <button id="cancel-test-btn" class="action-btn-outline">Cancel</button>
+          </div>
+          <div id="test-questions-box">
+            <!-- Dynamic Questions Load Here -->
+          </div>
+          <button id="submit-test-btn" class="action-btn neon-btn-green">SUBMIT MOCK TEST</button>
+          <div id="test-results-feedback" class="quiz-feedback hidden"></div>
+        </div>
+      </div>
+      <!-- macOS-style Glassmorphic Floating Dock -->
+      <div class="floating-dock">
+        <div class="dock-item" data-title="Dashboard" id="dock-home">
+          <i class="fa-solid fa-gauge-high"></i>
+          <span class="dock-tooltip">Dashboard</span>
+        </div>
+        <div class="dock-item" data-title="Premium Courses" id="dock-courses">
+          <i class="fa-solid fa-graduation-cap"></i>
+          <span class="dock-tooltip">Premium Courses</span>
+        </div>
+        <div class="dock-item" data-title="Scroll to Exams" id="dock-exams">
+          <i class="fa-solid fa-calendar-days"></i>
+          <span class="dock-tooltip">Scroll to Exams</span>
+        </div>
+        <div class="dock-item" data-title="About KK Tutors" id="dock-about">
+          <i class="fa-solid fa-circle-info"></i>
+          <span class="dock-tooltip">About KK Tutors</span>
+        </div>
+        <div class="dock-item" data-title="Contact Us" id="dock-contact">
+          <i class="fa-solid fa-paper-plane"></i>
+          <span class="dock-tooltip">Contact Us</span>
+        </div>
+        <div class="dock-divider"></div>
+        <div class="dock-item" data-title="Supabase Settings" id="dock-settings">
+          <i class="fa-solid fa-database"></i>
+          <span class="dock-tooltip">Supabase Settings</span>
+        </div>
       </div>
     </div>
   </div>
